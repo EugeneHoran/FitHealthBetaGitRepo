@@ -18,7 +18,7 @@ Libraries included within Fit Health:
 
 **Fit Health Images & Gif**
 
-![fit](https://cloud.githubusercontent.com/assets/7454787/8091081/96d40268-0f7f-11e5-9776-6d132f847420.gif)
+![fit_health_gif](https://cloud.githubusercontent.com/assets/7454787/8091345/5691008c-0f81-11e5-90ca-50acc587e798.gif)
 
 
 **Journal Home**
