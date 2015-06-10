@@ -37,7 +37,6 @@ public class MainActivityController extends AppCompatActivity implements
     private static final String FIRST_FRAGMENT_ADDED = "is_first_fragment_added";
     private boolean isFirstFragmentAdded = false;
 
-    // TESTING COMMIT CHANGES
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
