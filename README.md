@@ -16,7 +16,10 @@ Libraries included within Fit Health:
 
 [Used Lanre Adebambo project as a starting point](https://github.com/lanre-ade/Calorie-Tracker) 
 
-**Fit Health Images**
+**Fit Health Images & Gif**
+
+![fit](https://cloud.githubusercontent.com/assets/7454787/8091081/96d40268-0f7f-11e5-9776-6d132f847420.gif)
+
 
 **Journal Home**
 
