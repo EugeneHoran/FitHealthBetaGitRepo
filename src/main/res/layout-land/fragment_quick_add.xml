@@ -1,0 +1,184 @@
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbarQuickAdd"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="@color/primary"
+        app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"/>
+
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/toolbarQuickAdd">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="74dp"
+            android:layout_marginRight="74dp"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <com.rengwuxian.materialedittext.MaterialEditText
+                android:id="@+id/mealName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/meal_name"
+                android:imeOptions="actionNext"
+                android:inputType="textCapWords"
+                android:selectAllOnFocus="true"
+                android:text="@string/quick_add"
+                app:floatingLabel="normal"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <com.rengwuxian.materialedittext.MaterialEditText
+                    android:id="@+id/mealCalories"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:hint="@string/calories"
+                    android:imeOptions="actionNext"
+                    android:inputType="number"
+                    android:selectAllOnFocus="true"
+                    app:floatingLabel="normal"/>
+
+                <TextView
+                    android:id="@+id/txtCal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <com.rengwuxian.materialedittext.MaterialEditText
+                    android:id="@+id/mealFat"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:hint="@string/fat_optional"
+                    android:imeOptions="actionNext"
+                    android:inputType="number"
+                    app:floatingLabel="normal"/>
+
+                <TextView
+                    android:id="@+id/txtFat"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+
+                <com.rengwuxian.materialedittext.MaterialEditText
+                    android:id="@+id/mealCarbs"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:hint="@string/carb_optional"
+                    android:imeOptions="actionNext"
+                    android:inputType="number"
+                    android:selectAllOnFocus="true"
+                    app:floatingLabel="normal"/>
+
+                <TextView
+                    android:id="@+id/txtCarb"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <com.rengwuxian.materialedittext.MaterialEditText
+                    android:id="@+id/mealProtein"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:hint="@string/pro_optional"
+                    android:imeOptions="actionDone"
+                    android:inputType="number"
+                    android:selectAllOnFocus="true"
+                    app:floatingLabel="normal"/>
+
+                <TextView
+                    android:id="@+id/txtPro"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/weightLifted1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:gravity="center_horizontal"
+                android:orientation="horizontal">
+
+
+                <ImageButton
+                    android:id="@+id/removeFive"
+                    android:layout_width="45dp"
+                    android:layout_height="45dp"
+                    android:clickable="true"
+                    android:contentDescription="@string/image_description"
+                    android:src="@mipmap/ic_add"
+                    android:tint="@color/text_color"/>
+
+
+                <EditText
+                    android:id="@+id/servingSize"
+                    android:layout_width="88dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:imeOptions="actionDone"
+                    android:inputType="numberDecimal"
+                    android:selectAllOnFocus="true"
+                    android:text="@string/one"/>
+
+                <ImageButton
+                    android:id="@+id/addFive"
+                    android:layout_width="45dp"
+                    android:layout_height="45dp"
+                    android:clickable="true"
+                    android:contentDescription="@string/image_description"
+                    android:src="@mipmap/ic_add"
+                    android:tint="@color/text_color"/>
+
+                <Spinner
+                    android:id="@+id/servingType"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal|center_vertical"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"
+                    android:entries="@array/serving"
+                    android:gravity="center_horizontal|center_vertical"/>
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:layout_below="@+id/toolbarQuickAdd"
+        android:background="@drawable/toolbar_shadow"/>
+
+</RelativeLayout>

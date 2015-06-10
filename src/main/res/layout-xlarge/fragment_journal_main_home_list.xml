@@ -1,0 +1,443 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    android:id="@+id/scrollView"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#eee">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="84dp"
+        android:layout_marginRight="84dp"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_marginBottom="12dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="12dp"
+                android:text="@string/snack"
+                android:textColor="@color/text_color"
+                android:textSize="16sp"/>
+
+
+            <TextView
+                android:id="@+id/calSnack"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginBottom="12dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginTop="12dp"
+                android:text="@string/snack"
+                android:textColor="@color/text_color"
+                android:textSize="16sp"/>
+
+        </RelativeLayout>
+
+
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="4dp"
+            android:layout_marginRight="4dp"
+            card_view:cardCornerRadius="2dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <ListView
+                    android:id="@+id/listSnack"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:divider="@android:color/transparent"/>
+
+                <TextView
+                    android:id="@+id/txtItemSnack"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="16sp"
+                    android:paddingRight="16sp"
+                    android:text="@string/no_items_added"
+                    android:textColor="@color/text_color"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#eeeeee"/>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp">
+
+
+                    <TextView
+                        android:id="@+id/txtQuickAddSnack"
+                        style="?android:buttonBarButtonStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_centerVertical="true"
+                        android:layout_toLeftOf="@+id/suggestion"
+                        android:clickable="true"
+                        android:gravity="center"
+                        android:minHeight="32dp"
+                        android:minWidth="88dp"
+                        android:text="@string/quick_add"
+                        android:textColor="@color/primary_dark"
+                        android:textSize="14sp"/>
+
+                    <TextView
+                        android:id="@+id/suggestion"
+                        style="?android:buttonBarButtonStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="8dp"
+                        android:clickable="true"
+                        android:gravity="center"
+                        android:minHeight="32dp"
+                        android:minWidth="88dp"
+                        android:text="@string/suggestion"
+                        android:textColor="@color/primary_dark"
+                        android:textSize="14sp"/>
+                </RelativeLayout>
+            </LinearLayout>
+
+        </android.support.v7.widget.CardView>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_marginBottom="12dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="12dp"
+                android:text="@string/breakfast"
+                android:textColor="@color/text_color"
+                android:textSize="16sp"/>
+
+
+            <TextView
+                android:id="@+id/calBreakfast"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginBottom="12dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginTop="12dp"
+                android:text="@string/breakfast"
+                android:textColor="@color/text_color"
+                android:textSize="16sp"/>
+
+        </RelativeLayout>
+
+
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="4dp"
+            android:layout_marginRight="4dp"
+            card_view:cardCornerRadius="2dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <ListView
+                    android:id="@+id/listBreakfast"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:divider="@android:color/transparent"/>
+
+                <TextView
+                    android:id="@+id/txtItemBreakfast"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="16sp"
+                    android:paddingRight="16sp"
+                    android:text="@string/no_items_added"
+                    android:textColor="@color/text_color"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#eeeeee"/>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp">
+
+
+                    <TextView
+                        android:id="@+id/txtQuickAddBreakfast"
+                        style="?android:buttonBarButtonStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_centerVertical="true"
+                        android:layout_toLeftOf="@+id/suggestion1"
+                        android:clickable="true"
+                        android:gravity="center"
+                        android:minHeight="32dp"
+                        android:minWidth="88dp"
+                        android:text="@string/quick_add"
+                        android:textColor="@color/primary_dark"
+                        android:textSize="14sp"/>
+
+                    <TextView
+                        android:id="@+id/suggestion1"
+                        style="?android:buttonBarButtonStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="8dp"
+                        android:clickable="true"
+                        android:gravity="center"
+                        android:minHeight="32dp"
+                        android:minWidth="88dp"
+                        android:text="@string/suggestion"
+                        android:textColor="@color/primary_dark"
+                        android:textSize="14sp"/>
+                </RelativeLayout>
+
+            </LinearLayout>
+
+        </android.support.v7.widget.CardView>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_marginBottom="12dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="12dp"
+                android:text="@string/Lunch"
+                android:textColor="@color/text_color"
+                android:textSize="16sp"/>
+
+
+            <TextView
+                android:id="@+id/calLunch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginBottom="12dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginTop="12dp"
+                android:text="@string/Lunch"
+                android:textColor="@color/text_color"
+                android:textSize="16sp"/>
+
+        </RelativeLayout>
+
+
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="4dp"
+            android:layout_marginRight="4dp"
+            card_view:cardCornerRadius="2dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <ListView
+                    android:id="@+id/listLunch"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:divider="@android:color/transparent"/>
+
+                <TextView
+                    android:id="@+id/txtItemLunch"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="16sp"
+                    android:paddingRight="16sp"
+                    android:text="@string/no_items_added"
+                    android:textColor="@color/text_color"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#eeeeee"/>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp">
+
+
+                    <TextView
+                        android:id="@+id/txtQuickAddLunch"
+                        style="?android:buttonBarButtonStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_centerVertical="true"
+                        android:layout_toLeftOf="@+id/suggestion2"
+                        android:clickable="true"
+                        android:gravity="center"
+                        android:minHeight="32dp"
+                        android:minWidth="88dp"
+                        android:text="@string/quick_add"
+                        android:textColor="@color/primary_dark"
+                        android:textSize="14sp"/>
+
+                    <TextView
+                        android:id="@+id/suggestion2"
+                        style="?android:buttonBarButtonStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="8dp"
+                        android:clickable="true"
+                        android:gravity="center"
+                        android:minHeight="32dp"
+                        android:minWidth="88dp"
+                        android:text="@string/suggestion"
+                        android:textColor="@color/primary_dark"
+                        android:textSize="14sp"/>
+                </RelativeLayout>
+
+            </LinearLayout>
+
+        </android.support.v7.widget.CardView>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_marginBottom="12dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="12dp"
+                android:text="@string/dinner"
+                android:textColor="@color/text_color"
+                android:textSize="16sp"/>
+
+
+            <TextView
+                android:id="@+id/calDinner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginBottom="12dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginTop="12dp"
+                android:text="@string/dinner"
+                android:textColor="@color/text_color"
+                android:textSize="16sp"/>
+
+        </RelativeLayout>
+
+
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="4dp"
+            android:layout_marginRight="4dp"
+            card_view:cardCornerRadius="2dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <ListView
+                    android:id="@+id/listDinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:divider="@android:color/transparent"/>
+
+                <TextView
+                    android:id="@+id/txtItemDinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="16sp"
+                    android:paddingRight="16sp"
+                    android:text="@string/no_items_added"
+                    android:textColor="@color/text_color"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#eeeeee"/>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp">
+
+
+                    <TextView
+                        android:id="@+id/txtQuickAddDinner"
+                        style="?android:buttonBarButtonStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_centerVertical="true"
+                        android:layout_toLeftOf="@+id/suggestion3"
+                        android:clickable="true"
+                        android:gravity="center"
+                        android:minHeight="32dp"
+                        android:minWidth="88dp"
+                        android:text="@string/quick_add"
+                        android:textColor="@color/primary_dark"
+                        android:textSize="14sp"/>
+
+                    <TextView
+                        android:id="@+id/suggestion3"
+                        style="?android:buttonBarButtonStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="8dp"
+                        android:clickable="true"
+                        android:gravity="center"
+                        android:minHeight="32dp"
+                        android:minWidth="88dp"
+                        android:text="@string/suggestion"
+                        android:textColor="@color/primary_dark"
+                        android:textSize="14sp"/>
+                </RelativeLayout>
+
+            </LinearLayout>
+        </android.support.v7.widget.CardView>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="150dp"/>
+    </LinearLayout>
+</ScrollView>
