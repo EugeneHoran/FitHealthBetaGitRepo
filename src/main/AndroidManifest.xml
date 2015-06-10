@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest
+    package="com.eugene.fithealthmaingit"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Uses Internet for FatSecret REST API -->
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+
+    <application
+        android:name="com.eugene.fithealthmaingit.AppActivity"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme">
+
+        <!-- Start Activity Checks if user information was saved or not -->
+        <activity
+            android:name="com.eugene.fithealthmaingit.StartActivity"
+            android:label="@string/app_name">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+        <!-- User Information -->
+        <activity
+            android:name="com.eugene.fithealthmaingit.UI.UserInformationActivity"
+            android:label="@string/app_name"
+            android:windowSoftInputMode="adjustPan">
+        </activity>
+        <!-- MainActivity Controls All Fragments -->
+        <activity
+            android:name="com.eugene.fithealthmaingit.MainActivityController"
+            android:label="@string/app_name"
+            android:windowSoftInputMode="adjustPan|adjustNothing">
+        </activity>
+        <!-- Quick Add Meal -->
+        <activity
+            android:name="com.eugene.fithealthmaingit.UI.QuickAddActivity"
+            android:label="@string/app_name"
+            android:windowSoftInputMode="adjustPan">
+        </activity>
+        <!-- Meal View -->
+        <activity
+            android:name="com.eugene.fithealthmaingit.UI.MealViewActivity"
+            android:label="@string/app_name">
+        </activity>
+        <!-- Search Add Item View -->
+        <activity
+            android:name="com.eugene.fithealthmaingit.UI.ChooseAddMealActivity"
+            android:label="@string/app_name">
+        </activity>
+        <!-- Add Search Item View -->
+        <activity
+            android:name="com.eugene.fithealthmaingit.UI.SaveSearchAddItemActivityMain"
+            android:label="@string/app_name">
+        </activity>
+        <activity
+            android:name="com.eugene.fithealthmaingit.UI.ManualEntryActivity"
+            android:label="@string/title_activity_manual_entry">
+        </activity>
+        <activity
+            android:name="com.eugene.fithealthmaingit.UI.ManualEntrySaveMealActivity"
+            android:label="@string/title_activity_add_saved_manual_entry_activty">
+        </activity>
+    </application>
+
+</manifest>

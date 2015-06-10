@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="48dp"
+    android:background="@drawable/selector_navigation_list_background">
+
+    <LinearLayout
+        android:layout_width="18dp"
+        android:layout_height="18dp"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="16dp"
+        android:background="@drawable/selector_circle_navigation_drawer"/>
+
+    <TextView
+        android:id="@+id/txtRow"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_centerVertical="true"
+        android:gravity="center_vertical"
+        android:paddingLeft="72dp"
+        android:text="Testing"
+        android:textColor="@drawable/selector_text_navigation_drawer"
+        android:textSize="14sp"/>
+
+</RelativeLayout>

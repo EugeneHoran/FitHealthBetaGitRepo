@@ -1,0 +1,126 @@
+<resources>
+    <string name="app_name">Fit Health</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="action_search">Search FatSecret</string>
+    <string name="imate_back">Back</string>
+    <string name="edit_text_search">Search FatSecret</string>
+    <string name="voice_cancel">Voice Cancel</string>
+
+
+    <!-- Navigation Drawer-->
+    <string-array name="navigation_drawer_list">
+        <item>Journal</item>
+        <item>Nutrition</item>
+        <item>Weight</item>
+        <item>Health</item>
+    </string-array>
+
+    <!--Database Name-->
+    <string name="database_name">database_log</string>
+    <string name="string_filler">Filler</string>
+    <string name="settings">Settings</string>
+    <string name="image_description">ImageDescription</string>
+    <string name="fit">Fit</string>
+    <string name="health">Health</string>
+    <string name="calories">Calories</string>
+    <string name="manual_entry">Manual Entry</string>
+    <string name="dinner">Dinner</string>
+    <string name="Lunch">Lunch</string>
+    <string name="breakfast">Breakfast</string>
+    <string name="snack">Snack</string>
+    <string name="fat">Fat</string>
+    <string name="carbs">Carbs</string>
+    <string name="protein">Protein</string>
+    <string name="suggestion">Suggestion</string>
+    <string name="quick_add">Quick Add</string>
+    <string name="no_items_added">No Items Added</string>
+    <string name="fit_journal">Fit Journal</string>
+    <string name="action_add">Add</string>
+
+    <string-array name="Activity">
+        <item>Low Intense Daily Routine</item>
+        <item>Light Activity, 30-50 Min, 3-4 Days</item>
+        <item>Moderate Activity, 30-60 Min, 3-5 Days</item>
+        <item>Intense Activity, 45-60 Min, 6-7 Days</item>
+        <item>Intense/Heavy Activity, 90+ Min, 6-7 Days</item>
+    </string-array>
+
+    <string-array name="weight_loss">
+        <item>Gain 2 Pounds Per Week</item>
+        <item>Gain 1.5 Pounds Per Week</item>
+        <item>Gain 1 Pound Per Week</item>
+        <item>Gain .5 Pound Per Week</item>
+        <item>Maintain Weight</item>
+        <item>Lose .5 Pound Per Week</item>
+        <item>Lose 1 Pound Per Week</item>
+        <item>Lose 1.5 Pounds Per Week</item>
+        <item>Lose 2 Pounds Per Week</item>
+    </string-array>
+    <string-array name="weeks">
+        <item>1 Week</item>
+        <item>2 Weeks</item>
+        <item>3 Weeks</item>
+    </string-array>
+    <string name="person_male">Male</string>
+    <string name="person_female">Female</string>
+    <string name="person_name">Name/Nickname</string>
+    <string name="person_age">Age</string>
+    <string name="person_weight">Weight (lbs)</string>
+    <string name="person_goal">Goal (lbs)</string>
+    <string name="person_feet">Feet</string>
+    <string name="person_inches">Inches</string>
+    <string name="person_activity">Activity</string>
+    <string name="person_goal_title">Weight Loss/Gain Goal Per Week</string>
+    <string name="person_per">Per</string>
+    <string name="title_activity_start">StartActivity</string>
+    <string name="save">Save</string>
+
+    <string-array name="serving">
+        <item>Serving</item>
+        <item>Oz</item>
+        <item>Cup</item>
+        <item>Table Spoon</item>
+        <item>ML</item>
+    </string-array>
+    <string name="meal_name">Meal Name</string>
+    <string name="fat_optional">Fat, Optional</string>
+    <string name="carb_optional">Carbohydrates, Optional</string>
+    <string name="pro_optional">Protein, Optional</string>
+    <string name="one">1</string>
+
+
+    <string-array name="context_menu">
+        <item>Delete Meal</item>
+        <item>Move Meal</item>
+    </string-array>
+
+    <string name="remainder">Remainder</string>
+    <string name="goal">Goal</string>
+    <string name="nutrition">Nutrition</string>
+    <string name="meal_nutrition_information">Meal Nutrition Information</string>
+    <string name="meal_progress">Meal Progress</string>
+
+
+    <string name="nutrition_information">Nutrition Information</string>
+    <string name="updated">Updated</string>
+    <string name="serving_size">Serving Size</string>
+    <string name="servings">Servings</string>
+    <string name="serving_consumed">Serving Size/Consumed</string>
+    <string name="total_fat_g">Total Fat  g</string>
+    <string name="saturated_fat_g">Saturated Fat  g</string>
+    <string name="cholesterol_mg">Cholesterol  mg</string>
+    <string name="sodium_mg">Sodium  mg</string>
+    <string name="carbs_g">"Total Carbohydrate  g</string>
+    <string name="fiber_g">Fiber  g</string>
+    <string name="sugars_g">Sugars  g</string>
+    <string name="protein_g">Protein  g</string>
+    <string name="vit_a">Vitamin A %</string>
+    <string name="vit_c">Vitamin C %</string>
+    <string name="calcium">Calcium %</string>
+    <string name="iron">Iron %</string>
+    <string name="title_activity_user_information">UserInformationActivity</string>
+    <string name="title_activity_manual_entry">ManualEntryActivity</string>
+    <string name="title_activity_add_saved_manual_entry_activty">AddSavedManualEntryActivty
+    </string>
+</resources>

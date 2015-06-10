@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="55dp">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="55dp"
+        android:layout_marginLeft="16dp">
+
+        <LinearLayout
+            android:id="@+id/topLine"
+            android:layout_width="1dp"
+            android:layout_height="27.5dp"
+            android:layout_marginLeft="3.5dp"
+            android:background="#eeeeee"
+            android:orientation="vertical"/>
+
+        <LinearLayout
+            android:id="@+id/bottomLine"
+            android:layout_width="1dp"
+            android:layout_height="27.5dp"
+            android:layout_below="@+id/topLine"
+            android:layout_marginLeft="3.5dp"
+            android:background="#eeeeee"
+            android:orientation="vertical"/>
+
+        <LinearLayout
+            android:id="@+id/circle"
+            android:layout_width="8dp"
+            android:layout_height="8dp"
+            android:layout_centerVertical="true"
+            android:background="@drawable/circle_list_selector"
+            android:orientation="vertical"/>
+    </RelativeLayout>
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="40dp"
+        android:gravity="center_vertical"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/log_meal_name1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxLines="1"
+            android:textColor="@color/text_color"
+            android:textSize="16sp"/>
+
+        <TextView
+            android:id="@+id/serving"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/calories"
+            android:textColor="@color/text_color"
+            android:textSize="14sp"/>
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/log_calories"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="16dp"
+        android:textColor="@color/primary"/>
+
+    <TextView
+        android:id="@+id/time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="3dp"
+        android:layout_marginRight="16dp"
+        android:textColor="#cbcbcb"
+        android:textSize="10sp"/>
+
+</RelativeLayout>

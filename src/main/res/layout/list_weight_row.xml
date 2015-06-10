@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:id="@+id/num"
+        android:layout_width="wrap_content"
+        android:layout_height="56dp"
+        android:layout_marginLeft="16dp">
+
+        <LinearLayout
+            android:id="@+id/topLine"
+            android:layout_width="2dp"
+            android:layout_height="28dp"
+            android:layout_marginLeft="6.5dp"
+            android:background="@color/light_grey"
+            android:orientation="vertical"/>
+
+        <LinearLayout
+            android:id="@+id/circle1"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:layout_centerVertical="true"
+            android:background="@drawable/circle_list_selector"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/weightPosition"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:gravity="center"
+                android:text="11"
+                android:textColor="@color/white"
+                android:textSize="8sp"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/bottomLine"
+            android:layout_width="2dp"
+            android:layout_height="28dp"
+            android:layout_below="@+id/topLine"
+            android:layout_marginLeft="6.5dp"
+            android:background="@color/light_grey"
+            android:orientation="vertical"/>
+
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="56dp"
+        android:layout_toRightOf="@+id/num"
+        android:gravity="center_vertical"
+        android:orientation="vertical"
+        android:paddingLeft="16dp">
+
+        <TextView
+            android:id="@+id/weightCurrent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Current Weight"
+            android:textSize="16sp"/>
+
+        <TextView
+            android:id="@+id/weightDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/weightCurrent"
+            android:text="Date"
+            android:textSize="14sp"/>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/weightStart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="16dp"
+        android:text="Start Weight"
+        android:textColor="@color/primary_dark"
+        android:textSize="12sp"/>
+</RelativeLayout>

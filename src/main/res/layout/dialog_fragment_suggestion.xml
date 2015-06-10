@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
+    android:paddingTop="16dp">
+
+    <TextView
+        android:id="@+id/meal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:paddingBottom="16dp"
+        android:textColor="@android:color/black"
+        android:textSize="20sp"/>
+
+    <LinearLayout
+        android:id="@+id/goals"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/meal"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/nutrition"
+            android:textStyle="italic"/>
+
+        <TextView
+            android:id="@+id/goal"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight=".6"
+            android:gravity="center_horizontal"
+            android:text="@string/goal"
+            android:textColor="@color/primary"
+            android:textSize="14sp"
+            android:textStyle="italic"/>
+
+        <TextView
+            android:id="@+id/remainder"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight=".6"
+            android:gravity="center_horizontal"
+            android:text="@string/remainder"
+            android:textColor="@color/primary_dark"
+            android:textSize="14sp"
+            android:textStyle="italic"/>
+    </LinearLayout>
+
+    <View
+        android:id="@+id/goalLine"
+        android:layout_width="match_parent"
+        android:layout_height="1.5dp"
+        android:layout_below="@+id/goals"
+        android:background="@color/text_color"/>
+
+    <LinearLayout
+        android:id="@+id/calView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/goalLine"
+        android:orientation="horizontal"
+        android:paddingBottom="8dp"
+        android:paddingTop="8dp">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/calories"
+            android:textSize="14sp"/>
+
+        <TextView
+            android:id="@+id/calGoal"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight=".6"
+            android:gravity="center_horizontal"
+            android:textColor="@color/primary"
+            android:textSize="14sp"/>
+
+        <TextView
+            android:id="@+id/calRem"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight=".6"
+            android:gravity="center_horizontal"
+            android:textColor="@color/primary_dark"
+            android:textSize="14sp"/>
+
+    </LinearLayout>
+
+    <View
+        android:id="@+id/calLine"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/calView"
+        android:background="@color/text_color"/>
+
+    <LinearLayout
+        android:id="@+id/fatView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/calLine"
+        android:orientation="horizontal"
+        android:paddingBottom="8dp"
+        android:paddingTop="8dp">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/fat"
+            android:textSize="14sp"/>
+
+        <TextView
+            android:id="@+id/fatGoal"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight=".6"
+            android:gravity="center_horizontal"
+            android:textColor="@color/primary"
+            android:textSize="14sp"/>
+
+        <TextView
+            android:id="@+id/fatRem"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight=".6"
+            android:gravity="center_horizontal"
+            android:textColor="@color/primary_dark"
+            android:textSize="14sp"/>
+    </LinearLayout>
+
+    <View
+        android:id="@+id/fatLine"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/fatView"
+        android:background="@color/text_color"/>
+
+    <LinearLayout
+        android:id="@+id/carbView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/fatLine"
+        android:orientation="horizontal"
+        android:paddingBottom="8dp"
+        android:paddingTop="8dp">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/carbs"
+            android:textSize="14sp"/>
+
+        <TextView
+            android:id="@+id/carbGoal"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight=".6"
+            android:gravity="center_horizontal"
+            android:textColor="@color/primary"
+            android:textSize="14sp"/>
+
+        <TextView
+            android:id="@+id/carbRem"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight=".6"
+            android:gravity="center_horizontal"
+            android:textColor="@color/primary_dark"
+            android:textSize="14sp"/>
+    </LinearLayout>
+
+    <View
+        android:id="@+id/carbLine"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/carbView"
+        android:background="@color/text_color"/>
+
+    <LinearLayout
+        android:id="@+id/proView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/carbLine"
+        android:orientation="horizontal"
+        android:paddingBottom="8dp"
+        android:paddingTop="8dp">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/protein"
+            android:textSize="14sp"/>
+
+        <TextView
+            android:id="@+id/proGoal"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight=".6"
+            android:gravity="center_horizontal"
+            android:textColor="@color/primary"
+            android:textSize="14sp"/>
+
+        <TextView
+            android:id="@+id/proRem"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight=".6"
+            android:gravity="center_horizontal"
+            android:textColor="@color/primary_dark"
+            android:textSize="14sp"/>
+
+    </LinearLayout>
+</RelativeLayout>
