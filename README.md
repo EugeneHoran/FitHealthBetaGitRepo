@@ -16,6 +16,12 @@ Libraries included within Fit Health:
 
 [Used Lanre Adebambo project as a starting point](https://github.com/lanre-ade/Calorie-Tracker) 
 
+**Updates**
+- Added indicators that change dependent on the calories consumed per mneal and meal calorie goal. 
+![Alt text](https://cloud.githubusercontent.com/assets/7454787/8120868/396b7252-1072-11e5-8109-bbff2663acbb.png "Journal Home")
+
+
+
 **Fit Health Images & Gif**
 
 ![fit_health_gif](https://cloud.githubusercontent.com/assets/7454787/8091345/5691008c-0f81-11e5-90ca-50acc587e798.gif)
