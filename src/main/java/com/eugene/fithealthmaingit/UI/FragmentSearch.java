@@ -31,12 +31,12 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.eugene.fithealthmaingit.FatSecretSearchAndGet.FatSecretSearchItem;
-import com.eugene.fithealthmaingit.LogQuickSearchData.LogQuickSearch;
-import com.eugene.fithealthmaingit.LogQuickSearchData.LogQuickSearchAdapter;
+import com.eugene.fithealthmaingit.FatSecretSearchAndGet.FatSecretSearchMethod;
+import com.eugene.fithealthmaingit.Databases_Adapters_ListViews.LogQuickSearchData.LogQuickSearch;
+import com.eugene.fithealthmaingit.Databases_Adapters_ListViews.LogQuickSearchData.LogQuickSearchAdapter;
 import com.eugene.fithealthmaingit.R;
-import com.eugene.fithealthmaingit.UI.Adapters.SearchListView.Item;
-import com.eugene.fithealthmaingit.UI.Adapters.SearchListView.SearchAdapter;
+import com.eugene.fithealthmaingit.Databases_Adapters_ListViews.FatSecretSearchList.SearchItemResult;
+import com.eugene.fithealthmaingit.Databases_Adapters_ListViews.FatSecretSearchList.SearchAdapterItemResult;
 import com.eugene.fithealthmaingit.Utilities.Globals;
 import com.eugene.fithealthmaingit.Utilities.InitiateSearch;
 
@@ -59,9 +59,9 @@ public class FragmentSearch extends Fragment {
     LinearLayout searchBack;
     private LogQuickSearchAdapter logQuickSearchAdapter;
     private Set<String> set;
-    private ArrayList<Item> mItem;
-    private FatSecretSearchItem mFatSecretSearch;
-    private SearchAdapter searchAdapter;
+    private ArrayList<SearchItemResult> mItem;
+    private FatSecretSearchMethod mFatSecretSearch;
+    private SearchAdapterItemResult searchAdapter;
     private String brand;
     private AsyncTask<String, String, String> mAsyncTask;
 
@@ -80,11 +80,11 @@ public class FragmentSearch extends Fragment {
         line_divider = v.findViewById(R.id.line_divider);
         logQuickSearchAdapter = new LogQuickSearchAdapter(getActivity(), 0, LogQuickSearch.all());
         mItem = new ArrayList<>();
-        searchAdapter = new SearchAdapter(getActivity(), mItem);
+        searchAdapter = new SearchAdapterItemResult(getActivity(), mItem);
         listView.setAdapter(logQuickSearchAdapter);
         listContainer.setAdapter(searchAdapter);
         set = new HashSet<>();
-        mFatSecretSearch = new FatSecretSearchItem();
+        mFatSecretSearch = new FatSecretSearchMethod();
         searchBack = (LinearLayout) v.findViewById(R.id.searchBack);
         InitiateSearch();
         HandleSearch();
@@ -301,7 +301,7 @@ public class FragmentSearch extends Fragment {
                                     brand = "Generic";
                                 }
                                 String food_id = food_items.getString("food_id");
-                                mItem.add(new Item(food_name, row[1].substring(1),
+                                mItem.add(new SearchItemResult(food_name, row[1].substring(1),
                                     "" + brand, food_id));
                             }
                         }

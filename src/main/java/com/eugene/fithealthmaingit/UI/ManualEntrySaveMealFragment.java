@@ -25,11 +25,11 @@ import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.eugene.fithealthmaingit.Databases.FoodManual.LogAdapterManual;
-import com.eugene.fithealthmaingit.Databases.FoodManual.LogManual;
-import com.eugene.fithealthmaingit.Databases.LogFood.LogAdapterPrevention;
-import com.eugene.fithealthmaingit.Databases.LogFood.LogMeal;
-import com.eugene.fithealthmaingit.FatSecretSearchAndGet.FatSecretGetItem;
+import com.eugene.fithealthmaingit.Databases_Adapters_ListViews.FoodManual.LogAdapterManual;
+import com.eugene.fithealthmaingit.Databases_Adapters_ListViews.FoodManual.LogManual;
+import com.eugene.fithealthmaingit.Databases_Adapters_ListViews.LogFood.LogAdapterPrevention;
+import com.eugene.fithealthmaingit.Databases_Adapters_ListViews.LogFood.LogMeal;
+import com.eugene.fithealthmaingit.FatSecretSearchAndGet.FatSecretGetMethod;
 import com.eugene.fithealthmaingit.R;
 import com.eugene.fithealthmaingit.Utilities.Globals;
 
@@ -101,7 +101,7 @@ public class ManualEntrySaveMealFragment extends Fragment {
         vPro;
     private LogAdapterPrevention mLogAdapterAll;
     // FatSecret method.get
-    private FatSecretGetItem mFatSecretGet;
+    private FatSecretGetMethod mFatSecretGet;
     String arrayOrJson;
     // Inflate view
     private View v;
@@ -130,7 +130,7 @@ public class ManualEntrySaveMealFragment extends Fragment {
 
     private void findViewsById() {
         mLogAdapterAll = new LogAdapterPrevention(getActivity(), 0, LogMeal.logsByDate(new Date()));
-        mFatSecretGet = new FatSecretGetItem(); // method.get
+        mFatSecretGet = new FatSecretGetMethod(); // method.get
         mToolbar = (Toolbar) v.findViewById(R.id.toolbar);
         mViewSevingSize = (TextView) v.findViewById(R.id.viewSevingSize);
 

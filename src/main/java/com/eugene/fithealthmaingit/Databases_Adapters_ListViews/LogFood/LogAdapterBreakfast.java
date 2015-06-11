@@ -1,4 +1,4 @@
-package com.eugene.fithealthmaingit.Databases.LogFood;
+package com.eugene.fithealthmaingit.Databases_Adapters_ListViews.LogFood;
 
 import android.content.Context;
 import android.view.View;
@@ -10,12 +10,12 @@ import com.eugene.fithealthmaingit.R;
 
 import java.util.List;
 
-public class LogAdapterLunch extends ArrayAdapter<LogMeal> {
-    private static LogAdapterLunch instance;
+public class LogAdapterBreakfast extends ArrayAdapter<LogMeal> {
+    private static LogAdapterBreakfast instance;
     Context mContext;
     public static List<LogMeal> mLogs;
 
-    public LogAdapterLunch(Context context, int textViewResourceId, List<LogMeal> logs) {
+    public LogAdapterBreakfast(Context context, int textViewResourceId, List<LogMeal> logs) {
         super(context, textViewResourceId);
         mContext = context;
         mLogs = logs;
@@ -34,7 +34,7 @@ public class LogAdapterLunch extends ArrayAdapter<LogMeal> {
     }
 
     public void remove(LogMeal log) {
-        LogAdapterLunch.mLogs.remove(log);
+        LogAdapterBreakfast.mLogs.remove(log);
     }
 
     public int getCount() {

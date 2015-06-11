@@ -10,8 +10,8 @@ import android.support.v4.app.DialogFragment;
 import android.view.View;
 import android.widget.TextView;
 
-import com.eugene.fithealthmaingit.Databases.LogFood.LogAdapterAll;
-import com.eugene.fithealthmaingit.Databases.LogFood.LogMeal;
+import com.eugene.fithealthmaingit.Databases_Adapters_ListViews.LogFood.LogAdapterAll;
+import com.eugene.fithealthmaingit.Databases_Adapters_ListViews.LogFood.LogMeal;
 import com.eugene.fithealthmaingit.R;
 import com.eugene.fithealthmaingit.Utilities.Globals;
 

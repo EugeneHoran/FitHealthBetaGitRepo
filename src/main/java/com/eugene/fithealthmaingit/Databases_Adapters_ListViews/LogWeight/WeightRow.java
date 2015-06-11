@@ -1,4 +1,4 @@
-package com.eugene.fithealthmaingit.Databases.LogWeight;
+package com.eugene.fithealthmaingit.Databases_Adapters_ListViews.LogWeight;
 
 import android.content.Context;
 import android.text.format.DateFormat;

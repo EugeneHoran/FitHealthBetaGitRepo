@@ -21,7 +21,7 @@ import javax.crypto.Mac;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 
-public class FatSecretGetItem {
+public class FatSecretGetMethod {
 
         public JSONObject getFood(Long ab) {
             List<String> params = new ArrayList<>(Arrays.asList(generateOauthParams()));

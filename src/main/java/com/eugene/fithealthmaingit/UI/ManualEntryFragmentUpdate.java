@@ -10,18 +10,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 
-import com.eugene.fithealthmaingit.Databases.FoodManual.LogAdapterManual;
-import com.eugene.fithealthmaingit.Databases.FoodManual.LogManual;
+import com.eugene.fithealthmaingit.Databases_Adapters_ListViews.FoodManual.LogAdapterManual;
+import com.eugene.fithealthmaingit.Databases_Adapters_ListViews.FoodManual.LogManual;
 import com.eugene.fithealthmaingit.R;
 import com.eugene.fithealthmaingit.Utilities.Globals;
 
 import java.util.Date;
-import java.util.Random;
 
 public class ManualEntryFragmentUpdate extends Fragment {
 
-    private View v;
-    private Toolbar toolbar_manual;
     private EditText servingName;
     private EditText mealName;
     private EditText mealCalories;
@@ -39,31 +36,14 @@ public class ManualEntryFragmentUpdate extends Fragment {
     private EditText mealIron;
     private EditText mealBrand;
 
-
-    private String sServingName;
-    private String sMealName;
-    private String sMealCalories;
-    private String sMealFat;
-    private String sMealCarbs;
-    private String sMealProtein;
-    private String sMealSatFat;
-    private String sMealCholesterol;
-    private String sMealSodium;
-    private String sMealFiber;
-    private String sMealSugar;
-    private String sMealA;
-    private String sMealC;
-    private String sMealCalcium;
-    private String sMealIron;
-    private String sMealBrand;
     private String mealType;
     private String mealId;
     LogManual logManualUpdate;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        v = inflater.inflate(R.layout.fragment_manual_entry, container, false);
-        // Toolbar
+        View v = inflater.inflate(R.layout.fragment_manual_entry, container, false);
+
         Bundle extras = getActivity().getIntent().getExtras();
         if (extras != null) {
             mealType = extras.getString(Globals.MEAL_TYPE);
@@ -72,7 +52,7 @@ public class ManualEntryFragmentUpdate extends Fragment {
         LogAdapterManual logAdapterManual = new LogAdapterManual(getActivity(), 0, LogManual.logsById(mealId), mealType);
         logManualUpdate = logAdapterManual.getItem(0);
 
-        toolbar_manual = (Toolbar) v.findViewById(R.id.toolbar_manual);
+        Toolbar toolbar_manual = (Toolbar) v.findViewById(R.id.toolbar_manual);
         toolbar_manual.setTitle("Update Entry");
         toolbar_manual.setNavigationIcon(R.mipmap.ic_arrow_back);
         toolbar_manual.setNavigationOnClickListener(new View.OnClickListener() {
@@ -144,34 +124,34 @@ public class ManualEntryFragmentUpdate extends Fragment {
 
     private void SaveMeal() {
         // Strings
+        String sServingName = servingName.getText().toString();
         if (sServingName.trim().equals("")) {
             sServingName = "Serving";
         }
-        sMealName = mealName.getText().toString();
+        String sMealName = mealName.getText().toString();
         if (sMealName.trim().equals("")) {
             sMealName = "No Name";
         }
-        sMealCalories = mealCalories.getText().toString();
-        sMealFat = mealFat.getText().toString();
-        sMealCarbs = mealCarbs.getText().toString();
-        sMealProtein = mealProtein.getText().toString();
-        sMealSatFat = mealSatFat.getText().toString();
-        sMealCholesterol = mealCholesterol.getText().toString();
-        sMealSodium = mealSodium.getText().toString();
-        sMealFiber = mealFiber.getText().toString();
-        sMealSugar = mealSugar.getText().toString();
-        sMealA = mealA.getText().toString();
-        sMealC = mealC.getText().toString();
-        sMealCalcium = mealCalcium.getText().toString();
-        sMealIron = mealIron.getText().toString();
-        sMealBrand = mealBrand.getText().toString();
+        String sMealCalories = mealCalories.getText().toString();
+        String sMealFat = mealFat.getText().toString();
+        String sMealCarbs = mealCarbs.getText().toString();
+        String sMealProtein = mealProtein.getText().toString();
+        String sMealSatFat = mealSatFat.getText().toString();
+        String sMealCholesterol = mealCholesterol.getText().toString();
+        String sMealSodium = mealSodium.getText().toString();
+        String sMealFiber = mealFiber.getText().toString();
+        String sMealSugar = mealSugar.getText().toString();
+        String sMealA = mealA.getText().toString();
+        String sMealC = mealC.getText().toString();
+        String sMealCalcium = mealCalcium.getText().toString();
+        String sMealIron = mealIron.getText().toString();
+        String sMealBrand = mealBrand.getText().toString();
         if (sMealBrand.trim().equals("")) {
             sMealBrand = "No Brand";
         }
         //Save
 
         logManualUpdate.setMealName(sMealName);
-        Random r = new Random();
 
         logManualUpdate.setCalorieCount(checkForNull(sMealCalories));
         logManualUpdate.setFatCount(checkForNull(sMealFat));

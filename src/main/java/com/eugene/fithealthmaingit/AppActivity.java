@@ -3,10 +3,10 @@ package com.eugene.fithealthmaingit;
 import android.app.Application;
 import android.content.Context;
 
-import com.eugene.fithealthmaingit.Databases.FoodManual.LogManual;
-import com.eugene.fithealthmaingit.Databases.LogFood.LogMeal;
-import com.eugene.fithealthmaingit.LogQuickSearchData.LogQuickSearch;
-import com.eugene.fithealthmaingit.Databases.LogWeight.WeightLog;
+import com.eugene.fithealthmaingit.Databases_Adapters_ListViews.FoodManual.LogManual;
+import com.eugene.fithealthmaingit.Databases_Adapters_ListViews.LogFood.LogMeal;
+import com.eugene.fithealthmaingit.Databases_Adapters_ListViews.LogQuickSearchData.LogQuickSearch;
+import com.eugene.fithealthmaingit.Databases_Adapters_ListViews.LogWeight.WeightLog;
 import com.orm.androrm.DatabaseAdapter;
 import com.orm.androrm.Model;
 

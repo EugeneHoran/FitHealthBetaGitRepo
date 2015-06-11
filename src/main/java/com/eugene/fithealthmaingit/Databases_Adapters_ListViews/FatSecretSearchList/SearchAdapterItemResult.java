@@ -1,4 +1,4 @@
-package com.eugene.fithealthmaingit.UI.Adapters.SearchListView;
+package com.eugene.fithealthmaingit.Databases_Adapters_ListViews.FatSecretSearchList;
 
 
 import android.content.Context;
@@ -13,12 +13,12 @@ import com.eugene.fithealthmaingit.R;
 
 import java.util.ArrayList;
 
-public class SearchAdapter extends ArrayAdapter<Item> {
+public class SearchAdapterItemResult extends ArrayAdapter<SearchItemResult> {
 
     private final Context mContext;
-    private final ArrayList<Item> mItem;
+    private final ArrayList<SearchItemResult> mItem;
 
-    public SearchAdapter(Context context, ArrayList<Item> itemsArrayList) {
+    public SearchAdapterItemResult(Context context, ArrayList<SearchItemResult> itemsArrayList) {
         super(context, R.layout.list_search_row, itemsArrayList);
         this.mContext = context;
         this.mItem = itemsArrayList;

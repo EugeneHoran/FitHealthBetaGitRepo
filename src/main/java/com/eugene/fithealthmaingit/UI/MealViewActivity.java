@@ -12,8 +12,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.eugene.fithealthmaingit.Databases.LogFood.LogAdapterAll;
-import com.eugene.fithealthmaingit.Databases.LogFood.LogMeal;
+import com.eugene.fithealthmaingit.Databases_Adapters_ListViews.LogFood.LogAdapterAll;
+import com.eugene.fithealthmaingit.Databases_Adapters_ListViews.LogFood.LogMeal;
 import com.eugene.fithealthmaingit.MainActivityController;
 import com.eugene.fithealthmaingit.R;
 import com.eugene.fithealthmaingit.Utilities.Globals;

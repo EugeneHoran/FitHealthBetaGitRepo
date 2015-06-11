@@ -36,12 +36,13 @@
             android:id="@+id/foodTitle"
             android:layout_width="match_parent"
             android:layout_height="48dp"
-            android:layout_marginLeft="16dp"
+            android:layout_marginLeft="56dp"
+            android:layout_marginRight="16dp"
             android:gravity="center_vertical"
             android:singleLine="true"
             android:text="Testing"
             android:textColor="@color/white"
-            android:textSize="16sp"/>
+            android:textSize="20sp"/>
     </RelativeLayout>
 
 

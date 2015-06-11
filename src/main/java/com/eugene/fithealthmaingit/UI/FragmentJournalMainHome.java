@@ -6,6 +6,7 @@ import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -28,6 +29,8 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
@@ -35,12 +38,12 @@ import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
-import com.eugene.fithealthmaingit.Databases.LogFood.LogAdapterAll;
-import com.eugene.fithealthmaingit.Databases.LogFood.LogAdapterBreakfast;
-import com.eugene.fithealthmaingit.Databases.LogFood.LogAdapterDinner;
-import com.eugene.fithealthmaingit.Databases.LogFood.LogAdapterLunch;
-import com.eugene.fithealthmaingit.Databases.LogFood.LogAdapterSnack;
-import com.eugene.fithealthmaingit.Databases.LogFood.LogMeal;
+import com.eugene.fithealthmaingit.Databases_Adapters_ListViews.LogFood.LogAdapterAll;
+import com.eugene.fithealthmaingit.Databases_Adapters_ListViews.LogFood.LogAdapterBreakfast;
+import com.eugene.fithealthmaingit.Databases_Adapters_ListViews.LogFood.LogAdapterDinner;
+import com.eugene.fithealthmaingit.Databases_Adapters_ListViews.LogFood.LogAdapterLunch;
+import com.eugene.fithealthmaingit.Databases_Adapters_ListViews.LogFood.LogAdapterSnack;
+import com.eugene.fithealthmaingit.Databases_Adapters_ListViews.LogFood.LogMeal;
 import com.eugene.fithealthmaingit.R;
 import com.eugene.fithealthmaingit.Utilities.DateCompare;
 import com.eugene.fithealthmaingit.Utilities.Equations;
@@ -88,6 +91,7 @@ public class FragmentJournalMainHome extends Fragment implements
     private TextView mCalories, mCaloriesRemainder, mNoSnacks, mNoBreakfast, mNoLunch, mNoDinner;
     private TextView mFatRemainder, mCarbRemainder, mProteinRemainder;
     private TextView mCalSnack, mCalBreakfast, mCalLunch, mCalDinner;
+    private ImageView icSnack, icBreakfast, icLunch, icDinner;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -119,6 +123,10 @@ public class FragmentJournalMainHome extends Fragment implements
         v.findViewById(R.id.suggestion1).setOnClickListener(this);
         v.findViewById(R.id.suggestion2).setOnClickListener(this);
         v.findViewById(R.id.suggestion3).setOnClickListener(this);
+        v.findViewById(R.id.snackInfo).setOnClickListener(this);
+        v.findViewById(R.id.breakfastInfo).setOnClickListener(this);
+        v.findViewById(R.id.lunchInfo).setOnClickListener(this);
+        v.findViewById(R.id.dinnerInfo).setOnClickListener(this);
         InitializeAdapters();
         initializeAdapters(mDate);
         updateListViews();
@@ -146,12 +154,9 @@ public class FragmentJournalMainHome extends Fragment implements
     @Override
     public void onPanelCollapsed(View view) {
         mSliderLayoutHelper.setVisibility(View.GONE);
-        if (isCollapsed == true) {
+        if (isCollapsed) {
             Intent i = new Intent(getActivity(), ChooseAddMealActivity.class);
             i.putExtra(Globals.MEAL_TYPE, SET_MEAL_TYPE);
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                
-            }
             startActivity(i);
             isCollapsed = false;
         }
@@ -211,6 +216,20 @@ public class FragmentJournalMainHome extends Fragment implements
                 break;
             case R.id.suggestion3:
                 mCallbacks.viewSuggestion("Dinner", mDate);
+                break;
+
+            // Calorie Goal Dialog
+            case R.id.snackInfo:
+                calorieInfoDialog(Globals.MEAL_TYPE_SNACK);
+                break;
+            case R.id.breakfastInfo:
+                calorieInfoDialog(Globals.MEAL_TYPE_BREAKFAST);
+                break;
+            case R.id.lunchInfo:
+                calorieInfoDialog(Globals.MEAL_TYPE_LUNCH);
+                break;
+            case R.id.dinnerInfo:
+                calorieInfoDialog(Globals.MEAL_TYPE_DINNER);
                 break;
             default:
                 break;
@@ -353,6 +372,11 @@ public class FragmentJournalMainHome extends Fragment implements
         mCarbRemainder = (TextView) v.findViewById(R.id.txtRemainderCarbs);
         mProteinRemainder = (TextView) v.findViewById(R.id.txtRemainderProtein);
 
+        icSnack = (ImageView) v.findViewById(R.id.icSnack);
+        icBreakfast = (ImageView) v.findViewById(R.id.icBreakfast);
+        icLunch = (ImageView) v.findViewById(R.id.icLunch);
+        icDinner = (ImageView) v.findViewById(R.id.icDinner);
+
     }
 
 
@@ -420,7 +444,18 @@ public class FragmentJournalMainHome extends Fragment implements
         updateListViews();
     }
 
+    double mCalorieGoalMeal;
+
     private void equations() {
+        double mCalorieGoal = Double.valueOf(sharedPreferences.getString(Globals.USER_CALORIES_TO_REACH_GOAL, ""));
+        double mFatGoal = Double.valueOf(sharedPreferences.getString(Globals.USER_DAILY_FAT, ""));
+        double mCarbGoal = Double.valueOf(sharedPreferences.getString(Globals.USER_DAILY_CARBOHYDRATES, ""));
+        double mProteinGoal = Double.valueOf(sharedPreferences.getString(Globals.USER_DAILY_PROTEIN, ""));
+        mCalorieGoalMeal = Double.valueOf(sharedPreferences.getString(Globals.USER_CALORIES_TO_REACH_GOAL, "")) / 4;
+        icSnack = (ImageView) v.findViewById(R.id.icSnack);
+        icBreakfast = (ImageView) v.findViewById(R.id.icBreakfast);
+        icLunch = (ImageView) v.findViewById(R.id.icLunch);
+        icDinner = (ImageView) v.findViewById(R.id.icDinner);
 
 // _________________________Calories Snack_____________________________
         double mCalConsumedSnack = 0;
@@ -429,12 +464,37 @@ public class FragmentJournalMainHome extends Fragment implements
         }
         mCalSnack.setText(df.format(mCalConsumedSnack));
 
+        // Set icon visible and color based on calories consumed for meal.
+        if (mCalConsumedSnack >= mCalorieGoalMeal + 100) {
+            icSnack.setImageResource(R.mipmap.ic_check_circle);
+            icSnack.setColorFilter(Color.parseColor("#F44336"), android.graphics.PorterDuff.Mode.MULTIPLY);
+        } else if (mCalConsumedSnack > mCalorieGoalMeal - 100 && mCalConsumedSnack < mCalorieGoalMeal + 99) {
+            icSnack.setImageResource(R.mipmap.ic_check_circle);
+            icSnack.setColorFilter(Color.parseColor("#4CAF50"), android.graphics.PorterDuff.Mode.MULTIPLY);
+        } else {
+            icSnack.setImageResource(R.mipmap.ic_check);
+            icSnack.setColorFilter(Color.parseColor("#6D6D6D"), android.graphics.PorterDuff.Mode.MULTIPLY);
+        }
+
+
 // _________________________Calories Breakfast_____________________________
         double mCalConsumedBreakfast = 0;
         for (LogMeal logMeal : mLogBreakfastAdapter.getLogs()) {
             mCalConsumedBreakfast += logMeal.getCalorieCount();
         }
         mCalBreakfast.setText(df.format(mCalConsumedBreakfast));
+
+        // Set icon visible and color based on calories consumed for meal.
+        if (mCalConsumedBreakfast >= mCalorieGoalMeal + 100) {
+            icBreakfast.setColorFilter(Color.parseColor("#F44336"), android.graphics.PorterDuff.Mode.MULTIPLY);
+            icBreakfast.setImageResource(R.mipmap.ic_check_circle);
+        } else if (mCalConsumedBreakfast > mCalorieGoalMeal - 100 && mCalConsumedBreakfast < mCalorieGoalMeal + 99) {
+            icBreakfast.setColorFilter(Color.parseColor("#4CAF50"), android.graphics.PorterDuff.Mode.MULTIPLY);
+            icBreakfast.setImageResource(R.mipmap.ic_check_circle);
+        } else {
+            icBreakfast.setImageResource(R.mipmap.ic_check);
+            icBreakfast.setColorFilter(Color.parseColor("#6D6D6D"), android.graphics.PorterDuff.Mode.MULTIPLY);
+        }
 
 // _________________________Calories Lunch_____________________________
         double mCalConsumedLunch = 0;
@@ -443,12 +503,36 @@ public class FragmentJournalMainHome extends Fragment implements
         }
         mCalLunch.setText(df.format(mCalConsumedLunch));
 
+        // Set icon visible and color based on calories consumed for meal.
+        if (mCalConsumedLunch >= mCalorieGoalMeal + 100) {
+            icLunch.setImageResource(R.mipmap.ic_check_circle);
+            icLunch.setColorFilter(Color.parseColor("#F44336"), android.graphics.PorterDuff.Mode.MULTIPLY);
+        } else if (mCalConsumedLunch > mCalorieGoalMeal - 100 && mCalConsumedLunch < mCalorieGoalMeal + 99) {
+            icLunch.setImageResource(R.mipmap.ic_check_circle);
+            icLunch.setColorFilter(Color.parseColor("#4CAF50"), android.graphics.PorterDuff.Mode.MULTIPLY);
+        } else {
+            icLunch.setImageResource(R.mipmap.ic_check);
+            icLunch.setColorFilter(Color.parseColor("#6D6D6D"), android.graphics.PorterDuff.Mode.MULTIPLY);
+        }
+
 // _________________________Calories Lunch_____________________________
         double mCalConsumedDinner = 0;
         for (LogMeal logMeal : mLogDinnerAdapter.getLogs()) {
             mCalConsumedDinner += logMeal.getCalorieCount();
         }
         mCalDinner.setText(df.format(mCalConsumedDinner));
+
+        // Set icon visible and color based on calories consumed for meal.
+        if (mCalConsumedDinner >= mCalorieGoalMeal + 100) {
+            icDinner.setImageResource(R.mipmap.ic_check_circle);
+            icDinner.setColorFilter(Color.parseColor("#F44336"), android.graphics.PorterDuff.Mode.MULTIPLY);
+        } else if (mCalConsumedDinner > mCalorieGoalMeal - 100 && mCalConsumedDinner < mCalorieGoalMeal + 99) {
+            icDinner.setImageResource(R.mipmap.ic_check_circle);
+            icDinner.setColorFilter(Color.parseColor("#4CAF50"), android.graphics.PorterDuff.Mode.MULTIPLY);
+        } else {
+            icDinner.setImageResource(R.mipmap.ic_check);
+            icDinner.setColorFilter(Color.parseColor("#6D6D6D"), android.graphics.PorterDuff.Mode.MULTIPLY);
+        }
 
 // _________________________Calories, Fat, Carbs, Protein All_____________________________
         // Nutrition Consumed
@@ -463,10 +547,6 @@ public class FragmentJournalMainHome extends Fragment implements
             mAllProteinConsumed += logMeal.getProteinCount();
         }
         // Nutrition Goals
-        double mCalorieGoal = Double.valueOf(sharedPreferences.getString(Globals.USER_CALORIES_TO_REACH_GOAL, ""));
-        double mFatGoal = Double.valueOf(sharedPreferences.getString(Globals.USER_DAILY_FAT, ""));
-        double mCarbGoal = Double.valueOf(sharedPreferences.getString(Globals.USER_DAILY_CARBOHYDRATES, ""));
-        double mProteinGoal = Double.valueOf(sharedPreferences.getString(Globals.USER_DAILY_PROTEIN, ""));
         // Remainder Nutrition
         mCaloriesRemainder.setText(df.format(mCalorieGoal - mAllCaloriesConsumed) + " Left");
         mFatRemainder.setText(df.format(mFatGoal - mAllFatConsumed) + " Left");
@@ -739,6 +819,23 @@ public class FragmentJournalMainHome extends Fragment implements
                 break;
         }
         return true;
+    }
+
+    /**
+     * Display Calorie Goal Indicator Information
+     */
+    private void calorieInfoDialog(String s) {
+        double calMin = mCalorieGoalMeal - 100;
+        double calMax = mCalorieGoalMeal + 100;
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setTitle(s + " Calorie Goal").setMessage("Goal:   " + df.format(calMin) + "  -  " + df.format(calMax) + " Calories")
+            .setPositiveButton("Done", null);
+        LayoutInflater inflater = getActivity().getLayoutInflater();
+        FrameLayout f1 = new FrameLayout(getActivity());
+        f1.addView(inflater.inflate(R.layout.dialog_calorie_info, f1, false));
+        builder.setView(f1);
+        AlertDialog alert = builder.create();
+        alert.show();
     }
 
     /**

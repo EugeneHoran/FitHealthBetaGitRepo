@@ -6,8 +6,8 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 
-import com.eugene.fithealthmaingit.Databases.LogWeight.WeightLog;
-import com.eugene.fithealthmaingit.Databases.LogWeight.WeightLogAdapter;
+import com.eugene.fithealthmaingit.Databases_Adapters_ListViews.LogWeight.WeightLog;
+import com.eugene.fithealthmaingit.Databases_Adapters_ListViews.LogWeight.WeightLogAdapter;
 import com.eugene.fithealthmaingit.UI.UserInformationActivity;
 import com.eugene.fithealthmaingit.Utilities.Globals;
 

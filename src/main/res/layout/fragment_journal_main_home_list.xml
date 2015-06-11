@@ -27,19 +27,35 @@
                 android:textColor="@color/text_color"
                 android:textSize="16sp"/>
 
-
-            <TextView
-                android:id="@+id/calSnack"
+            <LinearLayout
+                android:id="@+id/snackInfo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
-                android:layout_marginBottom="12dp"
-                android:layout_marginRight="16dp"
-                android:layout_marginTop="12dp"
-                android:text="@string/snack"
-                android:textColor="@color/text_color"
-                android:textSize="16sp"/>
+                android:layout_marginRight="8dp"
+                android:background="?android:attr/selectableItemBackground"
+                android:clickable="true"
+                android:paddingLeft="16dp">
 
+                <TextView
+                    android:id="@+id/calSnack"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="12dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_marginTop="12dp"
+                    android:text="@string/snack"
+                    android:textColor="@color/text_color"
+                    android:textSize="16sp"/>
+
+                <ImageView
+                    android:id="@+id/icSnack"
+                    android:layout_width="37dp"
+                    android:layout_height="37dp"
+                    android:layout_gravity="center_vertical"
+                    android:padding="8dp"
+                    android:visibility="visible"/>
+            </LinearLayout>
         </RelativeLayout>
 
 
@@ -130,18 +146,35 @@
                 android:textColor="@color/text_color"
                 android:textSize="16sp"/>
 
-
-            <TextView
-                android:id="@+id/calBreakfast"
+            <LinearLayout
+                android:id="@+id/breakfastInfo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
-                android:layout_marginBottom="12dp"
-                android:layout_marginRight="16dp"
-                android:layout_marginTop="12dp"
-                android:text="@string/breakfast"
-                android:textColor="@color/text_color"
-                android:textSize="16sp"/>
+                android:layout_marginRight="8dp"
+                android:background="?android:attr/selectableItemBackground"
+                android:clickable="true"
+                android:paddingLeft="16dp">
+
+                <TextView
+                    android:id="@+id/calBreakfast"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="12dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_marginTop="12dp"
+                    android:text="@string/breakfast"
+                    android:textColor="@color/text_color"
+                    android:textSize="16sp"/>
+
+                <ImageView
+                    android:id="@+id/icBreakfast"
+                    android:layout_width="37dp"
+                    android:layout_height="37dp"
+                    android:layout_gravity="center_vertical"
+                    android:padding="8dp"
+                    android:visibility="visible"/>
+            </LinearLayout>
 
         </RelativeLayout>
 
@@ -234,18 +267,35 @@
                 android:textColor="@color/text_color"
                 android:textSize="16sp"/>
 
-
-            <TextView
-                android:id="@+id/calLunch"
+            <LinearLayout
+                android:id="@+id/lunchInfo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
-                android:layout_marginBottom="12dp"
-                android:layout_marginRight="16dp"
-                android:layout_marginTop="12dp"
-                android:text="@string/Lunch"
-                android:textColor="@color/text_color"
-                android:textSize="16sp"/>
+                android:layout_marginRight="8dp"
+                android:background="?android:attr/selectableItemBackground"
+                android:clickable="true"
+                android:paddingLeft="16dp">
+
+                <TextView
+                    android:id="@+id/calLunch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="12dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_marginTop="12dp"
+                    android:text="@string/Lunch"
+                    android:textColor="@color/text_color"
+                    android:textSize="16sp"/>
+
+                <ImageView
+                    android:id="@+id/icLunch"
+                    android:layout_width="37dp"
+                    android:layout_height="37dp"
+                    android:layout_gravity="center_vertical"
+                    android:padding="8dp"
+                    android:visibility="visible"/>
+            </LinearLayout>
 
         </RelativeLayout>
 
@@ -339,17 +389,35 @@
                 android:textSize="16sp"/>
 
 
-            <TextView
-                android:id="@+id/calDinner"
+            <LinearLayout
+                android:id="@+id/dinnerInfo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
-                android:layout_marginBottom="12dp"
-                android:layout_marginRight="16dp"
-                android:layout_marginTop="12dp"
-                android:text="@string/dinner"
-                android:textColor="@color/text_color"
-                android:textSize="16sp"/>
+                android:layout_marginRight="8dp"
+                android:background="?android:attr/selectableItemBackground"
+                android:clickable="true"
+                android:paddingLeft="16dp">
+
+                <TextView
+                    android:id="@+id/calDinner"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="12dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_marginTop="12dp"
+                    android:text="@string/dinner"
+                    android:textColor="@color/text_color"
+                    android:textSize="16sp"/>
+
+                <ImageView
+                    android:id="@+id/icDinner"
+                    android:layout_width="37dp"
+                    android:layout_height="37dp"
+                    android:layout_gravity="center_vertical"
+                    android:padding="8dp"
+                    android:visibility="visible"/>
+            </LinearLayout>
 
         </RelativeLayout>
 

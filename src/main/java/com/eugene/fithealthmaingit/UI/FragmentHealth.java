@@ -35,7 +35,7 @@ public class FragmentHealth extends Fragment {
 
     private void findViews() {
         Toolbar toolbar_journal_health = (Toolbar) v.findViewById(R.id.toolbar_journal_health);
-        toolbar_journal_health.setTitle("My Health");
+        toolbar_journal_health.setTitle("Your Health");
         toolbar_journal_health.setNavigationIcon(R.mipmap.ic_menu);
         toolbar_journal_health.setNavigationOnClickListener(new View.OnClickListener() {
             @Override

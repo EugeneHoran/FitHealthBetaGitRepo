@@ -16,7 +16,7 @@ import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.eugene.fithealthmaingit.Databases.LogFood.LogMeal;
+import com.eugene.fithealthmaingit.Databases_Adapters_ListViews.LogFood.LogMeal;
 import com.eugene.fithealthmaingit.MainActivityController;
 import com.eugene.fithealthmaingit.R;
 import com.eugene.fithealthmaingit.Utilities.Globals;

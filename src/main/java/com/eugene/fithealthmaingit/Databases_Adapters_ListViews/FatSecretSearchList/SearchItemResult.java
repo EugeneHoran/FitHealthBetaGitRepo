@@ -1,13 +1,13 @@
-package com.eugene.fithealthmaingit.UI.Adapters.SearchListView;
+package com.eugene.fithealthmaingit.Databases_Adapters_ListViews.FatSecretSearchList;
 
 
-public class Item {
+public class SearchItemResult {
     private String FOOD_NAME;
     private String FOOD_DESCRIPTION;
     private String FOOD_BRAND;
     private String FOOD_ID;
 
-    public Item(String food_name, String food_description, String food_brand, String food_id) {
+    public SearchItemResult(String food_name, String food_description, String food_brand, String food_id) {
         super();
         this.FOOD_NAME = food_name;
         this.FOOD_DESCRIPTION = food_description;

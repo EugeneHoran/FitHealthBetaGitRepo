@@ -11,9 +11,9 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.eugene.fithealthmaingit.Databases.LogFood.LogAdapterPager;
-import com.eugene.fithealthmaingit.Databases.LogFood.LogAdapterPrevention;
-import com.eugene.fithealthmaingit.Databases.LogFood.LogMeal;
+import com.eugene.fithealthmaingit.Databases_Adapters_ListViews.LogFood.LogAdapterPager;
+import com.eugene.fithealthmaingit.Databases_Adapters_ListViews.LogFood.LogAdapterPrevention;
+import com.eugene.fithealthmaingit.Databases_Adapters_ListViews.LogFood.LogMeal;
 import com.eugene.fithealthmaingit.R;
 import com.eugene.fithealthmaingit.Utilities.Globals;
 

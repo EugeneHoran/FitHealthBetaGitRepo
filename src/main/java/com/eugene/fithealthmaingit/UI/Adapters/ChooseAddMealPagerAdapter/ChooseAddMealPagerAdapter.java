@@ -6,7 +6,7 @@ import android.view.ViewGroup;
 
 import com.eugene.fithealthmaingit.R;
 
-public class MyPagerAdapterAdd extends PagerAdapter {
+public class ChooseAddMealPagerAdapter extends PagerAdapter {
 
     @Override
     public CharSequence getPageTitle(int position) { // Tab text

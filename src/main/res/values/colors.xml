@@ -12,4 +12,6 @@
     <color name="grey_medium">#A0A0A0</color>
     <color name="light_grey">#9E9E9E</color>
     <color name="red">#ed1c24</color>
+    <color name="green">#4CAF50</color>
+
 </resources>

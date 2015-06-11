@@ -17,8 +17,8 @@ import android.widget.RadioButton;
 import android.widget.Spinner;
 
 import com.eugene.fithealthmaingit.MainActivityController;
-import com.eugene.fithealthmaingit.Databases.LogWeight.WeightLog;
-import com.eugene.fithealthmaingit.Databases.LogWeight.WeightLogAdapter;
+import com.eugene.fithealthmaingit.Databases_Adapters_ListViews.LogWeight.WeightLog;
+import com.eugene.fithealthmaingit.Databases_Adapters_ListViews.LogWeight.WeightLogAdapter;
 import com.eugene.fithealthmaingit.R;
 import com.eugene.fithealthmaingit.Utilities.Equations;
 import com.eugene.fithealthmaingit.Utilities.Globals;

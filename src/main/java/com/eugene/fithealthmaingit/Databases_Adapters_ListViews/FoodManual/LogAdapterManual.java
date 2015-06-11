@@ -1,14 +1,15 @@
-package com.eugene.fithealthmaingit.Databases.FoodManual;
+package com.eugene.fithealthmaingit.Databases_Adapters_ListViews.FoodManual;
 
 import android.content.Context;
 import android.content.Intent;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.eugene.fithealthmaingit.Databases.LogFood.LogAdapterBreakfast;
+import com.eugene.fithealthmaingit.Databases_Adapters_ListViews.LogFood.LogAdapterBreakfast;
 import com.eugene.fithealthmaingit.R;
 import com.eugene.fithealthmaingit.UI.ManualEntryActivity;
 import com.eugene.fithealthmaingit.Utilities.Globals;
@@ -56,9 +57,9 @@ public class LogAdapterManual extends ArrayAdapter<LogManual> {
     LogManual mLogManual;
 
     public View getView(int position, View convertView, ViewGroup parent) {
-        ManualRow view = (ManualRow) convertView;
+        LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View view = inflater.inflate(R.layout.list_manaual, null, true);
         mLogManual = getItem(position);
-        view = new ManualRow(mContext);
         TextView mealName = (TextView) view.findViewById(R.id.mealNameManual);
         mealName.setText(mLogs.get(position).getMealName());
 

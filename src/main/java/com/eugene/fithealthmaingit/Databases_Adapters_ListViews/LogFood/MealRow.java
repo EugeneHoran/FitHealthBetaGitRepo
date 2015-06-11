@@ -1,4 +1,4 @@
-package com.eugene.fithealthmaingit.Databases.LogFood;
+package com.eugene.fithealthmaingit.Databases_Adapters_ListViews.LogFood;
 
 import android.content.Context;
 import android.text.format.DateFormat;

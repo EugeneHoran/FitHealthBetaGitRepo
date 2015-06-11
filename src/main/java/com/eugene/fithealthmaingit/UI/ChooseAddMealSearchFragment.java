@@ -32,12 +32,12 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.eugene.fithealthmaingit.FatSecretSearchAndGet.FatSecretSearchItem;
-import com.eugene.fithealthmaingit.LogQuickSearchData.LogQuickSearch;
-import com.eugene.fithealthmaingit.LogQuickSearchData.LogQuickSearchAdapter;
+import com.eugene.fithealthmaingit.FatSecretSearchAndGet.FatSecretSearchMethod;
+import com.eugene.fithealthmaingit.Databases_Adapters_ListViews.LogQuickSearchData.LogQuickSearch;
+import com.eugene.fithealthmaingit.Databases_Adapters_ListViews.LogQuickSearchData.LogQuickSearchAdapter;
 import com.eugene.fithealthmaingit.R;
-import com.eugene.fithealthmaingit.UI.Adapters.SearchListView.Item;
-import com.eugene.fithealthmaingit.UI.Adapters.SearchListView.SearchAdapter;
+import com.eugene.fithealthmaingit.Databases_Adapters_ListViews.FatSecretSearchList.SearchItemResult;
+import com.eugene.fithealthmaingit.Databases_Adapters_ListViews.FatSecretSearchList.SearchAdapterItemResult;
 import com.eugene.fithealthmaingit.Utilities.Equations;
 import com.eugene.fithealthmaingit.Utilities.Globals;
 
@@ -59,10 +59,10 @@ public class ChooseAddMealSearchFragment extends Fragment implements AbsListView
     private RelativeLayout mRelativeLayout;
     private Toolbar mToolbarSearch;
     private EditText mEtSearch;
-    private SearchAdapter mEtSearchAdapter;
-    private ArrayList<Item> mItem;
+    private SearchAdapterItemResult mEtSearchAdapter;
+    private ArrayList<SearchItemResult> mItem;
     private Set<String> set;
-    private FatSecretSearchItem mFatSecretSearch;
+    private FatSecretSearchMethod mFatSecretSearch;
     private LogQuickSearchAdapter mRecentLogAdapter;
     private SwipeRefreshLayout mSwipeRefreshLayout;
 
@@ -73,7 +73,7 @@ public class ChooseAddMealSearchFragment extends Fragment implements AbsListView
             Window w = getActivity().getWindow();
             w.setStatusBarColor(getResources().getColor(R.color.light_grey));
         }
-        mFatSecretSearch = new FatSecretSearchItem();
+        mFatSecretSearch = new FatSecretSearchMethod();
         Bundle extras = getActivity().getIntent().getExtras();
         Bundle e = this.getArguments();
         mSwipeRefreshLayout = (SwipeRefreshLayout) v.findViewById(R.id.swiperefresh);
@@ -128,7 +128,7 @@ public class ChooseAddMealSearchFragment extends Fragment implements AbsListView
     }
 
     private void listViewAndAdapterImplementation() {
-        mEtSearchAdapter = new SearchAdapter(getActivity(), mItem);
+        mEtSearchAdapter = new SearchAdapterItemResult(getActivity(), mItem);
         mListView.setAdapter(mEtSearchAdapter);
         mListView.setOnScrollListener(this);
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -282,7 +282,7 @@ public class ChooseAddMealSearchFragment extends Fragment implements AbsListView
                                     brand = "Generic";
                                 }
                                 String food_id = food_items.getString("food_id");
-                                mItem.add(new Item(food_name, row[1].substring(1),
+                                mItem.add(new SearchItemResult(food_name, row[1].substring(1),
                                     "" + brand, food_id));
                             }
                         }

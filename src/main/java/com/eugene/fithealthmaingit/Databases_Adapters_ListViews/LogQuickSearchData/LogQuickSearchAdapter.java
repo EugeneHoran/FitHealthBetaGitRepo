@@ -1,4 +1,4 @@
-package com.eugene.fithealthmaingit.LogQuickSearchData;
+package com.eugene.fithealthmaingit.Databases_Adapters_ListViews.LogQuickSearchData;
 
 import android.content.Context;
 import android.view.View;

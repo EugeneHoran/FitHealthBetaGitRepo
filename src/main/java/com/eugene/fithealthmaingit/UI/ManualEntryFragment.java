@@ -10,7 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 
-import com.eugene.fithealthmaingit.Databases.FoodManual.LogManual;
+import com.eugene.fithealthmaingit.Databases_Adapters_ListViews.FoodManual.LogManual;
 import com.eugene.fithealthmaingit.R;
 import com.eugene.fithealthmaingit.Utilities.Globals;
 

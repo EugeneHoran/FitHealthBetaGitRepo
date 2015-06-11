@@ -21,21 +21,21 @@ import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 
-import com.eugene.fithealthmaingit.Databases.FoodManual.LogAdapterManual;
-import com.eugene.fithealthmaingit.Databases.FoodManual.LogManual;
-import com.eugene.fithealthmaingit.Databases.LogFood.LogAdapterAll;
-import com.eugene.fithealthmaingit.Databases.LogFood.LogMeal;
-import com.eugene.fithealthmaingit.LogQuickSearchData.LogQuickSearch;
-import com.eugene.fithealthmaingit.LogQuickSearchData.LogQuickSearchAdapter;
+import com.eugene.fithealthmaingit.Databases_Adapters_ListViews.FoodManual.LogAdapterManual;
+import com.eugene.fithealthmaingit.Databases_Adapters_ListViews.FoodManual.LogManual;
+import com.eugene.fithealthmaingit.Databases_Adapters_ListViews.LogFood.LogAdapterAll;
+import com.eugene.fithealthmaingit.Databases_Adapters_ListViews.LogFood.LogMeal;
+import com.eugene.fithealthmaingit.Databases_Adapters_ListViews.LogQuickSearchData.LogQuickSearch;
+import com.eugene.fithealthmaingit.Databases_Adapters_ListViews.LogQuickSearchData.LogQuickSearchSimpleAdapter;
 import com.eugene.fithealthmaingit.R;
-import com.eugene.fithealthmaingit.UI.Adapters.ChooseAddMealPagerAdapter.MyPagerAdapterAdd;
+import com.eugene.fithealthmaingit.UI.Adapters.ChooseAddMealPagerAdapter.ChooseAddMealPagerAdapter;
 import com.eugene.fithealthmaingit.Utilities.Globals;
 
 
 public class ChooseAddMealTabsFragment extends Fragment {
 
     private String mealType;
-    private LogQuickSearchAdapter mRecentLogAdapter;
+    private LogQuickSearchSimpleAdapter mRecentLogAdapter;
     private LogAdapterAll mLogAdapterFavorite;
     private LogAdapterManual mLogAdapterManual;
     private LinearLayout llNoRecentFav, llNoRecentManual, llNoRecentSearch;
@@ -54,7 +54,7 @@ public class ChooseAddMealTabsFragment extends Fragment {
         }
         ToolbarSetup();
 
-        MyPagerAdapterAdd myPagerAdapterAdd = new MyPagerAdapterAdd();
+        ChooseAddMealPagerAdapter myPagerAdapterAdd = new ChooseAddMealPagerAdapter();
         ViewPager mViewPager = (ViewPager) v.findViewById(R.id.pager);
         TabLayout tabs = (TabLayout) v.findViewById(R.id.tabs);
         tabs.setTabTextColors(Color.parseColor("#80ffffff"), Color.parseColor("#ffffff"));
@@ -104,7 +104,7 @@ public class ChooseAddMealTabsFragment extends Fragment {
         llNoRecentManual = (LinearLayout) v.findViewById(R.id.llNoRecentManual);
         llNoRecentSearch = (LinearLayout) v.findViewById(R.id.llNoRecentSearch);
 
-        mRecentLogAdapter = new LogQuickSearchAdapter(getActivity(), 0, LogQuickSearch.all());
+        mRecentLogAdapter = new LogQuickSearchSimpleAdapter(getActivity(), 0, LogQuickSearch.all());
         mListRecentSearches.setAdapter(mRecentLogAdapter);
         mListRecentSearches.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

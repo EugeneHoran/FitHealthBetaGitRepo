@@ -21,7 +21,7 @@ import javax.crypto.Mac;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 
-public class FatSecretSearchItem {
+public class FatSecretSearchMethod {
     public JSONObject searchFood(String searchFood, int page) {
         Log.e("Search", searchFood);
         List<String> params = new ArrayList<>(Arrays.asList(generateOauthParams(page)));

@@ -1,4 +1,4 @@
-package com.eugene.fithealthmaingit.Databases.FoodManual;
+package com.eugene.fithealthmaingit.Databases_Adapters_ListViews.FoodManual;
 
 import android.content.Context;
 
