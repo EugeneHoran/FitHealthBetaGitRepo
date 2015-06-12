@@ -2,6 +2,7 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white">
@@ -32,6 +33,68 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+            <android.support.v7.widget.CardView
+                android:id="@+id/card_search_manual"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginTop="16dp"
+                app:cardElevation="7dp"
+                card_view:cardBackgroundColor="#eee"
+                card_view:cardCornerRadius="2dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:id="@+id/linearLayout_search"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp">
+
+                        <ImageView
+                            android:id="@+id/image_search_back"
+                            android:layout_width="48dp"
+                            android:layout_height="48dp"
+                            android:background="?android:attr/selectableItemBackground"
+                            android:clickable="true"
+                            android:contentDescription="@string/imate_back"
+                            android:padding="12dp"
+                            android:src="@mipmap/ic_search"
+                            android:tint="@color/text_color"/>
+
+                        <EditText
+                            android:id="@+id/manualSearch"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:background="#eee"
+                            android:gravity="center_vertical"
+                            android:hint="Search Entries"
+                            android:imeOptions="actionSearch"
+                            android:inputType="textCapWords"
+                            android:paddingLeft="12dp"
+                            android:paddingRight="8dp"
+                            android:singleLine="true"
+                            android:textColorHint="#35000000"
+                            android:textSize="15sp"/>
+
+                        <ImageView
+                            android:id="@+id/clearSearch"
+                            android:layout_width="48dp"
+                            android:layout_height="48dp"
+                            android:background="?android:attr/selectableItemBackground"
+                            android:clickable="true"
+                            android:contentDescription="@string/voice_cancel"
+                            android:padding="12dp"
+                            android:src="@mipmap/ic_keyboard_voice"
+                            android:tint="@color/text_color"/>
+                    </LinearLayout>
+                </RelativeLayout>
+            </android.support.v7.widget.CardView>
+
             <ListView
                 android:id="@+id/listViewManual"
                 android:layout_width="match_parent"
@@ -39,7 +102,7 @@
                 android:clipToPadding="false"
                 android:divider="@color/white"
                 android:dividerHeight="0dp"
-                android:paddingTop="16dp"/>
+                android:paddingTop="72dp"/>
 
             <LinearLayout
                 android:id="@+id/llNoRecentManual"
@@ -71,6 +134,67 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+            <android.support.v7.widget.CardView
+                android:id="@+id/card_search_fav"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginTop="16dp"
+                app:cardElevation="7dp"
+                card_view:cardBackgroundColor="#eee"
+                card_view:cardCornerRadius="2dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp">
+
+                        <ImageView
+                            android:id="@+id/image_search_back_fav"
+                            android:layout_width="48dp"
+                            android:layout_height="48dp"
+                            android:background="?android:attr/selectableItemBackground"
+                            android:clickable="true"
+                            android:contentDescription="@string/imate_back"
+                            android:padding="12dp"
+                            android:src="@mipmap/ic_search"
+                            android:tint="@color/text_color"/>
+
+                        <EditText
+                            android:id="@+id/favSearch"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:background="#eee"
+                            android:gravity="center_vertical"
+                            android:hint="Search Favorites"
+                            android:imeOptions="actionSearch"
+                            android:inputType="textCapWords"
+                            android:paddingLeft="12dp"
+                            android:paddingRight="8dp"
+                            android:singleLine="true"
+                            android:textColorHint="#35000000"
+                            android:textSize="15sp"/>
+
+                        <ImageView
+                            android:id="@+id/clearSearchFav"
+                            android:layout_width="48dp"
+                            android:layout_height="48dp"
+                            android:background="?android:attr/selectableItemBackground"
+                            android:clickable="true"
+                            android:contentDescription="@string/voice_cancel"
+                            android:padding="12dp"
+                            android:src="@mipmap/ic_keyboard_voice"
+                            android:tint="@color/text_color"/>
+                    </LinearLayout>
+                </RelativeLayout>
+            </android.support.v7.widget.CardView>
+
             <ListView
                 android:id="@+id/listFavorites"
                 android:layout_width="match_parent"
@@ -78,7 +202,8 @@
                 android:clipToPadding="false"
                 android:divider="@color/white"
                 android:dividerHeight="0dp"
-                android:paddingTop="16dp"/>
+                android:paddingTop="72dp"/>
+
 
             <LinearLayout
                 android:id="@+id/llNoRecentFav"

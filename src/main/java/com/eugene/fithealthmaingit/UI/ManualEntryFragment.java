@@ -1,5 +1,6 @@
 package com.eugene.fithealthmaingit.UI;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -8,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
 import com.eugene.fithealthmaingit.Databases_Adapters_ListViews.FoodManual.LogManual;
@@ -72,6 +74,7 @@ public class ManualEntryFragment extends Fragment {
         toolbar_manual.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                ((InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE)).hideSoftInputFromWindow(toolbar_manual.getWindowToken(), 0);
                 getActivity().finish();
             }
         });
@@ -111,6 +114,7 @@ public class ManualEntryFragment extends Fragment {
     }
 
     private void SaveMeal() {
+        ((InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE)).hideSoftInputFromWindow(toolbar_manual.getWindowToken(), 0);
         // Strings
         sServingName = servingName.getText().toString();
         if (sServingName.trim().equals("")) {

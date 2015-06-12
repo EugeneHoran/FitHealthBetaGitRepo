@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.FrameLayout;
 
 import com.eugene.fithealthmaingit.MainActivityController;
 import com.eugene.fithealthmaingit.R;
@@ -17,6 +18,7 @@ public class ManualEntryActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_manual_entry);
+
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             mealType = extras.getString(Globals.MEAL_TYPE);
@@ -37,6 +39,7 @@ public class ManualEntryActivity extends AppCompatActivity {
         Intent intent = new Intent(this, MainActivityController.class);
         intent.putExtra(Globals.MEAL_TYPE, mealType);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        FrameLayout frameLayout = (FrameLayout) findViewById(R.id.containerManual);
         startActivity(intent);
     }
 }

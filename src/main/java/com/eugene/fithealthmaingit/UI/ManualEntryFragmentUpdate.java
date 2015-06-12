@@ -1,5 +1,6 @@
 package com.eugene.fithealthmaingit.UI;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -8,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
 import com.eugene.fithealthmaingit.Databases_Adapters_ListViews.FoodManual.LogAdapterManual;
@@ -39,6 +41,7 @@ public class ManualEntryFragmentUpdate extends Fragment {
     private String mealType;
     private String mealId;
     LogManual logManualUpdate;
+    Toolbar toolbar_manual;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -52,12 +55,13 @@ public class ManualEntryFragmentUpdate extends Fragment {
         LogAdapterManual logAdapterManual = new LogAdapterManual(getActivity(), 0, LogManual.logsById(mealId), mealType);
         logManualUpdate = logAdapterManual.getItem(0);
 
-        Toolbar toolbar_manual = (Toolbar) v.findViewById(R.id.toolbar_manual);
+        toolbar_manual = (Toolbar) v.findViewById(R.id.toolbar_manual);
         toolbar_manual.setTitle("Update Entry");
         toolbar_manual.setNavigationIcon(R.mipmap.ic_arrow_back);
         toolbar_manual.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                ((InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE)).hideSoftInputFromWindow(toolbar_manual.getWindowToken(), 0);
                 Intent intent = new Intent(getActivity(), ChooseAddMealActivity.class);
                 intent.putExtra(Globals.MEAL_TYPE, mealType);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -77,6 +81,7 @@ public class ManualEntryFragmentUpdate extends Fragment {
                     startActivity(intent);
                 }
                 if (menuItem == R.id.action_delete) {
+                    ((InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE)).hideSoftInputFromWindow(toolbar_manual.getWindowToken(), 0);
                     logManualUpdate.delete();
                     Intent intent = new Intent(getActivity(), ChooseAddMealActivity.class);
                     intent.putExtra(Globals.MEAL_TYPE, mealType);
@@ -123,6 +128,7 @@ public class ManualEntryFragmentUpdate extends Fragment {
     }
 
     private void SaveMeal() {
+        ((InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE)).hideSoftInputFromWindow(toolbar_manual.getWindowToken(), 0);
         // Strings
         String sServingName = servingName.getText().toString();
         if (sServingName.trim().equals("")) {

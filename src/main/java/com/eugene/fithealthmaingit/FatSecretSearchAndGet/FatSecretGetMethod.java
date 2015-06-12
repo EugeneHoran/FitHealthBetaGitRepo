@@ -23,34 +23,34 @@ import javax.crypto.spec.SecretKeySpec;
 
 public class FatSecretGetMethod {
 
-        public JSONObject getFood(Long ab) {
-            List<String> params = new ArrayList<>(Arrays.asList(generateOauthParams()));
-            String[] template = new String[1];
-            params.add("method=food.get");
-            params.add("food_id=" + ab);
-            params.add("oauth_signature=" + sign(Globals.APP_METHOD, Globals.APP_URL, params.toArray(template)));
-            JSONObject food = null;
-            try {
-                URL url = new URL(Globals.APP_URL + "?" + paramify(params.toArray(template)));
-                URLConnection api = url.openConnection();
-                String line;
-                StringBuilder builder = new StringBuilder();
-                BufferedReader reader = new BufferedReader(new InputStreamReader(api.getInputStream()));
-                while ((line = reader.readLine()) != null)
-                    builder.append(line);
-                JSONObject foodGet = new JSONObject(builder.toString());
-                food = foodGet.getJSONObject("food");
-            } catch (Exception e) {
-                Log.w("Fit", e.toString());
-                e.printStackTrace();
-            }
-            return food;
+    public JSONObject getFood(Long ab) {
+        List<String> params = new ArrayList<>(Arrays.asList(generateOauthParams()));
+        String[] template = new String[1];
+        params.add("method=food.get");
+        params.add("food_id=" + ab);
+        params.add("oauth_signature=" + sign(Globals.APP_METHOD, Globals.APP_URL, params.toArray(template)));
+        JSONObject food = null;
+        try {
+            URL url = new URL(Globals.APP_URL + "?" + paramify(params.toArray(template)));
+            URLConnection api = url.openConnection();
+            String line;
+            StringBuilder builder = new StringBuilder();
+            BufferedReader reader = new BufferedReader(new InputStreamReader(api.getInputStream()));
+            while ((line = reader.readLine()) != null)
+                builder.append(line);
+            JSONObject foodGet = new JSONObject(builder.toString());
+            food = foodGet.getJSONObject("food");
+        } catch (Exception e) {
+            Log.w("Fit", e.toString());
+            e.printStackTrace();
         }
+        return food;
+    }
 
-        private static String[] generateOauthParams() {
-            return new String[]{
-                "oauth_consumer_key=" + Globals.APP_KEY,
-                "oauth_signature_method=HMAC-SHA1",
+    private static String[] generateOauthParams() {
+        return new String[]{
+            "oauth_consumer_key=" + Globals.APP_KEY,
+            "oauth_signature_method=HMAC-SHA1",
             "oauth_timestamp=" +
                 Long.valueOf(System.currentTimeMillis() * 1000).toString(),
             "oauth_nonce=" + nonce(),

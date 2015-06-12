@@ -50,7 +50,8 @@
         <!-- Search Add Item View -->
         <activity
             android:name="com.eugene.fithealthmaingit.UI.ChooseAddMealActivity"
-            android:label="@string/app_name">
+            android:label="@string/app_name"
+            android:windowSoftInputMode="stateHidden">
         </activity>
         <!-- Add Search Item View -->
         <activity

@@ -96,6 +96,13 @@ public class LogMeal extends Model {
         return LogMeal.objects().filter(filter).toList();
     }
 
+    public static List<LogMeal> logSortByFavoriteMeal(String b, String meal) {
+        Filter filter = new Filter();
+        filter.is("mFavorite", b);
+        filter.contains("mealName", meal);
+        return LogMeal.objects().filter(filter).toList();
+    }
+
     public String getManualEntry() {
         return manualEntry.get();
     }

@@ -147,19 +147,9 @@ public class FragmentJournalMainHome extends Fragment implements
         return v;
     }
 
-    boolean isCollapsed = false;
-    private static String SET_MEAL_TYPE = "meal_type_add_item_on_panel_closed";
-
-
     @Override
     public void onPanelCollapsed(View view) {
         mSliderLayoutHelper.setVisibility(View.GONE);
-        if (isCollapsed) {
-            Intent i = new Intent(getActivity(), ChooseAddMealActivity.class);
-            i.putExtra(Globals.MEAL_TYPE, SET_MEAL_TYPE);
-            startActivity(i);
-            isCollapsed = false;
-        }
     }
 
     /**
@@ -167,6 +157,7 @@ public class FragmentJournalMainHome extends Fragment implements
      */
     @Override
     public void onClick(View v) {
+        Intent i = new Intent(getActivity(), ChooseAddMealActivity.class);
         switch (v.getId()) {
             //Sliding Panel
             case R.id.slide_helper:
@@ -174,23 +165,23 @@ public class FragmentJournalMainHome extends Fragment implements
                 break;
             case R.id.btnSnack:
                 mSlidingLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
-                isCollapsed = true;
-                SET_MEAL_TYPE = Globals.MEAL_TYPE_SNACK;
+                i.putExtra(Globals.MEAL_TYPE, Globals.MEAL_TYPE_SNACK);
+                startActivity(i);
                 break;
             case R.id.btnBreakfast:
                 mSlidingLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
-                isCollapsed = true;
-                SET_MEAL_TYPE = Globals.MEAL_TYPE_BREAKFAST;
+                i.putExtra(Globals.MEAL_TYPE, Globals.MEAL_TYPE_BREAKFAST);
+                startActivity(i);
                 break;
             case R.id.btnLunch:
                 mSlidingLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
-                isCollapsed = true;
-                SET_MEAL_TYPE = Globals.MEAL_TYPE_LUNCH;
+                i.putExtra(Globals.MEAL_TYPE, Globals.MEAL_TYPE_LUNCH);
+                startActivity(i);
                 break;
             case R.id.btnDinner:
                 mSlidingLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
-                isCollapsed = true;
-                SET_MEAL_TYPE = Globals.MEAL_TYPE_DINNER;
+                i.putExtra(Globals.MEAL_TYPE, Globals.MEAL_TYPE_DINNER);
+                startActivity(i);
                 break;
             case R.id.txtQuickAddSnack:
                 mCallbacks.quickAdd(Globals.MEAL_TYPE_SNACK);

@@ -10,7 +10,10 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -18,6 +21,8 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 
@@ -33,12 +38,15 @@ import com.eugene.fithealthmaingit.Utilities.Globals;
 
 
 public class ChooseAddMealTabsFragment extends Fragment {
-
+    private Toolbar mToolbar;
     private String mealType;
     private LogQuickSearchSimpleAdapter mRecentLogAdapter;
     private LogAdapterAll mLogAdapterFavorite;
     private LogAdapterManual mLogAdapterManual;
     private LinearLayout llNoRecentFav, llNoRecentManual, llNoRecentSearch;
+    private EditText manualSearch, favSearch;
+    private ImageView clearSearch, image_search_back, image_search_back_fav, clearSearchFav;
+    private CardView card_search_manual, card_search_fav;
     View v;
 
     @Override
@@ -53,7 +61,7 @@ public class ChooseAddMealTabsFragment extends Fragment {
             mealType = extras.getString(Globals.MEAL_TYPE);
         }
         ToolbarSetup();
-
+        ((InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE)).hideSoftInputFromWindow(mToolbar.getWindowToken(), 0);
         ChooseAddMealPagerAdapter myPagerAdapterAdd = new ChooseAddMealPagerAdapter();
         ViewPager mViewPager = (ViewPager) v.findViewById(R.id.pager);
         TabLayout tabs = (TabLayout) v.findViewById(R.id.tabs);
@@ -61,14 +69,112 @@ public class ChooseAddMealTabsFragment extends Fragment {
         mViewPager.setAdapter(myPagerAdapterAdd);
         mViewPager.setOffscreenPageLimit(2);
         tabs.setupWithViewPager(mViewPager);
-
+        card_search_manual = (CardView) v.findViewById(R.id.card_search_manual);
+        card_search_fav = (CardView) v.findViewById(R.id.card_search_fav);
         setListAdapters();
         updateListView();
+        searchManualEntry();
+        searchFav();
         return v;
     }
 
+    private void searchManualEntry() {
+        manualSearch = (EditText) v.findViewById(R.id.manualSearch);
+        clearSearch = (ImageView) v.findViewById(R.id.clearSearch);
+        image_search_back = (ImageView) v.findViewById(R.id.image_search_back);
+        manualSearch.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (manualSearch.getText().toString().trim().length() == 0) {
+                    clearSearch.setImageResource(R.mipmap.ic_keyboard_voice);
+                    mLogAdapterManual = new LogAdapterManual(getActivity(), 0, LogManual.all(), mealType);
+                    listViewManual.setAdapter(mLogAdapterManual);
+                    image_search_back.setImageResource(R.mipmap.ic_search);
+                } else {
+                    clearSearch.setImageResource(R.mipmap.ic_clear);
+                    mLogAdapterManual = new LogAdapterManual(getActivity(), 0, LogManual.logsMealName(manualSearch.getText().toString()), mealType);
+                    listViewManual.setAdapter(mLogAdapterManual);
+                    image_search_back.setImageResource(R.mipmap.ic_arrow_back);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
+        });
+        clearSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (manualSearch.getText().toString().trim().length() != 0) {
+                    manualSearch.setText("");
+                }
+            }
+        });
+        image_search_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (manualSearch.getText().toString().length() != 0) {
+                    manualSearch.setText("");
+                    ((InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE)).hideSoftInputFromWindow(manualSearch.getWindowToken(), 0);
+                }
+            }
+        });
+    }
+
+    private void searchFav() {
+        favSearch = (EditText) v.findViewById(R.id.favSearch);
+        image_search_back_fav = (ImageView) v.findViewById(R.id.image_search_back_fav);
+        clearSearchFav = (ImageView) v.findViewById(R.id.clearSearchFav);
+        favSearch.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (favSearch.getText().toString().trim().length() == 0) {
+                    clearSearchFav.setImageResource(R.mipmap.ic_keyboard_voice);
+                    mLogAdapterFavorite = new LogAdapterAll(getActivity(), 0, LogMeal.logSortByFavorite("favorite"));
+                    mListFavorites.setAdapter(mLogAdapterFavorite);
+                    image_search_back_fav.setImageResource(R.mipmap.ic_search);
+                } else {
+                    clearSearchFav.setImageResource(R.mipmap.ic_clear);
+                    mLogAdapterFavorite = new LogAdapterAll(getActivity(), 0, LogMeal.logSortByFavoriteMeal("favorite", favSearch.getText().toString()));
+                    mListFavorites.setAdapter(mLogAdapterFavorite);
+                    image_search_back_fav.setImageResource(R.mipmap.ic_arrow_back);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
+        });
+        clearSearchFav.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (favSearch.getText().toString().trim().length() != 0) {
+                    favSearch.setText("");
+                }
+            }
+        });
+        image_search_back_fav.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (favSearch.getText().toString().trim().length() != 0) {
+                    favSearch.setText("");
+                    favSearch.clearFocus();
+                    ((InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE)).hideSoftInputFromWindow(favSearch.getWindowToken(), 0);
+                }
+            }
+        });
+    }
+
     private void ToolbarSetup() {
-        Toolbar mToolbar = (Toolbar) v.findViewById(R.id.toolbar_search_main);
+        mToolbar = (Toolbar) v.findViewById(R.id.toolbar_search_main);
         ((InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE)).hideSoftInputFromWindow(mToolbar.getWindowToken(), 0);
         mToolbar.setNavigationIcon(R.mipmap.ic_arrow_back);
         mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -94,11 +200,14 @@ public class ChooseAddMealTabsFragment extends Fragment {
         mToolbar.inflateMenu(R.menu.menu_search_add);
     }
 
+    ListView mListRecentSearches;
+    ListView mListFavorites;
+    ListView listViewManual;
 
     private void setListAdapters() {
-        ListView mListRecentSearches = (ListView) v.findViewById(R.id.listRecentSearches);
-        ListView mListFavorites = (ListView) v.findViewById(R.id.listFavorites);
-        ListView listViewManual = (ListView) v.findViewById(R.id.listViewManual);
+        mListRecentSearches = (ListView) v.findViewById(R.id.listRecentSearches);
+        mListFavorites = (ListView) v.findViewById(R.id.listFavorites);
+        listViewManual = (ListView) v.findViewById(R.id.listViewManual);
 
         llNoRecentFav = (LinearLayout) v.findViewById(R.id.llNoRecentFav);
         llNoRecentManual = (LinearLayout) v.findViewById(R.id.llNoRecentManual);
@@ -145,19 +254,26 @@ public class ChooseAddMealTabsFragment extends Fragment {
     }
 
     private void updateListView() {
-        if (mRecentLogAdapter.getCount() != 0) // Check for any recent Logs
+        if (mRecentLogAdapter.getCount() != 0) {
             llNoRecentSearch.setVisibility(View.GONE);
-        else
+        } else {
             llNoRecentSearch.setVisibility(View.VISIBLE);
+        }
 
-        if (mLogAdapterFavorite.getCount() != 0)// Check for any favorite Logs
+        if (mLogAdapterFavorite.getCount() != 0) {
             llNoRecentFav.setVisibility(View.GONE);
-        else
+            card_search_fav.setVisibility(View.VISIBLE);
+        } else {
             llNoRecentFav.setVisibility(View.VISIBLE);
+            card_search_fav.setVisibility(View.GONE);
+        }
+
         if (mLogAdapterManual.getCount() == 0) {
             llNoRecentManual.setVisibility(View.VISIBLE);
+            card_search_manual.setVisibility(View.GONE);
         } else {
             llNoRecentManual.setVisibility(View.GONE);
+            card_search_manual.setVisibility(View.VISIBLE);
         }
     }
 

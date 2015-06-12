@@ -315,11 +315,9 @@ public class LogManual extends Model {
         return LogManual.objects().filter(filter).orderBy("date").toList();
     }
 
-    public static List<LogManual> logsByDateSAndMealType(Date date, String mealType) {
-        String query_string = formatDateForQuery(date);
+    public static List<LogManual> logsMealName(String mealType) {
         Filter filter = new Filter();
-        filter.contains("date", query_string);
-        filter.contains("mealChoice", mealType);
+        filter.contains("mealName", mealType);
         return LogManual.objects().filter(filter).toList();
     }
 
