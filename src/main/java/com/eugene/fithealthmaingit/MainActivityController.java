@@ -1,3 +1,19 @@
+/*
+ * Copyright (C) 2013 The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package com.eugene.fithealthmaingit;
 
 import android.content.Intent;
@@ -25,6 +41,9 @@ import com.eugene.fithealthmaingit.Utilities.Globals;
 
 import java.util.Date;
 
+/**
+ * Activity that controls the fragments within the Navigation Drawer.
+ */
 public class MainActivityController extends AppCompatActivity implements
     FragmentNavigationDrawer.NavigationDrawerCallbacks,
     FragmentJournalMainHome.FragmentCallbacks,
@@ -32,8 +51,11 @@ public class MainActivityController extends AppCompatActivity implements
     FragmentHealth.FragmentCallbacks,
     FragmentWeight.FragmentCallbacks,
     UpdateWeightDialogFragment.FragmentCallbacks {
+
     private DrawerLayout mNavigationDrawer;
     private Fragment fragment;
+
+    // Determines whether or not to load fragment after nav drawer if closed.
     private static final String FIRST_FRAGMENT_ADDED = "is_first_fragment_added";
     private boolean isFirstFragmentAdded = false;
 
@@ -44,6 +66,10 @@ public class MainActivityController extends AppCompatActivity implements
         mNavigationDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);
     }
 
+    /**
+     * Saves whether the first fragment was added
+     * Helper for Navigation Drawer controls
+     */
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
         super.onSaveInstanceState(savedInstanceState);
@@ -56,9 +82,15 @@ public class MainActivityController extends AppCompatActivity implements
         isFirstFragmentAdded = savedInstanceState.getBoolean(FIRST_FRAGMENT_ADDED);
     }
 
+    /**
+     * Interface From FragmentNavigationDrawer
+     * Handles navigation drawer click events
+     *
+     * @param position position of the list item clicked
+     */
     @Override
     public void onNavigationDrawerItemSelected(int position) {
-        HandleNavOpenClose();
+        handleNavigationDrawer();
         switch (position) {
             case 0:
                 fragment = new FragmentJournalMainHome();
@@ -111,13 +143,21 @@ public class MainActivityController extends AppCompatActivity implements
             });
     }
 
+    /**
+     * Interface within all of the fragments controlled by MainActivityController
+     * Menu icon click within the fragments toolbar
+     * Opens navigation drawer
+     */
     @Override
-    public void openUserInformationActivity() {
-        HandleNavOpenClose();
-        startActivity(new Intent(this, UserInformationActivity.class));
+    public void openNavigationDrawer() {
+        handleNavigationDrawer();
     }
 
-    private void HandleNavOpenClose() {
+    /**
+     * Used to handle the closing and opening of the Navigation Drawer.
+     * Prevent repetitive statements
+     */
+    private void handleNavigationDrawer() {
         if (mNavigationDrawer != null) {
             if (mNavigationDrawer.isDrawerOpen(GravityCompat.START)) {
                 mNavigationDrawer.closeDrawer(GravityCompat.START);
@@ -127,19 +167,41 @@ public class MainActivityController extends AppCompatActivity implements
         }
     }
 
+    /**
+     * Interface within FragmentNavigationDrawer
+     * Opens UserInformationActivity activity
+     * TODO: Currently settings in the drawer, but need to be updated
+     */
     @Override
-    public void openNavigationDrawer() {
-        HandleNavOpenClose();
+    public void openUserInformationActivity() {
+        handleNavigationDrawer();
+        startActivity(new Intent(this, UserInformationActivity.class));
     }
 
+    /**
+     * Interface within FragmentJournalMainHome
+     * Opens Quick add activity
+     *
+     * @param mealType (snack, breakfast, lunch, dinner)
+     */
     @Override
-    public void quickAdd(String mealType) {
+    public void openQuickAdd(String mealType) {
         Intent i = new Intent(this, QuickAddActivity.class);
         i.putExtra(Globals.MEAL_TYPE, mealType);
         startActivity(i);
         overridePendingTransition(0, 0);
     }
 
+    /**
+     * Interface within FragmentJournalMainHome
+     * Opens MealViewActivity
+     * List onItemClickListener
+     *
+     * @param mId      selected meal Id
+     * @param MealType (snack, breakfast, lunch, dinner)
+     * @param position current item selected position
+     * @param d        date the item was added
+     */
     @Override
     public void viewMeal(int mId, String MealType, int position, Date d) {
         Intent i = new Intent(this, MealViewActivity.class);
@@ -151,22 +213,38 @@ public class MainActivityController extends AppCompatActivity implements
         overridePendingTransition(0, 0);
     }
 
+    /**
+     * Interface within FragmentJournalMainHome
+     * Open suggestion FragmentSuggestionDialog
+     *
+     * @param mealType (snack, breakfast, lunch, dinner)
+     * @param d        current date of the fragment
+     */
     @Override
-    public void viewSuggestion(String s, Date d) {
+    public void viewSuggestion(String mealType, Date d) {
         FragmentManager fm = getSupportFragmentManager();
         FragmentSuggestionDialog suggestionFragment = new FragmentSuggestionDialog();
         Bundle bundle = new Bundle();
-        bundle.putString(Globals.MEAL_TYPE, s);
+        bundle.putString(Globals.MEAL_TYPE, mealType);
         bundle.putSerializable(Globals.SUGGESTION_DATE, d);
         suggestionFragment.setArguments(bundle);
         suggestionFragment.show(fm, FragmentSuggestionDialog.TAG);
     }
 
+    /**
+     * Interface within FragmentJournalMainHome
+     * Opens FragmentSearch
+     * Search icon menu Item click, quick search to speed up adding meal entries
+     */
     @Override
     public void searchFragment() {
         getSupportFragmentManager().beginTransaction().replace(R.id.containerSearch, new FragmentSearch()).addToBackStack(null).commit();
     }
 
+    /**
+     * Interface within UpdateWeightDialogFragment
+     * Restarts FragmentWeight to refresh the new new weight saved
+     */
     @Override
     public void updateWeight() {
         getSupportFragmentManager().beginTransaction().replace(R.id.container, new FragmentWeight()).commit();

@@ -80,4 +80,11 @@ public class DateCompare {
             && cal1.get(Calendar.DAY_OF_YEAR) + 1 == cal2
             .get(Calendar.DAY_OF_YEAR);
     }
+
+    public static Calendar DateToCalendar(Date date) {
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(date);
+        return cal;
+    }
+
 }

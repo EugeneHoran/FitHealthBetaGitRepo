@@ -10,7 +10,7 @@
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar_search_main"
         android:layout_width="match_parent"
-        android:layout_height="48dp"
+        android:layout_height="0dp"
         android:background="@color/accent"
         app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"/>
 
@@ -266,6 +266,50 @@
                     android:tint="@color/primary"/>
             </LinearLayout>
 
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/recipes"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <Button
+                android:id="@+id/btnRecipe"
+                android:layout_width="wrap_content"
+                android:layout_height="36dp"
+                android:layout_alignParentRight="true"
+                android:layout_margin="16dp"
+                android:background="@drawable/button_flat_primary"
+                android:text="Add Recipe"
+                android:textColor="#fff"/>
+
+            <ListView
+                android:id="@+id/listRecipes"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/btnRecipe"/>
+
+            <LinearLayout
+                android:id="@+id/llNoRecipes"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical|center_horizontal"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp"
+                    android:gravity="center_vertical"
+                    android:paddingRight="12dp"
+                    android:text="No Recipes Created"
+                    android:textSize="16sp"/>
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@mipmap/ic_list_white"
+                    android:tint="@color/primary"/>
+            </LinearLayout>
         </RelativeLayout>
     </android.support.v4.view.ViewPager>
 

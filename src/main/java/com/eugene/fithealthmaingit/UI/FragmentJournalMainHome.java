@@ -1,3 +1,19 @@
+/*
+ * Copyright (C) 2013 The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package com.eugene.fithealthmaingit.UI;
 
 import android.app.Activity;
@@ -61,6 +77,11 @@ import java.util.Date;
 import github.chenupt.dragtoplayout.AttachUtil;
 import github.chenupt.dragtoplayout.DragTopLayout;
 
+/**
+ * Main journal that displays:
+ * list of item that are added
+ * nutrition information
+ */
 public class FragmentJournalMainHome extends Fragment implements
     View.OnClickListener,
     SlidingUpPanelLayout.PanelSlideListener,
@@ -74,13 +95,11 @@ public class FragmentJournalMainHome extends Fragment implements
     private DecimalFormat df = new DecimalFormat("0");
 
     private int slide_down_padding = 0;
+
+    private Toolbar mToolbar;
     private LinearLayout mCaloriePullDownView, pullDownItems;
-    // Sliding Panel Layout
     private SlidingUpPanelLayout mSlidingLayout;
     private RelativeLayout mSliderLayoutHelper;
-    /**
-     * Adapters And ListView
-     */
     private LogAdapterSnack mLogSnackAdapter;
     private LogAdapterBreakfast mLogBreakfastAdapter;
     private LogAdapterLunch mLogLunchAdapter;
@@ -92,7 +111,12 @@ public class FragmentJournalMainHome extends Fragment implements
     private TextView mFatRemainder, mCarbRemainder, mProteinRemainder;
     private TextView mCalSnack, mCalBreakfast, mCalLunch, mCalDinner;
     private ImageView icSnack, icBreakfast, icLunch, icDinner;
+    private int mYear, mMonth, mDay;
+    private double mCalorieGoalMeal;
 
+    /**
+     * Get the saved date before the views are created/updated
+     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -106,152 +130,32 @@ public class FragmentJournalMainHome extends Fragment implements
         outState.putSerializable(Globals.JOURNAL_DATE, mDate);
     }
 
-    FloatingActionButton mFab;
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         v = inflater.inflate(R.layout.fragment_journal_main_home, container, false);
+
+        // Initiate PreferenceManager to get user saved information
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
-        InitializeToolbar();
-        InitializeSlidingPanelLayout();
-        InitializeDragTopLayout();
-        v.findViewById(R.id.txtQuickAddSnack).setOnClickListener(this);
-        v.findViewById(R.id.txtQuickAddBreakfast).setOnClickListener(this);
-        v.findViewById(R.id.txtQuickAddLunch).setOnClickListener(this);
-        v.findViewById(R.id.txtQuickAddDinner).setOnClickListener(this);
-        v.findViewById(R.id.suggestion).setOnClickListener(this);
-        v.findViewById(R.id.suggestion1).setOnClickListener(this);
-        v.findViewById(R.id.suggestion2).setOnClickListener(this);
-        v.findViewById(R.id.suggestion3).setOnClickListener(this);
-        v.findViewById(R.id.snackInfo).setOnClickListener(this);
-        v.findViewById(R.id.breakfastInfo).setOnClickListener(this);
-        v.findViewById(R.id.lunchInfo).setOnClickListener(this);
-        v.findViewById(R.id.dinnerInfo).setOnClickListener(this);
-        InitializeAdapters();
-        initializeAdapters(mDate);
-        updateListViews();
-        handleDateChanges(mDate);
-        mFab = (FloatingActionButton) v.findViewById(R.id.fab);
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
-            RelativeLayout.LayoutParams p = (RelativeLayout.LayoutParams) mFab.getLayoutParams();
-            p.setMargins(0, 0, 0, 0); // get rid of margins since shadow area is now the margin
-            mFab.setLayoutParams(p);
-        }
-        mFab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mSlidingLayout.setPanelState(SlidingUpPanelLayout.PanelState.EXPANDED);
-            }
-        });
-
-        return v;
-    }
-
-    @Override
-    public void onPanelCollapsed(View view) {
-        mSliderLayoutHelper.setVisibility(View.GONE);
-    }
-
-    /**
-     * OnClickListeners
-     */
-    @Override
-    public void onClick(View v) {
-        Intent i = new Intent(getActivity(), ChooseAddMealActivity.class);
-        switch (v.getId()) {
-            //Sliding Panel
-            case R.id.slide_helper:
-                mSlidingLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
-                break;
-            case R.id.btnSnack:
-                mSlidingLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
-                i.putExtra(Globals.MEAL_TYPE, Globals.MEAL_TYPE_SNACK);
-                startActivity(i);
-                break;
-            case R.id.btnBreakfast:
-                mSlidingLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
-                i.putExtra(Globals.MEAL_TYPE, Globals.MEAL_TYPE_BREAKFAST);
-                startActivity(i);
-                break;
-            case R.id.btnLunch:
-                mSlidingLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
-                i.putExtra(Globals.MEAL_TYPE, Globals.MEAL_TYPE_LUNCH);
-                startActivity(i);
-                break;
-            case R.id.btnDinner:
-                mSlidingLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
-                i.putExtra(Globals.MEAL_TYPE, Globals.MEAL_TYPE_DINNER);
-                startActivity(i);
-                break;
-            case R.id.txtQuickAddSnack:
-                mCallbacks.quickAdd(Globals.MEAL_TYPE_SNACK);
-                break;
-            case R.id.txtQuickAddBreakfast:
-                mCallbacks.quickAdd(Globals.MEAL_TYPE_BREAKFAST);
-                break;
-            case R.id.txtQuickAddLunch:
-                mCallbacks.quickAdd(Globals.MEAL_TYPE_LUNCH);
-                break;
-            case R.id.txtQuickAddDinner:
-                mCallbacks.quickAdd(Globals.MEAL_TYPE_DINNER);
-                break;
-            //Suggestion
-            case R.id.suggestion:
-                mCallbacks.viewSuggestion("Snack", mDate);
-                break;
-            case R.id.suggestion1:
-                mCallbacks.viewSuggestion("Breakfast", mDate);
-                break;
-            case R.id.suggestion2:
-                mCallbacks.viewSuggestion("Lunch", mDate);
-                break;
-            case R.id.suggestion3:
-                mCallbacks.viewSuggestion("Dinner", mDate);
-                break;
-
-            // Calorie Goal Dialog
-            case R.id.snackInfo:
-                calorieInfoDialog(Globals.MEAL_TYPE_SNACK);
-                break;
-            case R.id.breakfastInfo:
-                calorieInfoDialog(Globals.MEAL_TYPE_BREAKFAST);
-                break;
-            case R.id.lunchInfo:
-                calorieInfoDialog(Globals.MEAL_TYPE_LUNCH);
-                break;
-            case R.id.dinnerInfo:
-                calorieInfoDialog(Globals.MEAL_TYPE_DINNER);
-                break;
-            default:
-                break;
-        }
-    }
-
-    int mYear, mMonth, mDay;
-
-    public static Calendar DateToCalendar(Date date) {
-        Calendar cal = Calendar.getInstance();
-        cal.setTime(date);
-        return cal;
-    }
-
-    Toolbar mToolbar;
-
-    private void InitializeToolbar() {
-        final Calendar c = DateToCalendar(mDate);
+        /**
+         * Convert Date To Calendar
+         */
+        final Calendar c = DateCompare.DateToCalendar(mDate);
         mYear = c.get(Calendar.YEAR);
         mMonth = c.get(Calendar.MONTH);
         mDay = c.get(Calendar.DAY_OF_MONTH);
+        /**
+         * Originally tried to set two different fonts for toolbar title
+         * Fit = Roboto-Light
+         * Journal = Roboto-Bold
+         * TODO: remove this statement and just update the Toolbar Title to custom font
+         */
         SpannableString s = new SpannableString("Fit Journal");
         s.setSpan(new TypefaceSpan("Roboto-Thin.ttf"), 0, s.length(),
             Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-
-// Update the action bar title with the TypefaceSpan instance
-
+        // Initiate Toolbar components
         mToolbar = (Toolbar) v.findViewById(R.id.toolbar_journal_main);
         mToolbar.inflateMenu(R.menu.menu_main_journal);
         mToolbar.setTitle(s);
-        mToolbar.setSubtitle("Today");
         mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -263,9 +167,11 @@ public class FragmentJournalMainHome extends Fragment implements
             public boolean onMenuItemClick(MenuItem item) {
                 int menuItem = item.getItemId();
                 switch (menuItem) {
+                    // Initiate Search Fragment
                     case R.id.action_search:
                         mCallbacks.searchFragment();
                         break;
+                    // Change Date
                     case R.id.action_date:
                         DatePickerDialog dpd = new DatePickerDialog(getActivity(),
                             new DatePickerDialog.OnDateSetListener() {
@@ -292,22 +198,25 @@ public class FragmentJournalMainHome extends Fragment implements
                 return false;
             }
         });
+        // Bottom sheet that displays meals
+        InitializeSlidingPanelLayout();
+        // PullDown view that displays nutrition information
+        InitializeDragTopLayout();
+        // Set onClickLister
+        v.findViewById(R.id.txtQuickAddSnack).setOnClickListener(this);
+        v.findViewById(R.id.txtQuickAddBreakfast).setOnClickListener(this);
+        v.findViewById(R.id.txtQuickAddLunch).setOnClickListener(this);
+        v.findViewById(R.id.txtQuickAddDinner).setOnClickListener(this);
+        v.findViewById(R.id.suggestion).setOnClickListener(this);
+        v.findViewById(R.id.suggestion1).setOnClickListener(this);
+        v.findViewById(R.id.suggestion2).setOnClickListener(this);
+        v.findViewById(R.id.suggestion3).setOnClickListener(this);
+        v.findViewById(R.id.snackInfo).setOnClickListener(this);
+        v.findViewById(R.id.breakfastInfo).setOnClickListener(this);
+        v.findViewById(R.id.lunchInfo).setOnClickListener(this);
+        v.findViewById(R.id.dinnerInfo).setOnClickListener(this);
 
-    }
-
-    private void handleDateChanges(Date date) {
-        if (DateCompare.areDatesEqual(new Date(), date)) { // Are Dates Equal Today
-            mToolbar.setSubtitle("Today");
-        } else if (DateCompare.areDatesEqualYesterday(new Date(), date)) {  // Are Dates Equal Yesterday
-            mToolbar.setSubtitle("Yesterday");
-        } else if (DateCompare.areDatesEqualTomorrow(new Date(), date)) {  // Are Dates Equal Yesterday
-            mToolbar.setSubtitle("Tomorrow");
-        } else {
-            mToolbar.setSubtitle(DateFormat.format("MMM d, EE", date));
-        }
-    }
-
-    private void InitializeAdapters() {
+        // initialize lists for context menu and onItemClickListeners
         mListSnack = (ListView) v.findViewById(R.id.listSnack);
         mListBreakfast = (ListView) v.findViewById(R.id.listBreakfast);
         mListLunch = (ListView) v.findViewById(R.id.listLunch);
@@ -345,16 +254,15 @@ public class FragmentJournalMainHome extends Fragment implements
             }
         });
 
+        // Nutrition Widgets
         mCalSnack = (TextView) v.findViewById(R.id.calSnack);
         mCalBreakfast = (TextView) v.findViewById(R.id.calBreakfast);
         mCalLunch = (TextView) v.findViewById(R.id.calLunch);
         mCalDinner = (TextView) v.findViewById(R.id.calDinner);
-
         mNoSnacks = (TextView) v.findViewById(R.id.txtItemSnack);
         mNoBreakfast = (TextView) v.findViewById(R.id.txtItemBreakfast);
         mNoLunch = (TextView) v.findViewById(R.id.txtItemLunch);
         mNoDinner = (TextView) v.findViewById(R.id.txtItemDinner);
-
         mPbCalories = (ProgressBar) v.findViewById(R.id.pbCal);
         mPbFat = (ProgressBar) v.findViewById(R.id.pbFat);
         mPbCarbs = (ProgressBar) v.findViewById(R.id.pbCarbs);
@@ -362,15 +270,131 @@ public class FragmentJournalMainHome extends Fragment implements
         mFatRemainder = (TextView) v.findViewById(R.id.txtRemainderFat);
         mCarbRemainder = (TextView) v.findViewById(R.id.txtRemainderCarbs);
         mProteinRemainder = (TextView) v.findViewById(R.id.txtRemainderProtein);
-
         icSnack = (ImageView) v.findViewById(R.id.icSnack);
         icBreakfast = (ImageView) v.findViewById(R.id.icBreakfast);
         icLunch = (ImageView) v.findViewById(R.id.icLunch);
         icDinner = (ImageView) v.findViewById(R.id.icDinner);
+        // Set Adapters based on Current date or updated date
+        initializeAdapters(mDate);
+        // Checks adapters if they are empty and notifies the user
+        updateListViews();
+        // Set toolbar subtitle to the current date or updated date
+        handleDateChanges(mDate);
+        /**
+         * Design Support Library
+         * Due to the error within the library: set margin manually till it is updated
+         */
+        FloatingActionButton mFab = (FloatingActionButton) v.findViewById(R.id.fab);
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+            RelativeLayout.LayoutParams p = (RelativeLayout.LayoutParams) mFab.getLayoutParams();
+            p.setMargins(0, 0, 0, 0); // get rid of margins since shadow area is now the margin
+            mFab.setLayoutParams(p);
+        }
+        mFab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mSlidingLayout.setPanelState(SlidingUpPanelLayout.PanelState.EXPANDED);
+            }
+        });
+        return v;
+    }
 
+    @Override
+    public void onClick(View v) {
+        Intent i = new Intent(getActivity(), ChooseAddMealActivity.class);
+        switch (v.getId()) {
+            //Sliding Panel
+            case R.id.slide_helper:
+                mSlidingLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
+                break;
+            case R.id.btnSnack:
+                mSlidingLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
+                i.putExtra(Globals.MEAL_TYPE, Globals.MEAL_TYPE_SNACK);
+                startActivity(i);
+                break;
+            case R.id.btnBreakfast:
+                mSlidingLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
+                i.putExtra(Globals.MEAL_TYPE, Globals.MEAL_TYPE_BREAKFAST);
+                startActivity(i);
+                break;
+            case R.id.btnLunch:
+                mSlidingLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
+                i.putExtra(Globals.MEAL_TYPE, Globals.MEAL_TYPE_LUNCH);
+                startActivity(i);
+                break;
+            case R.id.btnDinner:
+                mSlidingLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
+                i.putExtra(Globals.MEAL_TYPE, Globals.MEAL_TYPE_DINNER);
+                startActivity(i);
+                break;
+            case R.id.txtQuickAddSnack:
+                mCallbacks.openQuickAdd(Globals.MEAL_TYPE_SNACK);
+                break;
+            case R.id.txtQuickAddBreakfast:
+                mCallbacks.openQuickAdd(Globals.MEAL_TYPE_BREAKFAST);
+                break;
+            case R.id.txtQuickAddLunch:
+                mCallbacks.openQuickAdd(Globals.MEAL_TYPE_LUNCH);
+                break;
+            case R.id.txtQuickAddDinner:
+                mCallbacks.openQuickAdd(Globals.MEAL_TYPE_DINNER);
+                break;
+            //Suggestion
+            case R.id.suggestion:
+                mCallbacks.viewSuggestion("Snack", mDate);
+                break;
+            case R.id.suggestion1:
+                mCallbacks.viewSuggestion("Breakfast", mDate);
+                break;
+            case R.id.suggestion2:
+                mCallbacks.viewSuggestion("Lunch", mDate);
+                break;
+            case R.id.suggestion3:
+                mCallbacks.viewSuggestion("Dinner", mDate);
+                break;
+
+            // Calorie Goal Dialog
+            case R.id.snackInfo:
+                calorieInfoDialog(Globals.MEAL_TYPE_SNACK);
+                break;
+            case R.id.breakfastInfo:
+                calorieInfoDialog(Globals.MEAL_TYPE_BREAKFAST);
+                break;
+            case R.id.lunchInfo:
+                calorieInfoDialog(Globals.MEAL_TYPE_LUNCH);
+                break;
+            case R.id.dinnerInfo:
+                calorieInfoDialog(Globals.MEAL_TYPE_DINNER);
+                break;
+            default:
+                break;
+        }
     }
 
 
+    /**
+     * Updated toobar subtitle to the date
+     *
+     * @param date current date or updated date
+     */
+    private void handleDateChanges(Date date) {
+        if (DateCompare.areDatesEqual(new Date(), date)) { // Are Dates Equal Today
+            mToolbar.setSubtitle("Today");
+        } else if (DateCompare.areDatesEqualYesterday(new Date(), date)) {  // Are Dates Equal Yesterday
+            mToolbar.setSubtitle("Yesterday");
+        } else if (DateCompare.areDatesEqualTomorrow(new Date(), date)) {  // Are Dates Equal Yesterday
+            mToolbar.setSubtitle("Tomorrow");
+        } else {
+            mToolbar.setSubtitle(DateFormat.format("MMM d, EE", date));
+        }
+    }
+
+    /**
+     * Set Adapters based on Current Date or Updated Date
+     * Set List Adapters
+     *
+     * @param date current date or updated date
+     */
     private void initializeAdapters(Date date) {
         mLogSnackAdapter = new LogAdapterSnack(getActivity(), 0, LogMeal.logSortByMealChoice("Snack", date));
         mListSnack.setAdapter(mLogSnackAdapter);
@@ -391,6 +415,10 @@ public class FragmentJournalMainHome extends Fragment implements
         mLogAdapterAll = new LogAdapterAll(getActivity(), 0, LogMeal.logsByDate(date));
     }
 
+    /**
+     * Checks adapters sizes and
+     * notifies user no items have been saved/added
+     */
     private void updateListViews() {
         if (mLogSnackAdapter.getCount() > 0)
             mNoSnacks.setVisibility(View.GONE);
@@ -423,6 +451,9 @@ public class FragmentJournalMainHome extends Fragment implements
         myHandler.postDelayed(mMyRunnable, 10);
     }
 
+    /**
+     * Refreshed Adapters and ListVies after an Items has been deleted
+     */
     private void refreshOnDelete() {
         mListSnack.setAdapter(mLogSnackAdapter);
         SetSnackListHeight.setListViewHeight(mListSnack);
@@ -435,8 +466,9 @@ public class FragmentJournalMainHome extends Fragment implements
         updateListViews();
     }
 
-    double mCalorieGoalMeal;
-
+    /**
+     * Equation for all of the Nutrition and Meal information
+     */
     private void equations() {
         double mCalorieGoal = Double.valueOf(sharedPreferences.getString(Globals.USER_CALORIES_TO_REACH_GOAL, ""));
         double mFatGoal = Double.valueOf(sharedPreferences.getString(Globals.USER_DAILY_FAT, ""));
@@ -555,7 +587,9 @@ public class FragmentJournalMainHome extends Fragment implements
     }
 
     /**
+     * Bottom Sheet Initiation
      * Sliding Panel Layout
+     * After Fab clicked, displays which meal type you would like to add (snack, breakfast, lunch, dinner)
      */
     private void InitializeSlidingPanelLayout() {
         mSlidingLayout = (SlidingUpPanelLayout) v.findViewById(R.id.sliding_layout);
@@ -568,12 +602,17 @@ public class FragmentJournalMainHome extends Fragment implements
         v.findViewById(R.id.btnDinner).setOnClickListener(this);
     }
 
+    // Helper to prevent views below sheet from being clicked
     @Override
     public void onPanelSlide(View view, float v) {
         mSliderLayoutHelper.setVisibility(View.VISIBLE);
         mSliderLayoutHelper.setAlpha(v);
     }
 
+    @Override
+    public void onPanelCollapsed(View view) {
+        mSliderLayoutHelper.setVisibility(View.GONE);
+    }
 
     @Override
     public void onPanelExpanded(View view) {
@@ -591,7 +630,9 @@ public class FragmentJournalMainHome extends Fragment implements
     }
 
     /**
-     * DragTopLayout
+     * DragTopLayout displays the nutrition information
+     * Attached to ScrollView
+     * When the scrollView y coordinates equal 0, the pull down is enabled
      */
 
     private void InitializeDragTopLayout() {
@@ -623,6 +664,7 @@ public class FragmentJournalMainHome extends Fragment implements
         v3.setPadding(slide_down_padding, 0, slide_down_padding, 0);
     }
 
+    // Animation of views
     @Override
     public void onSliding(float v) {
         int padding = Integer.valueOf(df.format(this.slide_down_padding * v));
@@ -643,16 +685,15 @@ public class FragmentJournalMainHome extends Fragment implements
 
     @Override
     public void onPanelStateChanged(DragTopLayout.PanelState panelState) {
-
     }
 
     @Override
     public void onRefresh() {
-
     }
 
     /**
-     * Context Menu
+     * Context Menu Initiation
+     * Move Meal or Delete Meal
      */
     private int contextListChoice;
     private int contextListPosition;
@@ -834,11 +875,10 @@ public class FragmentJournalMainHome extends Fragment implements
      */
     private FragmentCallbacks mCallbacks;
 
-
     public interface FragmentCallbacks {
         void openNavigationDrawer();
 
-        void quickAdd(String mealType);
+        void openQuickAdd(String mealType);
 
         void viewMeal(int mId, String MealType, int position, Date d);
 

@@ -1,27 +1,53 @@
+/*
+ * Copyright (C) 2013 The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package com.eugene.fithealthmaingit.UI;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.CardView;
 import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.eugene.fithealthmaingit.Databases_Adapters_ListViews.LogFood.LogAdapterPager;
-import com.eugene.fithealthmaingit.Databases_Adapters_ListViews.LogFood.LogAdapterPrevention;
 import com.eugene.fithealthmaingit.Databases_Adapters_ListViews.LogFood.LogMeal;
+import com.eugene.fithealthmaingit.Databases_Adapters_ListViews.LogRecipes.LogRecipeItemsAdapter;
 import com.eugene.fithealthmaingit.R;
 import com.eugene.fithealthmaingit.Utilities.Globals;
 
 import java.text.DecimalFormat;
 import java.util.Date;
 
+/**
+ * Fragment based on Meal Type
+ * newInstance based on meals Id
+ */
 public class MealViewFragment extends Fragment {
-    DecimalFormat dfW = new DecimalFormat("0");
+    private DecimalFormat dfW = new DecimalFormat("0");
+    double mCalorieProgress = 0;
+    double mFatProgress = 0;
+    double mCarbProgress = 0;
+    double mProteinProgress = 0;
 
     public static MealViewFragment newInstance(int mId) {
         Bundle args = new Bundle();
@@ -33,30 +59,35 @@ public class MealViewFragment extends Fragment {
 
     private View v;
     private DecimalFormat df = new DecimalFormat("0");
-    private LogMeal mLogMeal;
 
     /**
      * mLogMealAdapter : filtering the database based on mId.
      * Since id's are unique the adapter will only return on item at index 0
      * mLogMeal : is set to that index of zero returning the correct item.
      */
+    CardView cardList;
+    ListView listRecipe;
+    LogRecipeItemsAdapter logRecipeItemsAdapter;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         v = inflater.inflate(R.layout.fragment_meal_view, container, false);
+        mLogMealAdapter = new LogAdapterPager(getActivity(), 0, LogMeal.logsById(getArguments().getInt("EXTRA_ID")));
+        mLogMeal = mLogMealAdapter.getItem(0);
+
         return v;
     }
+
+    LogAdapterPager mLogMealAdapter;
+    LogMeal mLogMeal;
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        LogAdapterPager mLogMealAdapter = new LogAdapterPager(getActivity(), 0, LogMeal.logsById(getArguments().getInt("EXTRA_ID")));
-        mLogMeal = mLogMealAdapter.getItem(0);
-        handleToolbar();
-        handleTextViews();
-        handleProgressBars();
-    }
 
-    private void handleToolbar() {
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        // Adapter filtered by Id and because the id is unique, we just call position 0
+
         TextView mealTime = (TextView) v.findViewById(R.id.mealTime);
         long lStartTime = new Date().getTime();
         long lEndTime = mLogMeal.getDate().getTime();
@@ -74,9 +105,6 @@ public class MealViewFragment extends Fragment {
             mealTime.setText(DateFormat.format("MMM d, h:m a", mLogMeal.getDate()));
         }
 
-    }
-
-    private void handleTextViews() {
         // All TextViews.  Formatted like this because they are extremely local and are not changed after the OnCreate
         ((TextView) v.findViewById(R.id.mMealName)).setText(mLogMeal.getMealName());
         ((TextView) v.findViewById(R.id.servingCOnsumed)).setText(df.format(mLogMeal.getServingSize()));
@@ -93,28 +121,18 @@ public class MealViewFragment extends Fragment {
         ((TextView) v.findViewById(R.id.vitiminC)).setText(df.format(mLogMeal.getVitC()) + "%");
         ((TextView) v.findViewById(R.id.calcium)).setText(df.format(mLogMeal.getCalcium()) + "%");
         ((TextView) v.findViewById(R.id.iron)).setText(df.format(mLogMeal.getIron()) + "%");
-    }
-
-    SharedPreferences sharedPreferences;
-    double mCalorieProgress = 0;
-    double mFatProgress = 0;
-    double mCarbProgress = 0;
-    double mProteinProgress = 0;
-
-    private void handleProgressBars() {
-        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
-        LogAdapterPrevention mLogAdapterAll = new LogAdapterPrevention(getActivity(), 0, LogMeal.logsByDate(new Date()));
+        // Progress Bars
         ProgressBar mPbCal = (ProgressBar) v.findViewById(R.id.pbCal);
         ProgressBar mPbFat = (ProgressBar) v.findViewById(R.id.pbFat);
         ProgressBar mPbCarb = (ProgressBar) v.findViewById(R.id.pbCarb);
         ProgressBar mPbPro = (ProgressBar) v.findViewById(R.id.pbPro);
 
+        // Saved user information
         double mCalorieGoal = Double.valueOf(sharedPreferences.getString(Globals.USER_CALORIES_TO_REACH_GOAL, ""));
         double mFatGoal = Double.valueOf(sharedPreferences.getString(Globals.USER_DAILY_FAT, ""));
         double mCarbGoal = Double.valueOf(sharedPreferences.getString(Globals.USER_DAILY_CARBOHYDRATES, ""));
         double mProteinGoal = Double.valueOf(sharedPreferences.getString(Globals.USER_DAILY_PROTEIN, ""));
 
-        // mPbCal, mPbFat, mPbCarb, mPbPro
         mPbCal.setMax(Integer.valueOf(dfW.format(mCalorieGoal)));
         mPbCal.setProgress(Integer.valueOf(dfW.format(mLogMeal.getCalorieCount())) + Integer.valueOf(dfW.format(mCalorieProgress)));
 
@@ -139,4 +157,5 @@ public class MealViewFragment extends Fragment {
         TextView proRem = (TextView) v.findViewById(R.id.proRem);
         proRem.setText(dfW.format(mLogMeal.getProteinCount()) + " / " + dfW.format(mProteinGoal));
     }
+
 }

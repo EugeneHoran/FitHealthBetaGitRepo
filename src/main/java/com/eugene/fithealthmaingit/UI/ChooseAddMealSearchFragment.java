@@ -1,3 +1,19 @@
+/*
+ * Copyright (C) 2013 The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package com.eugene.fithealthmaingit.UI;
 
 import android.app.Activity;
@@ -15,7 +31,6 @@ import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -28,16 +43,15 @@ import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.eugene.fithealthmaingit.FatSecretSearchAndGet.FatSecretSearchMethod;
+import com.eugene.fithealthmaingit.Databases_Adapters_ListViews.FatSecretSearchList.SearchAdapterItemResult;
+import com.eugene.fithealthmaingit.Databases_Adapters_ListViews.FatSecretSearchList.SearchItemResult;
 import com.eugene.fithealthmaingit.Databases_Adapters_ListViews.LogQuickSearchData.LogQuickSearch;
 import com.eugene.fithealthmaingit.Databases_Adapters_ListViews.LogQuickSearchData.LogQuickSearchAdapter;
+import com.eugene.fithealthmaingit.FatSecretSearchAndGet.FatSecretSearchMethod;
 import com.eugene.fithealthmaingit.R;
-import com.eugene.fithealthmaingit.Databases_Adapters_ListViews.FatSecretSearchList.SearchItemResult;
-import com.eugene.fithealthmaingit.Databases_Adapters_ListViews.FatSecretSearchList.SearchAdapterItemResult;
 import com.eugene.fithealthmaingit.Utilities.Equations;
 import com.eugene.fithealthmaingit.Utilities.Globals;
 
@@ -51,12 +65,13 @@ import java.util.HashSet;
 import java.util.Locale;
 import java.util.Set;
 
+/**
+ * Search FatSecret Rest Api
+ * Add items to LogQuickSearch
+ */
 public class ChooseAddMealSearchFragment extends Fragment implements AbsListView.OnScrollListener {
-    private View v;
     private String mealType;
-    private String mealName;
-    private ListView mListView;
-    private RelativeLayout mRelativeLayout;
+    private ListView mListViewSearchResults;
     private Toolbar mToolbarSearch;
     private EditText mEtSearch;
     private SearchAdapterItemResult mEtSearchAdapter;
@@ -65,32 +80,104 @@ public class ChooseAddMealSearchFragment extends Fragment implements AbsListView
     private FatSecretSearchMethod mFatSecretSearch;
     private LogQuickSearchAdapter mRecentLogAdapter;
     private SwipeRefreshLayout mSwipeRefreshLayout;
+    private int preLast;
+    private String brand;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        v = inflater.inflate(R.layout.fragment_search_add_item_fatsecret, container, false);
+        View v = inflater.inflate(R.layout.fragment_search_add_item_fatsecret, container, false);
+        // Change the notification bar color
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             Window w = getActivity().getWindow();
             w.setStatusBarColor(getResources().getColor(R.color.light_grey));
         }
-        mFatSecretSearch = new FatSecretSearchMethod();
+        // Get MealType (snack, breakfast, lunch, dinner)
         Bundle extras = getActivity().getIntent().getExtras();
-        Bundle e = this.getArguments();
-        mSwipeRefreshLayout = (SwipeRefreshLayout) v.findViewById(R.id.swiperefresh);
-        mSwipeRefreshLayout.setColorSchemeResources(R.color.primary, R.color.red, R.color.primary_dark);
-        mSwipeRefreshLayout.setProgressViewOffset(true, (int) Equations.dpToPx(getActivity(), 0), Equations.dpToPx(getActivity(), 112));
-        mSwipeRefreshLayout.setEnabled(false);
         if (extras != null) {
             mealType = extras.getString(Globals.MEAL_TYPE);
         }
+        // Initialize FatSecretSearchMethod
+        mFatSecretSearch = new FatSecretSearchMethod();
+
+        mSwipeRefreshLayout = (SwipeRefreshLayout) v.findViewById(R.id.swiperefresh);
+        mSwipeRefreshLayout.setColorSchemeResources(R.color.primary, R.color.red, R.color.primary_dark);
+        mSwipeRefreshLayout.setProgressViewOffset(true, Equations.dpToPx(getActivity(), 0), Equations.dpToPx(getActivity(), 112));
+        mSwipeRefreshLayout.setEnabled(false);
+
+        mEtSearch = (EditText) v.findViewById(R.id.etSearch);
+        // LogQuickSearch adapter to add items that have not been saved already
         mRecentLogAdapter = new LogQuickSearchAdapter(getActivity(), 0, LogQuickSearch.all());
-        findViews();
+        // List for adding items to the
         mItem = new ArrayList<>();
-        toolbarSearch();
-        updateRecentSearchList();
-        listViewAndAdapterImplementation();
-        if (e != null) {
-            mealName = e.getString("MealName");
+        // Set to prevent duplicates being saved in LogQuickSearch
+        set = new HashSet<>();
+        /**
+         * set mListViewSearchResults adapter to SearchAdapterItemResult
+         */
+        mEtSearchAdapter = new SearchAdapterItemResult(getActivity(), mItem);
+        mListViewSearchResults = (ListView) v.findViewById(R.id.listView);
+        mListViewSearchResults.setAdapter(mEtSearchAdapter);
+        mListViewSearchResults.setOnScrollListener(this);
+        mListViewSearchResults.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent i = new Intent(getActivity(), SaveSearchAddItemActivityMain.class);
+                i.putExtra(Globals.MEAL_TYPE, mealType);
+                i.putExtra(Globals.MEAL_ID, mItem.get(position - 1).getID());
+                i.putExtra(Globals.MEAL_BRAND, mItem.get(position - 1).getBrand());
+                i.putExtra(Globals.MEAL_FAVORITE, "false");
+                startActivity(i);
+            }
+        });
+        // Toolbar
+        mToolbarSearch = (Toolbar) v.findViewById(R.id.toolbar_search);
+        mToolbarSearch.inflateMenu(R.menu.menu_search);
+        mToolbarSearch.setNavigationIcon(R.mipmap.ic_arrow_back_grey);
+        mToolbarSearch.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity().getSupportFragmentManager().popBackStack();
+            }
+        });
+        mToolbarSearch.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem menuItem) {
+                if (menuItem.getItemId() == R.id.action_clear) {
+                    mEtSearch.setText("");
+                }
+                if (menuItem.getItemId() == R.id.action_voice) {
+                    promptSpeechInput();
+                }
+                return false;
+            }
+        });
+        mEtSearch.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (mEtSearch.getText().toString().length() >= 1) {
+                    mToolbarSearch.getMenu().clear();
+                    mToolbarSearch.inflateMenu(R.menu.menu_search_clear);
+                } else {
+                    mToolbarSearch.getMenu().clear();
+                    mToolbarSearch.inflateMenu(R.menu.menu_search);
+                }
+                mItem.clear();
+                updateListView();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
+        });
+
+        // Quick Search Clicked, start search based on list Item clicked from last fragment
+        Bundle extrasFromRecentCliced = this.getArguments();
+        if (extrasFromRecentCliced != null) {
+            String mealName = extrasFromRecentCliced.getString("MealName");
             if (mealName != null) {
                 mEtSearch.setText(mealName);
                 mToolbarSearch.getMenu().clear();
@@ -101,16 +188,9 @@ public class ChooseAddMealSearchFragment extends Fragment implements AbsListView
             mEtSearch.requestFocus();
             ((InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE)).toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
         }
-        searchImplementation();
-        updateListView();
-        return v;
-    }
-
-    /**
-     * Handles the search through Soft Keyboard search button
-     * Checks for network connection
-     */
-    private void searchImplementation() {
+        /**
+         * Handles softKeyboard search icon being clicked
+         */
         mEtSearch.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
@@ -125,26 +205,15 @@ public class ChooseAddMealSearchFragment extends Fragment implements AbsListView
                 return false;
             }
         });
+        updateListView();
+        return v;
     }
 
-    private void listViewAndAdapterImplementation() {
-        mEtSearchAdapter = new SearchAdapterItemResult(getActivity(), mItem);
-        mListView.setAdapter(mEtSearchAdapter);
-        mListView.setOnScrollListener(this);
-        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent i = new Intent(getActivity(), SaveSearchAddItemActivityMain.class);
-                i.putExtra(Globals.MEAL_TYPE, mealType);
-                i.putExtra(Globals.MEAL_ID, mItem.get(position - 1).getID());
-                i.putExtra(Globals.MEAL_BRAND, mItem.get(position - 1).getBrand());
-                i.putExtra(Globals.MEAL_FAVORITE, "false");
-                startActivity(i);
-            }
-        });
-    }
 
-    private void testing() {
+    /**
+     * Adds more items to the list if it is scrolled to the bottom
+     */
+    private void addMoreListItems() {
         if (mItem.size() == 20) // needs to be refactored
             searchFood(mEtSearch.getText().toString(), 1);
         else if (mItem.size() == 40)
@@ -168,73 +237,26 @@ public class ChooseAddMealSearchFragment extends Fragment implements AbsListView
 
     }
 
-    private void findViews() {
-        mToolbarSearch = (Toolbar) v.findViewById(R.id.toolbar_search);
-        mListView = (ListView) v.findViewById(R.id.listView);
-        mRelativeLayout = (RelativeLayout) v.findViewById(R.id.relativeLayout);
-        mEtSearch = (EditText) v.findViewById(R.id.etSearch);
-        set = new HashSet<>();
-    }
-
+    /**
+     * Update the ListView based on mItem size
+     */
     private void updateListView() {
         if (mItem.size() == 0) {
-            mListView.setVisibility(View.GONE);
-        } else
-            mListView.setVisibility(View.VISIBLE);
+            mListViewSearchResults.setVisibility(View.GONE);
+        } else {
+            mListViewSearchResults.setVisibility(View.VISIBLE);
+        }
         mEtSearchAdapter.notifyDataSetChanged();
     }
 
-    private void updateRecentSearchList() {
-        mEtSearch.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (mEtSearch.getText().toString().length() >= 1) {
-                    mToolbarSearch.getMenu().clear();
-                    mToolbarSearch.inflateMenu(R.menu.menu_search_clear);
-                } else {
-                    mToolbarSearch.getMenu().clear();
-                    mToolbarSearch.inflateMenu(R.menu.menu_search);
-                }
-                mItem.clear();
-                updateListView();
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-            }
-        });
-    }
-
-    private void toolbarSearch() {
-        mToolbarSearch.inflateMenu(R.menu.menu_search);
-        mToolbarSearch.setNavigationIcon(R.mipmap.ic_arrow_back_grey);
-        mToolbarSearch.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getActivity().getSupportFragmentManager().popBackStack();
-            }
-        });
-        mToolbarSearch.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem menuItem) {
-                if (menuItem.getItemId() == R.id.action_clear) {
-                    mEtSearch.setText("");
-                }
-                if (menuItem.getItemId() == R.id.action_voice) {
-                    promptSpeechInput();
-                }
-                return false;
-            }
-        });
-    }
-
-    private String brand;
-    private AsyncTask<String, String, String> mAsyncTask;
-
+    /**
+     * FatSecret Search method.
+     * Connect to Rest and return search results based on text and page number
+     * Implements FatSecretSearchMethod.class
+     *
+     * @param item     string to search item
+     * @param page_num currently showing 20 items per page. Adds more items if page num increases
+     */
     private void searchFood(final String item, final int page_num) {
         /**
          * Add Items to the recent database if item is added to the hash set
@@ -253,7 +275,7 @@ public class ChooseAddMealSearchFragment extends Fragment implements AbsListView
             mRecentLogAdapter.notifyDataSetChanged();
         }
 
-        mAsyncTask = new AsyncTask<String, String, String>() {
+        AsyncTask<String, String, String> mAsyncTask = new AsyncTask<String, String, String>() {
             @Override
             protected void onPreExecute() {
                 mSwipeRefreshLayout.setEnabled(true);
@@ -331,6 +353,9 @@ public class ChooseAddMealSearchFragment extends Fragment implements AbsListView
         }
     }
 
+    /**
+     * Set the text based on google voice then implement search
+     */
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -347,33 +372,26 @@ public class ChooseAddMealSearchFragment extends Fragment implements AbsListView
         }
     }
 
-    @Override
-    public void onScrollStateChanged(AbsListView view, int scrollState) {
-
-    }
-
-    private int preLast;
-
+    /**
+     * Calls addMoreListItems() if the last list position is visible
+     */
     @Override
     public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-
         switch (view.getId()) {
             case R.id.listView:
-
-                // Make your calculation stuff here. You have all your
-                // needed info from the parameters of this function.
-
-                // Sample calculation to determine if the last
-                // item is fully visible.
                 final int lastItem = firstVisibleItem + visibleItemCount;
                 if (lastItem == totalItemCount) {
-                    if (preLast != lastItem) { //to avoid multiple calls for last item
-                        Log.d("Last", "Last");
-                        testing();
+                    if (preLast != lastItem) {
+                        addMoreListItems();
                         preLast = lastItem;
                     }
                 }
         }
     }
+
+    @Override
+    public void onScrollStateChanged(AbsListView view, int scrollState) {
+    }
+
 }
 

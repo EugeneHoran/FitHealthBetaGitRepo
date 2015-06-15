@@ -1,3 +1,19 @@
+/*
+ * Copyright (C) 2013 The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package com.eugene.fithealthmaingit.UI;
 
 import android.app.Activity;
@@ -21,9 +37,13 @@ import com.eugene.fithealthmaingit.Utilities.Globals;
 import java.text.DecimalFormat;
 import java.util.Date;
 
-
+/**
+ * Nutrition Fragment
+ * Displays all of the nutrition values consumed based on Date
+ */
 public class FragmentNutrition extends Fragment {
     private FragmentCallbacks mCallbacks;
+    private Toolbar mToolbarDaily;
     private DecimalFormat df = new DecimalFormat("0");
     private Date mDate = new Date();
     private Date mDateDoesNotChange = new Date();
@@ -41,8 +61,6 @@ public class FragmentNutrition extends Fragment {
     public void onSaveInstanceState(Bundle outState) {
         outState.putSerializable(Globals.JOURNAL_DATE, mDate);
     }
-
-    Toolbar mToolbarDaily;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -71,7 +89,6 @@ public class FragmentNutrition extends Fragment {
         });
         ImageView mDatePrev = (ImageView) v.findViewById(R.id.datePrevious);
         ImageView mDateNext = (ImageView) v.findViewById(R.id.dateNext);
-
         mDatePrev.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -93,6 +110,11 @@ public class FragmentNutrition extends Fragment {
         return v;
     }
 
+    /**
+     * Update text and menu based on date change
+     *
+     * @param date current Date or updated date
+     */
     private void handleDateChanges(Date date) {
         TextView mDateText = (TextView) v.findViewById(R.id.tbDate);
         if (DateCompare.areDatesEqual(mDateDoesNotChange, date)) { // Are Dates Equal Today
@@ -113,6 +135,11 @@ public class FragmentNutrition extends Fragment {
         }
     }
 
+    /**
+     * Set nutrition information based on date
+     *
+     * @param d current Date or updated date
+     */
     private void handleTextViews(Date d) {
         LogAdapterAll logMealArrayAdapter = new LogAdapterAll(getActivity(), 0, LogMeal.logsByDate(d));
         int breakfastCalorieCount = 0;

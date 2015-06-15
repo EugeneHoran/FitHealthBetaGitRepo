@@ -1,3 +1,19 @@
+/*
+ * Copyright (C) 2013 The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package com.eugene.fithealthmaingit.Databases_Adapters_ListViews.FoodManual;
 
 import android.content.Context;
@@ -67,7 +83,7 @@ public class LogAdapterManual extends ArrayAdapter<LogManual> {
         mealBrand.setText(mLogs.get(position).getBrand());
 
         TextView mealNutrition = (TextView) view.findViewById(R.id.mealNutrition);
-        mealNutrition.setText("Cal: " + df.format(mLogManual.getCalorieCount()) + " Fat: " + df.format(mLogManual.getFatCount()) + " Carb: " + df.format(mLogManual.getCarbCount()) + " Pro: " + df.format(mLogManual.getProteinCount()));
+        mealNutrition.setText("Cal: " + df.format(mLogManual.getCalorieCount()) + " | Fat: " + df.format(mLogManual.getFatCount()) + " | Carb: " + df.format(mLogManual.getCarbCount()) + " | Pro: " + df.format(mLogManual.getProteinCount()));
         View viewDivider = view.findViewById(R.id.viewDivider);
         if (getCount() - 1 == position) {
             viewDivider.setVisibility(View.GONE);

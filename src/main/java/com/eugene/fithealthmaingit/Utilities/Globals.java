@@ -1,6 +1,8 @@
 package com.eugene.fithealthmaingit.Utilities;
 
 public class Globals {
+    // Constant names never change.
+
     public static final String IS_USER_INFORMATION_SAVED = "user_saved_information";
     public static final String USER_INFORMATION_SAVED = "user_information_saved";
 

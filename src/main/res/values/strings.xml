@@ -123,4 +123,7 @@
     <string name="title_activity_manual_entry">ManualEntryActivity</string>
     <string name="title_activity_add_saved_manual_entry_activty">AddSavedManualEntryActivty
     </string>
+    <string name="title_activity_recipe">RecipeActivity</string>
+    <string name="title_activity_recipe_manual_entry">RecipeManualEntry</string>
+    <string name="title_activity_recipe_add_search_item">RecipeAddSearchItem</string>
 </resources>

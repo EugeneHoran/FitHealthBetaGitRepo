@@ -8,7 +8,7 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
 
     <application
-        android:name="com.eugene.fithealthmaingit.AppActivity"
+        android:name=".AppActivity"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -16,7 +16,7 @@
 
         <!-- Start Activity Checks if user information was saved or not -->
         <activity
-            android:name="com.eugene.fithealthmaingit.StartActivity"
+            android:name=".StartActivity"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -26,45 +26,59 @@
         </activity>
         <!-- User Information -->
         <activity
-            android:name="com.eugene.fithealthmaingit.UI.UserInformationActivity"
+            android:name=".UI.UserInformationActivity"
             android:label="@string/app_name"
             android:windowSoftInputMode="adjustPan">
         </activity>
         <!-- MainActivity Controls All Fragments -->
         <activity
-            android:name="com.eugene.fithealthmaingit.MainActivityController"
+            android:name=".MainActivityController"
             android:label="@string/app_name"
             android:windowSoftInputMode="adjustPan|adjustNothing">
         </activity>
         <!-- Quick Add Meal -->
         <activity
-            android:name="com.eugene.fithealthmaingit.UI.QuickAddActivity"
+            android:name=".UI.QuickAddActivity"
             android:label="@string/app_name"
             android:windowSoftInputMode="adjustPan">
         </activity>
         <!-- Meal View -->
         <activity
-            android:name="com.eugene.fithealthmaingit.UI.MealViewActivity"
+            android:name=".UI.MealViewActivity"
             android:label="@string/app_name">
         </activity>
         <!-- Search Add Item View -->
         <activity
-            android:name="com.eugene.fithealthmaingit.UI.ChooseAddMealActivity"
+            android:name=".UI.ChooseAddMealActivity"
             android:label="@string/app_name"
             android:windowSoftInputMode="stateHidden">
         </activity>
         <!-- Add Search Item View -->
         <activity
-            android:name="com.eugene.fithealthmaingit.UI.SaveSearchAddItemActivityMain"
+            android:name=".UI.SaveSearchAddItemActivityMain"
             android:label="@string/app_name">
         </activity>
         <activity
-            android:name="com.eugene.fithealthmaingit.UI.ManualEntryActivity"
+            android:name=".UI.ManualEntryActivity"
             android:label="@string/title_activity_manual_entry">
         </activity>
         <activity
-            android:name="com.eugene.fithealthmaingit.UI.ManualEntrySaveMealActivity"
+            android:name=".UI.ManualEntrySaveMealActivity"
             android:label="@string/title_activity_add_saved_manual_entry_activty">
+        </activity>
+        <activity
+            android:name=".UI.Recipe.RecipeActivity"
+            android:label="@string/title_activity_recipe"
+            android:windowSoftInputMode="adjustPan|adjustNothing">
+        </activity>
+        <activity
+            android:name=".UI.Recipe.RecipeManualEntry"
+            android:label="@string/title_activity_recipe_manual_entry">
+        </activity>
+        <activity
+            android:name=".UI.Recipe.RecipeAddSearchItem"
+            android:label="@string/title_activity_recipe_add_search_item"
+            android:screenOrientation="portrait">
         </activity>
     </application>
 

@@ -1,3 +1,19 @@
+/*
+ * Copyright (C) 2013 The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package com.eugene.fithealthmaingit.UI;
 
 import android.content.Intent;
@@ -20,6 +36,9 @@ import com.eugene.fithealthmaingit.Utilities.Globals;
 
 import java.util.Date;
 
+/**
+ * View Meals based on Date and Meal Type
+ */
 public class MealViewActivity extends AppCompatActivity {
 
     private String mealType;
@@ -54,7 +73,6 @@ public class MealViewActivity extends AppCompatActivity {
 
     private void InitializeToolbar() {
         toolbar_meal_view.setTitle("Your " + mealType);
-        //  toolbar_meal_view.setSubtitle(DateFormat.format("MMM d", mDate));
         toolbar_meal_view.setNavigationIcon(R.mipmap.ic_arrow_back);
         toolbar_meal_view.inflateMenu(R.menu.menu_meal_view);
         toolbar_meal_view.setNavigationOnClickListener(new View.OnClickListener() {

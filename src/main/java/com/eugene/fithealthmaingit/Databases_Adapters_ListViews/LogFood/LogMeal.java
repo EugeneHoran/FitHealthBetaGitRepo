@@ -1,3 +1,19 @@
+/*
+ * Copyright (C) 2013 The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package com.eugene.fithealthmaingit.Databases_Adapters_ListViews.LogFood;
 
 import android.content.Context;
@@ -15,6 +31,10 @@ import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
+/**
+ * This class is the database for storing the users entry information. The food log
+ * is a database object from the androrm package
+ */
 
 public class LogMeal extends Model {
     protected CharField mealId;
@@ -40,7 +60,8 @@ public class LogMeal extends Model {
     protected CharField mFavorite;
     protected CharField brand;
     protected CharField manualEntry;
-
+    protected CharField isRecipe;
+    protected CharField recipeId;
 
     public LogMeal() {
         super(true);
@@ -67,6 +88,8 @@ public class LogMeal extends Model {
         mFavorite = new CharField();
         brand = new CharField();
         manualEntry = new CharField();
+        isRecipe = new CharField();
+        recipeId = new CharField();
     }
 
     private static String formatProjectForQuery(String name) {
@@ -90,6 +113,13 @@ public class LogMeal extends Model {
         return LogMeal.objects().filter(filter).toList();
     }
 
+    public static List<LogMeal> logSortByRecipe(String b) {
+        String query_meal = formatProjectForQuery(b);
+        Filter filter = new Filter();
+        filter.is("isRecipe", query_meal);
+        return LogMeal.objects().filter(filter).toList();
+    }
+
     public static List<LogMeal> logSortByFavorite(String b) {
         Filter filter = new Filter();
         filter.is("mFavorite", b);
@@ -101,6 +131,22 @@ public class LogMeal extends Model {
         filter.is("mFavorite", b);
         filter.contains("mealName", meal);
         return LogMeal.objects().filter(filter).toList();
+    }
+
+    public String getRecipeId() {
+        return recipeId.get();
+    }
+
+    public void setRecipeId(String meal) {
+        recipeId.set(meal);
+    }
+
+    public String getRecipe() {
+        return isRecipe.get();
+    }
+
+    public void setReciipe(String meal) {
+        isRecipe.set(meal);
     }
 
     public String getManualEntry() {
