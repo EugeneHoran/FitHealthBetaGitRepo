@@ -42,6 +42,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -82,6 +83,10 @@ public class ChooseAddMealSearchFragment extends Fragment implements AbsListView
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private int preLast;
     private String brand;
+    ListView listSearch;
+    LinearLayout llSearch;
+    LogQuickSearchAdapter logQuickSearchAdapter;
+    View searchLine;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -114,6 +119,10 @@ public class ChooseAddMealSearchFragment extends Fragment implements AbsListView
         /**
          * set mListViewSearchResults adapter to SearchAdapterItemResult
          */
+        llSearch = (LinearLayout) v.findViewById(R.id.llSearch);
+        listSearch = (ListView) v.findViewById(R.id.listSearch);
+        searchLine = v.findViewById(R.id.searchLine);
+        logQuickSearchAdapter = new LogQuickSearchAdapter(getActivity(), 0, LogQuickSearch.all());
         mEtSearchAdapter = new SearchAdapterItemResult(getActivity(), mItem);
         mListViewSearchResults = (ListView) v.findViewById(R.id.listView);
         mListViewSearchResults.setAdapter(mEtSearchAdapter);
@@ -161,9 +170,13 @@ public class ChooseAddMealSearchFragment extends Fragment implements AbsListView
                 if (mEtSearch.getText().toString().length() >= 1) {
                     mToolbarSearch.getMenu().clear();
                     mToolbarSearch.inflateMenu(R.menu.menu_search_clear);
+                    logQuickSearchAdapter = new LogQuickSearchAdapter(getActivity(), 0, LogQuickSearch.FilterByName(mEtSearch.getText().toString()));
+                    listSearch.setAdapter(logQuickSearchAdapter);
                 } else {
                     mToolbarSearch.getMenu().clear();
                     mToolbarSearch.inflateMenu(R.menu.menu_search);
+                    logQuickSearchAdapter = new LogQuickSearchAdapter(getActivity(), 0, LogQuickSearch.all());
+                    listSearch.setAdapter(logQuickSearchAdapter);
                 }
                 mItem.clear();
                 updateListView();
@@ -196,6 +209,8 @@ public class ChooseAddMealSearchFragment extends Fragment implements AbsListView
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                     ((InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE)).hideSoftInputFromWindow(mEtSearch.getWindowToken(), 0);
+                    listSearch.setVisibility(View.GONE);
+                    searchLine.setVisibility(View.GONE);
                     searchFood(mEtSearch.getText().toString(), 0);
                     mItem.clear();
                     mEtSearchAdapter.notifyDataSetChanged();
@@ -205,10 +220,25 @@ public class ChooseAddMealSearchFragment extends Fragment implements AbsListView
                 return false;
             }
         });
+
+        listSearch.setAdapter(logQuickSearchAdapter);
+        listSearch.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                LogQuickSearch logQuickSearch = logQuickSearchAdapter.getItem(position);
+                mEtSearch.setText(logQuickSearch.getName());
+                ((InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE)).hideSoftInputFromWindow(mEtSearch.getWindowToken(), 0);
+                listSearch.setVisibility(View.GONE);
+                searchLine.setVisibility(View.GONE);
+                searchFood(logQuickSearch.getName(), 0);
+                mItem.clear();
+                mEtSearchAdapter.notifyDataSetChanged();
+                mEtSearch.clearFocus();
+            }
+        });
         updateListView();
         return v;
     }
-
 
     /**
      * Adds more items to the list if it is scrolled to the bottom
@@ -234,7 +264,6 @@ public class ChooseAddMealSearchFragment extends Fragment implements AbsListView
             searchFood(mEtSearch.getText().toString(), 9);
         else if (mItem.size() == 200)
             searchFood(mEtSearch.getText().toString(), 10);
-
     }
 
     /**
@@ -242,9 +271,13 @@ public class ChooseAddMealSearchFragment extends Fragment implements AbsListView
      */
     private void updateListView() {
         if (mItem.size() == 0) {
+            listSearch.setVisibility(View.VISIBLE);
+            searchLine.setVisibility(View.VISIBLE);
             mListViewSearchResults.setVisibility(View.GONE);
         } else {
             mListViewSearchResults.setVisibility(View.VISIBLE);
+            listSearch.setVisibility(View.GONE);
+            searchLine.setVisibility(View.GONE);
         }
         mEtSearchAdapter.notifyDataSetChanged();
     }

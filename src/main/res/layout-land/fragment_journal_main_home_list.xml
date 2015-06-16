@@ -10,8 +10,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="72dp"
-        android:layout_marginRight="72dp"
+        android:layout_marginLeft="88dp"
+        android:layout_marginRight="88dp"
         android:orientation="vertical">
 
         <RelativeLayout
@@ -27,7 +27,8 @@
                 android:layout_marginTop="12dp"
                 android:text="@string/snack"
                 android:textColor="@color/text_color"
-                android:textSize="16sp"/>
+                android:textSize="16sp"
+                android:textStyle="bold"/>
 
             <LinearLayout
                 android:id="@+id/snackInfo"
@@ -81,15 +82,21 @@
                     android:layout_weight="1"
                     android:divider="@android:color/transparent"/>
 
-                <TextView
+                <LinearLayout
                     android:id="@+id/txtItemSnack"
                     android:layout_width="match_parent"
-                    android:layout_height="48dp"
-                    android:gravity="center_vertical"
-                    android:paddingLeft="16sp"
-                    android:paddingRight="16sp"
-                    android:text="@string/no_items_added"
-                    android:textColor="@color/text_color"/>
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="16sp"
+                        android:paddingRight="16sp"
+                        android:text="@string/no_items_added"
+                        android:textColor="@color/text_color"/>
+                </LinearLayout>
 
                 <View
                     android:layout_width="match_parent"
@@ -113,7 +120,7 @@
                         android:minHeight="32dp"
                         android:minWidth="88dp"
                         android:text="@string/quick_add"
-                        android:textColor="@color/primary_dark"
+                        android:textColor="@color/accent"
                         android:textSize="14sp"/>
 
                     <TextView
@@ -129,7 +136,7 @@
                         android:minHeight="32dp"
                         android:minWidth="88dp"
                         android:text="@string/suggestion"
-                        android:textColor="@color/primary_dark"
+                        android:textColor="@color/accent"
                         android:textSize="14sp"/>
                 </RelativeLayout>
             </LinearLayout>
@@ -149,7 +156,8 @@
                 android:layout_marginTop="12dp"
                 android:text="@string/breakfast"
                 android:textColor="@color/text_color"
-                android:textSize="16sp"/>
+                android:textSize="16sp"
+                android:textStyle="bold"/>
 
 
             <LinearLayout
@@ -204,15 +212,22 @@
                     android:layout_weight="1"
                     android:divider="@android:color/transparent"/>
 
-                <TextView
+                <LinearLayout
                     android:id="@+id/txtItemBreakfast"
                     android:layout_width="match_parent"
-                    android:layout_height="48dp"
-                    android:gravity="center_vertical"
-                    android:paddingLeft="16sp"
-                    android:paddingRight="16sp"
-                    android:text="@string/no_items_added"
-                    android:textColor="@color/text_color"/>
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="16sp"
+                        android:paddingRight="16sp"
+                        android:text="@string/no_items_added"
+                        android:textColor="@color/text_color"/>
+                </LinearLayout>
 
                 <View
                     android:layout_width="match_parent"
@@ -236,7 +251,7 @@
                         android:minHeight="32dp"
                         android:minWidth="88dp"
                         android:text="@string/quick_add"
-                        android:textColor="@color/primary_dark"
+                        android:textColor="@color/accent"
                         android:textSize="14sp"/>
 
                     <TextView
@@ -252,7 +267,7 @@
                         android:minHeight="32dp"
                         android:minWidth="88dp"
                         android:text="@string/suggestion"
-                        android:textColor="@color/primary_dark"
+                        android:textColor="@color/accent"
                         android:textSize="14sp"/>
                 </RelativeLayout>
 
@@ -273,7 +288,9 @@
                 android:layout_marginTop="12dp"
                 android:text="@string/Lunch"
                 android:textColor="@color/text_color"
-                android:textSize="16sp"/>
+                android:textSize="16sp"
+                android:textStyle="bold"/>
+
             <LinearLayout
                 android:id="@+id/lunchInfo"
                 android:layout_width="wrap_content"
@@ -327,15 +344,22 @@
                     android:layout_weight="1"
                     android:divider="@android:color/transparent"/>
 
-                <TextView
+                <LinearLayout
                     android:id="@+id/txtItemLunch"
                     android:layout_width="match_parent"
-                    android:layout_height="48dp"
-                    android:gravity="center_vertical"
-                    android:paddingLeft="16sp"
-                    android:paddingRight="16sp"
-                    android:text="@string/no_items_added"
-                    android:textColor="@color/text_color"/>
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="16sp"
+                        android:paddingRight="16sp"
+                        android:text="@string/no_items_added"
+                        android:textColor="@color/text_color"/>
+                </LinearLayout>
 
                 <View
                     android:layout_width="match_parent"
@@ -359,7 +383,7 @@
                         android:minHeight="32dp"
                         android:minWidth="88dp"
                         android:text="@string/quick_add"
-                        android:textColor="@color/primary_dark"
+                        android:textColor="@color/accent"
                         android:textSize="14sp"/>
 
                     <TextView
@@ -375,7 +399,7 @@
                         android:minHeight="32dp"
                         android:minWidth="88dp"
                         android:text="@string/suggestion"
-                        android:textColor="@color/primary_dark"
+                        android:textColor="@color/accent"
                         android:textSize="14sp"/>
                 </RelativeLayout>
 
@@ -396,7 +420,8 @@
                 android:layout_marginTop="12dp"
                 android:text="@string/dinner"
                 android:textColor="@color/text_color"
-                android:textSize="16sp"/>
+                android:textSize="16sp"
+                android:textStyle="bold"/>
 
 
             <LinearLayout
@@ -452,15 +477,22 @@
                     android:layout_weight="1"
                     android:divider="@android:color/transparent"/>
 
-                <TextView
+
+                <LinearLayout
                     android:id="@+id/txtItemDinner"
                     android:layout_width="match_parent"
-                    android:layout_height="48dp"
-                    android:gravity="center_vertical"
-                    android:paddingLeft="16sp"
-                    android:paddingRight="16sp"
-                    android:text="@string/no_items_added"
-                    android:textColor="@color/text_color"/>
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="16sp"
+                        android:paddingRight="16sp"
+                        android:text="@string/no_items_added"
+                        android:textColor="@color/text_color"/>
+                </LinearLayout>
 
                 <View
                     android:layout_width="match_parent"
@@ -484,7 +516,7 @@
                         android:minHeight="32dp"
                         android:minWidth="88dp"
                         android:text="@string/quick_add"
-                        android:textColor="@color/primary_dark"
+                        android:textColor="@color/accent"
                         android:textSize="14sp"/>
 
                     <TextView
@@ -500,7 +532,7 @@
                         android:minHeight="32dp"
                         android:minWidth="88dp"
                         android:text="@string/suggestion"
-                        android:textColor="@color/primary_dark"
+                        android:textColor="@color/accent"
                         android:textSize="14sp"/>
                 </RelativeLayout>
 

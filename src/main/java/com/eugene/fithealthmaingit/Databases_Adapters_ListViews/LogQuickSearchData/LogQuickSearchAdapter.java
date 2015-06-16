@@ -50,7 +50,11 @@ public class LogQuickSearchAdapter extends ArrayAdapter<LogQuickSearch> {
     }
 
     public int getCount() {
-        return mLogs.size();
+        if (mLogs.size() > 5) {
+            return 5;
+        } else {
+            return mLogs.size();
+        }
     }
 
     public LogQuickSearch getItem(int position) {

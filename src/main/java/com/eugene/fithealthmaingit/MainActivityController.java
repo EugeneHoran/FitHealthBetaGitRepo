@@ -28,6 +28,7 @@ import android.view.View;
 
 import com.eugene.fithealthmaingit.UI.Dialogs.FragmentSuggestionDialog;
 import com.eugene.fithealthmaingit.UI.Dialogs.UpdateWeightDialogFragment;
+import com.eugene.fithealthmaingit.UI.FragmentBlankLoading;
 import com.eugene.fithealthmaingit.UI.FragmentHealth;
 import com.eugene.fithealthmaingit.UI.FragmentJournalMainHome;
 import com.eugene.fithealthmaingit.UI.FragmentNavigationDrawer;
@@ -117,6 +118,13 @@ public class MainActivityController extends AppCompatActivity implements
             getSupportFragmentManager().beginTransaction()
                 .replace(R.id.container, fragment).commit();
             isFirstFragmentAdded = true;
+        } else {
+            Fragment loading = new FragmentBlankLoading();
+            Bundle b = new Bundle();
+            b.putInt("position", position);
+            loading.setArguments(b);
+            getSupportFragmentManager().beginTransaction()
+                .replace(R.id.container, loading).commit();
         }
         if (mNavigationDrawer != null)
             mNavigationDrawer.setDrawerListener(new DrawerLayout.DrawerListener() {

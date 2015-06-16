@@ -107,7 +107,8 @@ public class FragmentJournalMainHome extends Fragment implements
     private LogAdapterAll mLogAdapterAll;
     private ListView mListSnack, mListBreakfast, mListLunch, mListDinner;
     private ProgressBar mPbCalories, mPbFat, mPbCarbs, mPbProtein;
-    private TextView mCalories, mCaloriesRemainder, mNoSnacks, mNoBreakfast, mNoLunch, mNoDinner;
+    private TextView mCalories, mCaloriesRemainder;
+    LinearLayout mNoSnacks, mNoBreakfast, mNoLunch, mNoDinner;
     private TextView mFatRemainder, mCarbRemainder, mProteinRemainder;
     private TextView mCalSnack, mCalBreakfast, mCalLunch, mCalDinner;
     private ImageView icSnack, icBreakfast, icLunch, icDinner;
@@ -259,10 +260,10 @@ public class FragmentJournalMainHome extends Fragment implements
         mCalBreakfast = (TextView) v.findViewById(R.id.calBreakfast);
         mCalLunch = (TextView) v.findViewById(R.id.calLunch);
         mCalDinner = (TextView) v.findViewById(R.id.calDinner);
-        mNoSnacks = (TextView) v.findViewById(R.id.txtItemSnack);
-        mNoBreakfast = (TextView) v.findViewById(R.id.txtItemBreakfast);
-        mNoLunch = (TextView) v.findViewById(R.id.txtItemLunch);
-        mNoDinner = (TextView) v.findViewById(R.id.txtItemDinner);
+        mNoSnacks = (LinearLayout) v.findViewById(R.id.txtItemSnack);
+        mNoBreakfast = (LinearLayout) v.findViewById(R.id.txtItemBreakfast);
+        mNoLunch = (LinearLayout) v.findViewById(R.id.txtItemLunch);
+        mNoDinner = (LinearLayout) v.findViewById(R.id.txtItemDinner);
         mPbCalories = (ProgressBar) v.findViewById(R.id.pbCal);
         mPbFat = (ProgressBar) v.findViewById(R.id.pbFat);
         mPbCarbs = (ProgressBar) v.findViewById(R.id.pbCarbs);
@@ -287,7 +288,7 @@ public class FragmentJournalMainHome extends Fragment implements
         FloatingActionButton mFab = (FloatingActionButton) v.findViewById(R.id.fab);
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
             RelativeLayout.LayoutParams p = (RelativeLayout.LayoutParams) mFab.getLayoutParams();
-            p.setMargins(0, 0, 0, 0); // get rid of margins since shadow area is now the margin
+            p.setMargins(0, 0, Equations.dpToPx(getActivity(), 8), 0); // get rid of margins since shadow area is now the margin
             mFab.setLayoutParams(p);
         }
         mFab.setOnClickListener(new View.OnClickListener() {

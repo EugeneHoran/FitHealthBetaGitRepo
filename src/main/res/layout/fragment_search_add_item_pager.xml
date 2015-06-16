@@ -33,6 +33,14 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+            <ListView
+                android:id="@+id/listViewManual"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:clipToPadding="false"
+                android:divider="@color/white"
+                android:dividerHeight="0dp"/>
+
             <android.support.v7.widget.CardView
                 android:id="@+id/card_search_manual"
                 android:layout_width="match_parent"
@@ -41,9 +49,10 @@
                 android:layout_marginLeft="8dp"
                 android:layout_marginRight="8dp"
                 android:layout_marginTop="16dp"
+                android:visibility="gone"
                 app:cardElevation="7dp"
-                card_view:cardBackgroundColor="#eee"
-                card_view:cardCornerRadius="2dp">
+                card_view:cardBackgroundColor="#fff"
+                card_view:cardCornerRadius="10dp">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -62,7 +71,7 @@
                             android:clickable="true"
                             android:contentDescription="@string/imate_back"
                             android:padding="12dp"
-                            android:src="@mipmap/ic_search"
+                            android:src="@mipmap/ic_arrow_back"
                             android:tint="@color/text_color"/>
 
                         <EditText
@@ -70,7 +79,7 @@
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
-                            android:background="#eee"
+                            android:background="#fff"
                             android:gravity="center_vertical"
                             android:hint="Search Entries"
                             android:imeOptions="actionSearch"
@@ -94,15 +103,6 @@
                     </LinearLayout>
                 </RelativeLayout>
             </android.support.v7.widget.CardView>
-
-            <ListView
-                android:id="@+id/listViewManual"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:clipToPadding="false"
-                android:divider="@color/white"
-                android:dividerHeight="0dp"
-                android:paddingTop="72dp"/>
 
             <LinearLayout
                 android:id="@+id/llNoRecentManual"
@@ -134,6 +134,14 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+            <ListView
+                android:id="@+id/listFavorites"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:clipToPadding="false"
+                android:divider="@color/white"
+                android:dividerHeight="0dp"/>
+
             <android.support.v7.widget.CardView
                 android:id="@+id/card_search_fav"
                 android:layout_width="match_parent"
@@ -142,9 +150,10 @@
                 android:layout_marginLeft="8dp"
                 android:layout_marginRight="8dp"
                 android:layout_marginTop="16dp"
+                android:visibility="gone"
                 app:cardElevation="7dp"
-                card_view:cardBackgroundColor="#eee"
-                card_view:cardCornerRadius="2dp">
+                card_view:cardBackgroundColor="#fff"
+                card_view:cardCornerRadius="10dp">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -162,7 +171,7 @@
                             android:clickable="true"
                             android:contentDescription="@string/imate_back"
                             android:padding="12dp"
-                            android:src="@mipmap/ic_search"
+                            android:src="@mipmap/ic_arrow_back"
                             android:tint="@color/text_color"/>
 
                         <EditText
@@ -170,7 +179,7 @@
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
-                            android:background="#eee"
+                            android:background="#fff"
                             android:gravity="center_vertical"
                             android:hint="Search Favorites"
                             android:imeOptions="actionSearch"
@@ -195,14 +204,6 @@
                 </RelativeLayout>
             </android.support.v7.widget.CardView>
 
-            <ListView
-                android:id="@+id/listFavorites"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:clipToPadding="false"
-                android:divider="@color/white"
-                android:dividerHeight="0dp"
-                android:paddingTop="72dp"/>
 
             <LinearLayout
                 android:id="@+id/llNoRecentFav"

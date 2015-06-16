@@ -10,6 +10,16 @@
         <!-- <item name="colorAccent">@color/accent</item> -->
     </style>
 
+    <!-- Base application theme. -->
+    <style name="AppThemeDark" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/accent</item>
+        <item name="colorPrimaryDark">@color/accent_dark</item>
+        <item name="colorAccent">@color/primary_dark</item>
+        <item name="android:dialogTheme">@style/AppTheme.DialogTheme</item>
+        <!-- <item name="colorAccent">@color/accent</item> -->
+    </style>
+
 
     <style name="ToolbarTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->

@@ -44,6 +44,7 @@
                     android:imeOptions="actionNext"
                     android:inputType="textCapWords"
                     android:selectAllOnFocus="true"
+                    android:text="Serving"
                     android:textSize="14sp"
                     app:floatingLabel="normal"/>
             </LinearLayout>

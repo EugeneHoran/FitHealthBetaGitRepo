@@ -16,12 +16,16 @@
 
 package com.eugene.fithealthmaingit.UI;
 
+import android.animation.Animator;
 import android.app.Activity;
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.speech.RecognizerIntent;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -30,9 +34,11 @@ import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewAnimationUtils;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.inputmethod.InputMethodManager;
@@ -42,6 +48,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.eugene.fithealthmaingit.Databases_Adapters_ListViews.FoodManual.LogAdapterManual;
 import com.eugene.fithealthmaingit.Databases_Adapters_ListViews.FoodManual.LogManual;
@@ -54,9 +62,12 @@ import com.eugene.fithealthmaingit.Databases_Adapters_ListViews.LogRecipes.LogRe
 import com.eugene.fithealthmaingit.R;
 import com.eugene.fithealthmaingit.UI.Adapters.ChooseAddMealPagerAdapter.ChooseAddMealPagerAdapter;
 import com.eugene.fithealthmaingit.UI.Recipe.RecipeActivity;
+import com.eugene.fithealthmaingit.Utilities.Equations;
 import com.eugene.fithealthmaingit.Utilities.Globals;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.Locale;
 
 /**
  * Fragment containing Tabs with Manual Entry Items, Favorites, Recent Searches
@@ -150,11 +161,14 @@ public class ChooseAddMealTabsFragment extends Fragment {
             }
         });
         mLogAdapterFavorite = new LogAdapterAll(getActivity(), 0, LogMeal.logSortByFavorite("favorite"));
+        ViewGroup headerFav = (ViewGroup) inflater.inflate(R.layout.list_header_search_favorites, listViewManual, false);
+        mListFavorites.addHeaderView(headerFav, null, false);
         mListFavorites.setAdapter(mLogAdapterFavorite);
         mListFavorites.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                LogMeal logMeal = mLogAdapterFavorite.getItem(position);
+                ((InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE)).hideSoftInputFromWindow(searchManual.getWindowToken(), 0);
+                LogMeal logMeal = mLogAdapterFavorite.getItem(position - 1);
                 Intent i = new Intent(getActivity(), SaveSearchAddItemActivityMain.class);
                 i.putExtra(Globals.MEAL_TYPE, mealType);
                 i.putExtra(Globals.MEAL_ID, logMeal.getMealId());
@@ -164,17 +178,26 @@ public class ChooseAddMealTabsFragment extends Fragment {
             }
         });
         mLogAdapterManual = new LogAdapterManual(getActivity(), 0, LogManual.all(), mealType);
+        ViewGroup header = (ViewGroup) inflater.inflate(R.layout.list_header_search, listViewManual, false);
+        listViewManual.addHeaderView(header, null, false);
         listViewManual.setAdapter(mLogAdapterManual);
         listViewManual.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                LogManual logManual = mLogAdapterManual.getItem(position);
+                ((InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE)).hideSoftInputFromWindow(searchManual.getWindowToken(), 0);
+                LogManual logManual = mLogAdapterManual.getItem(position - 1);
                 Intent i = new Intent(getActivity(), ManualEntrySaveMealActivity.class);
                 i.putExtra(Globals.MEAL_TYPE, mealType);
                 i.putExtra(Globals.MEAL_ID, logManual.getMealId());
                 startActivity(i);
             }
         });
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+            ((RelativeLayout.LayoutParams) card_search_manual.getLayoutParams()).setMargins(0, 0, 0, 0); // get rid of margins since shadow area is now the margin
+            ((RelativeLayout.LayoutParams) card_search_fav.getLayoutParams()).setMargins(0, 0, 0, 0); // get rid of margins since shadow area is now the margin
+            headerFav.setPadding(0, 0, 0, Equations.dpToPx(getActivity(), 16));
+            header.setPadding(0, 0, 0, Equations.dpToPx(getActivity(), 16));
+        }
 
         searchManualEntry();
         searchFav();
@@ -211,9 +234,211 @@ public class ChooseAddMealTabsFragment extends Fragment {
             }
         });
 
-        updateListView();
+        searchManual = (Button) v.findViewById(R.id.searchManual);
+        searchManual.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                handleSearchManual();
+            }
+        });
+        searchFavorite = (Button) v.findViewById(R.id.searchFav);
+        searchFavorite.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                handleSearchFavorite();
+            }
+        });
 
+        updateListView();
+        mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                ((InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE)).hideSoftInputFromWindow(searchManual.getWindowToken(), 0);
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
         return v;
+    }
+
+    Button searchManual;
+    Button searchFavorite;
+
+    private void handleSearchManual() {
+        if (card_search_manual.getVisibility() == View.VISIBLE) {
+            searchManual.setVisibility(View.VISIBLE);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                final Animator animatorHide = ViewAnimationUtils.createCircularReveal(card_search_manual,
+                    card_search_manual.getWidth() - (int) convertDpToPixel(24, getActivity()),
+                    (int) convertDpToPixel(23, getActivity()),
+                    (float) Math.hypot(card_search_manual.getWidth(), card_search_manual.getHeight()),
+                    0);
+                animatorHide.addListener(new Animator.AnimatorListener() {
+                    @Override
+                    public void onAnimationStart(Animator animation) {
+
+                    }
+
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        card_search_manual.setVisibility(View.GONE);
+                        ((InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE)).hideSoftInputFromWindow(searchManual.getWindowToken(), 0);
+                    }
+
+                    @Override
+                    public void onAnimationCancel(Animator animation) {
+
+                    }
+
+                    @Override
+                    public void onAnimationRepeat(Animator animation) {
+
+                    }
+                });
+
+                animatorHide.setDuration(200);
+                animatorHide.start();
+            } else {
+                card_search_manual.setVisibility(View.GONE);
+                ((InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE)).hideSoftInputFromWindow(searchManual.getWindowToken(), 0);
+            }
+        } else {
+            searchManual.setVisibility(View.INVISIBLE);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                final Animator animator = ViewAnimationUtils.createCircularReveal(card_search_manual,
+                    card_search_manual.getWidth() - (int) convertDpToPixel(24, getActivity()),
+                    (int) convertDpToPixel(23, getActivity()),
+                    0,
+                    (float) Math.hypot(card_search_manual.getWidth(), card_search_manual.getHeight()));
+                animator.addListener(new Animator.AnimatorListener() {
+                    @Override
+                    public void onAnimationStart(Animator animation) {
+                        manualSearch.requestFocus();
+                    }
+
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        ((InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE)).toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
+                    }
+
+                    @Override
+                    public void onAnimationCancel(Animator animation) {
+
+                    }
+
+                    @Override
+                    public void onAnimationRepeat(Animator animation) {
+
+                    }
+                });
+                card_search_manual.setVisibility(View.VISIBLE);
+                if (card_search_manual.getVisibility() == View.VISIBLE) {
+                    animator.setDuration(300);
+                    animator.start();
+                    card_search_manual.setEnabled(true);
+                }
+            } else {
+                manualSearch.requestFocus();
+                ((InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE)).toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
+                card_search_manual.setVisibility(View.VISIBLE);
+            }
+        }
+    }
+
+    private void handleSearchFavorite() {
+        if (card_search_fav.getVisibility() == View.VISIBLE) {
+            searchFavorite.setVisibility(View.VISIBLE);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                final Animator animatorHide = ViewAnimationUtils.createCircularReveal(card_search_fav,
+                    card_search_fav.getWidth() - (int) convertDpToPixel(24, getActivity()),
+                    (int) convertDpToPixel(23, getActivity()),
+                    (float) Math.hypot(card_search_fav.getWidth(), card_search_fav.getHeight()),
+                    0);
+                animatorHide.addListener(new Animator.AnimatorListener() {
+                    @Override
+                    public void onAnimationStart(Animator animation) {
+
+                    }
+
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        card_search_fav.setVisibility(View.GONE);
+                        ((InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE)).hideSoftInputFromWindow(searchFavorite.getWindowToken(), 0);
+                    }
+
+                    @Override
+                    public void onAnimationCancel(Animator animation) {
+
+                    }
+
+                    @Override
+                    public void onAnimationRepeat(Animator animation) {
+
+                    }
+                });
+
+                animatorHide.setDuration(200);
+                animatorHide.start();
+            } else {
+                favSearch.requestFocus();
+                card_search_fav.setVisibility(View.GONE);
+                ((InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE)).hideSoftInputFromWindow(searchFavorite.getWindowToken(), 0);
+            }
+        } else {
+            searchFavorite.setVisibility(View.INVISIBLE);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                final Animator animator = ViewAnimationUtils.createCircularReveal(card_search_fav,
+                    card_search_fav.getWidth() - (int) convertDpToPixel(24, getActivity()),
+                    (int) convertDpToPixel(23, getActivity()),
+                    0,
+                    (float) Math.hypot(card_search_fav.getWidth(), card_search_fav.getHeight()));
+                animator.addListener(new Animator.AnimatorListener() {
+                    @Override
+                    public void onAnimationStart(Animator animation) {
+                        favSearch.requestFocus();
+                    }
+
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        favSearch.requestFocus();
+                        ((InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE)).toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
+                    }
+
+                    @Override
+                    public void onAnimationCancel(Animator animation) {
+
+                    }
+
+                    @Override
+                    public void onAnimationRepeat(Animator animation) {
+
+                    }
+                });
+                card_search_fav.setVisibility(View.VISIBLE);
+                if (card_search_fav.getVisibility() == View.VISIBLE) {
+                    animator.setDuration(300);
+                    animator.start();
+                }
+            } else {
+                favSearch.requestFocus();
+                card_search_fav.setVisibility(View.VISIBLE);
+                ((InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE)).toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
+            }
+        }
+    }
+
+    public static float convertDpToPixel(float dp, Context context) {
+        Resources resources = context.getResources();
+        DisplayMetrics metrics = resources.getDisplayMetrics();
+        return dp * (metrics.densityDpi / 160f);
     }
 
     ListView listRecipes;
@@ -237,12 +462,10 @@ public class ChooseAddMealTabsFragment extends Fragment {
                     clearSearch.setImageResource(R.mipmap.ic_keyboard_voice);
                     mLogAdapterManual = new LogAdapterManual(getActivity(), 0, LogManual.all(), mealType);
                     listViewManual.setAdapter(mLogAdapterManual);
-                    image_search_back.setImageResource(R.mipmap.ic_search);
                 } else {
                     clearSearch.setImageResource(R.mipmap.ic_clear);
                     mLogAdapterManual = new LogAdapterManual(getActivity(), 0, LogManual.logsMealName(manualSearch.getText().toString()), mealType);
                     listViewManual.setAdapter(mLogAdapterManual);
-                    image_search_back.setImageResource(R.mipmap.ic_arrow_back);
                 }
             }
 
@@ -253,9 +476,11 @@ public class ChooseAddMealTabsFragment extends Fragment {
         clearSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (manualSearch.getText().toString().trim().length() != 0) {
-                    manualSearch.setText("");
+                if (manualSearch.getText().toString().trim().length() == 0) {
+                    SEARCH_VOICE = "MANUAL";
+                    promptSpeechInput(manualSearch);
                 }
+                manualSearch.setText("");
             }
         });
         image_search_back.setOnClickListener(new View.OnClickListener() {
@@ -265,6 +490,7 @@ public class ChooseAddMealTabsFragment extends Fragment {
                     manualSearch.setText("");
                     ((InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE)).hideSoftInputFromWindow(manualSearch.getWindowToken(), 0);
                 }
+                handleSearchManual();
             }
         });
     }
@@ -288,12 +514,10 @@ public class ChooseAddMealTabsFragment extends Fragment {
                     clearSearchFav.setImageResource(R.mipmap.ic_keyboard_voice);
                     mLogAdapterFavorite = new LogAdapterAll(getActivity(), 0, LogMeal.logSortByFavorite("favorite"));
                     mListFavorites.setAdapter(mLogAdapterFavorite);
-                    image_search_back_fav.setImageResource(R.mipmap.ic_search);
                 } else {
                     clearSearchFav.setImageResource(R.mipmap.ic_clear);
                     mLogAdapterFavorite = new LogAdapterAll(getActivity(), 0, LogMeal.logSortByFavoriteMeal("favorite", favSearch.getText().toString()));
                     mListFavorites.setAdapter(mLogAdapterFavorite);
-                    image_search_back_fav.setImageResource(R.mipmap.ic_arrow_back);
                 }
             }
 
@@ -304,9 +528,11 @@ public class ChooseAddMealTabsFragment extends Fragment {
         clearSearchFav.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (favSearch.getText().toString().trim().length() != 0) {
-                    favSearch.setText("");
+                if (favSearch.getText().toString().trim().length() == 0) {
+                    SEARCH_VOICE = "FAVORITE";
+                    promptSpeechInput(favSearch);
                 }
+                favSearch.setText("");
             }
         });
         image_search_back_fav.setOnClickListener(new View.OnClickListener() {
@@ -315,8 +541,8 @@ public class ChooseAddMealTabsFragment extends Fragment {
                 if (favSearch.getText().toString().trim().length() != 0) {
                     favSearch.setText("");
                     favSearch.clearFocus();
-                    ((InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE)).hideSoftInputFromWindow(favSearch.getWindowToken(), 0);
                 }
+                handleSearchFavorite();
             }
         });
     }
@@ -335,18 +561,18 @@ public class ChooseAddMealTabsFragment extends Fragment {
 
         if (mLogAdapterFavorite.getCount() != 0) {
             llNoRecentFav.setVisibility(View.GONE);
-            card_search_fav.setVisibility(View.VISIBLE);
+            searchFavorite.setVisibility(View.VISIBLE);
         } else {
             llNoRecentFav.setVisibility(View.VISIBLE);
-            card_search_fav.setVisibility(View.GONE);
+            searchFavorite.setVisibility(View.GONE);
         }
 
         if (mLogAdapterManual.getCount() == 0) {
             llNoRecentManual.setVisibility(View.VISIBLE);
-            card_search_manual.setVisibility(View.GONE);
+            searchManual.setVisibility(View.GONE);
         } else {
             llNoRecentManual.setVisibility(View.GONE);
-            card_search_manual.setVisibility(View.VISIBLE);
+            searchManual.setVisibility(View.VISIBLE);
         }
         if (logAdapterMealRecipe.getCount() == 0) {
             llNoRecipes.setVisibility(View.VISIBLE);
@@ -354,6 +580,45 @@ public class ChooseAddMealTabsFragment extends Fragment {
         } else {
             llNoRecipes.setVisibility(View.GONE);
             listRecipes.setVisibility(View.VISIBLE);
+        }
+    }
+
+    /**
+     * Speech Input
+     * Voice search then implements search method based on result
+     */
+    public static int REQ_CODE_SPEECH_INPUT = 100;
+    public static String SEARCH_VOICE = "";
+
+    private void promptSpeechInput(EditText e) {
+        ((InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE)).hideSoftInputFromWindow(e.getWindowToken(), 0);
+        Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault());
+        intent.putExtra(RecognizerIntent.EXTRA_PROMPT, "Say Something");
+        try {
+            startActivityForResult(intent, REQ_CODE_SPEECH_INPUT);
+        } catch (ActivityNotFoundException a) {
+            Toast.makeText(getActivity().getApplicationContext(), "Not Supported", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    /**
+     * Set the text based on google voice then implement search
+     */
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQ_CODE_SPEECH_INPUT) {
+            if (resultCode == Activity.RESULT_OK && null != data) {
+                ArrayList<String> result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
+                if (SEARCH_VOICE.equals("MANUAL")) {
+                    manualSearch.setText(result.get(0));
+                }
+                if (SEARCH_VOICE.equals("FAVORITE")) {
+                    favSearch.setText(result.get(0));
+                }
+            }
         }
     }
 
