@@ -21,6 +21,10 @@ Libraries included within Fit Health:
 
 ![loading](https://cloud.githubusercontent.com/assets/7454787/8195910/31c1311e-1454-11e5-9b1e-9aa57c475363.gif)
 
+- Added search functionality to manual entry and favorite meals
+
+![untitled-2](https://cloud.githubusercontent.com/assets/7454787/8196157/c4d2e1d0-1456-11e5-9dc5-797ee131d7b3.gif)
+
 - Added indicators that change dependent on the calories consumed per mneal and meal calorie goal. 
 
 ![Alt text](https://cloud.githubusercontent.com/assets/7454787/8120868/396b7252-1072-11e5-8109-bbff2663acbb.png "Journal Home")
