@@ -1,6 +1,11 @@
 # Fit Health Beta
 Fit Health Beta
 
+<a href="https://play.google.com/store/apps/details?id=com.eugene.fithealthmaingit">
+  <img alt="Android app on Google Play"
+       src="https://developer.android.com/images/brand/en_app_rgb_wo_60.png" />
+</a>
+
 I created an application very similar to this one (Fit Health) when I first started working with android but decided to scrap it and start fresh. Still in early stages. Working on it a few hours a day when I get the chance.  
 
 I am designing this application to be simple, smooth and clean.  My goal is to create an application that helps users track their nutrition without all of the clutter.  I look forward to seeing the development of this application and how it evolves. Any suggestions, let me know and I will add it in within the final project or send you a personalized version. 
