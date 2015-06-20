@@ -22,6 +22,12 @@ Libraries included within Fit Health:
 [Used Lanre Adebambo project as a starting point](https://github.com/lanre-ade/Calorie-Tracker) 
 
 **Updates**
+
+- Added a home screen widget
+
+![home_screen_widget](https://cloud.githubusercontent.com/assets/7454787/8265775/cb24b918-16d7-11e5-85be-ff8377a06ce2.PNG)
+
+
 - Adding a loading view for the fragments. It helps prevent the Navigation Drawer closing animation from skipping on older devices. It lets the user know, after a nav list item is clicked, something is happening.
 
 ![loading](https://cloud.githubusercontent.com/assets/7454787/8195910/31c1311e-1454-11e5-9b1e-9aa57c475363.gif)
