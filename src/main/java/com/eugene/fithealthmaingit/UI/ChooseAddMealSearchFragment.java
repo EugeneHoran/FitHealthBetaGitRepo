@@ -132,8 +132,8 @@ public class ChooseAddMealSearchFragment extends Fragment implements AbsListView
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent i = new Intent(getActivity(), SaveSearchAddItemActivityMain.class);
                 i.putExtra(Globals.MEAL_TYPE, mealType);
-                i.putExtra(Globals.MEAL_ID, mItem.get(position - 1).getID());
-                i.putExtra(Globals.MEAL_BRAND, mItem.get(position - 1).getBrand());
+                i.putExtra(Globals.MEAL_ID, mItem.get(position).getID());
+                i.putExtra(Globals.MEAL_BRAND, mItem.get(position).getBrand());
                 i.putExtra(Globals.MEAL_FAVORITE, "false");
                 startActivity(i);
             }

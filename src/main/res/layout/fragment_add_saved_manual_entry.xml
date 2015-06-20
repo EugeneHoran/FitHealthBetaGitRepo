@@ -18,20 +18,31 @@
     <RelativeLayout
         android:id="@+id/toolbarTitle"
         android:layout_width="match_parent"
-        android:layout_height="48dp"
+        android:layout_height="56dp"
         android:layout_below="@+id/toolbar"
         android:background="@color/primary">
 
         <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/foodTitle"
+            android:layout_marginLeft="56dp"
+            android:text="Meal Name"
+            android:textColor="#90ffffff"
+            android:textSize="12sp"/>
+
+        <TextView
             android:id="@+id/foodTitle"
             android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:layout_marginLeft="16dp"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="56dp"
+            android:layout_marginRight="16dp"
             android:gravity="center_vertical"
             android:singleLine="true"
             android:text="Testing"
             android:textColor="@color/white"
-            android:textSize="16sp"/>
+            android:textSize="19sp"/>
     </RelativeLayout>
 
 

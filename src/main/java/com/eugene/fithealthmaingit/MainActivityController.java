@@ -16,8 +16,11 @@
 
 package com.eugene.fithealthmaingit;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -25,7 +28,10 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.ArrayAdapter;
 
+import com.eugene.fithealthmaingit.HomeScreenWidget.FitHealthWidget;
+import com.eugene.fithealthmaingit.UI.ChooseAddMealActivity;
 import com.eugene.fithealthmaingit.UI.Dialogs.FragmentSuggestionDialog;
 import com.eugene.fithealthmaingit.UI.Dialogs.UpdateWeightDialogFragment;
 import com.eugene.fithealthmaingit.UI.FragmentBlankLoading;
@@ -65,12 +71,59 @@ public class MainActivityController extends AppCompatActivity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_controller);
         mNavigationDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        Intent widgetIntent = this.getIntent();
+        if (widgetIntent != null) {
+            final String action = widgetIntent.getAction();
+            if (action != null) {
+                if (savedInstanceState == null) {
+                    if (action.equals(FitHealthWidget.ACTION_SEARCH)) {
+                        final Handler handler = new Handler();
+                        handler.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                getSupportFragmentManager().beginTransaction().replace(R.id.containerSearch, new FragmentSearch()).addToBackStack(null).commit();
+                            }
+                        }, 100);
+                    }
+                    if (action.equals(FitHealthWidget.ACTION_ADD)) {
+                        widgetAdd();
+                    }
+                }
+            }
+        }
+    }
+
+    private void widgetAdd() {
+        AlertDialog.Builder builderSingle = new AlertDialog.Builder(MainActivityController.this).setTitle("Choose Meal: ");
+        final ArrayAdapter<String> mAdapterMoveMeal = new ArrayAdapter<>(MainActivityController.this, android.R.layout.simple_list_item_1);
+        mAdapterMoveMeal.add("Snack");
+        mAdapterMoveMeal.add("Breakfast");
+        mAdapterMoveMeal.add("Lunch");
+        mAdapterMoveMeal.add("Dinner");
+        builderSingle.setNegativeButton("cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        builderSingle.setAdapter(mAdapterMoveMeal, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                String strName = mAdapterMoveMeal.getItem(which);
+                Intent i = new Intent(MainActivityController.this, ChooseAddMealActivity.class);
+                i.putExtra(Globals.MEAL_TYPE, strName);
+                startActivity(i);
+            }
+        });
+        builderSingle.show();
     }
 
     /**
      * Saves whether the first fragment was added
      * Helper for Navigation Drawer controls
      */
+    boolean intentsCalled = false;
+
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
         super.onSaveInstanceState(savedInstanceState);
@@ -177,8 +230,7 @@ public class MainActivityController extends AppCompatActivity implements
 
     /**
      * Interface within FragmentNavigationDrawer
-     * Opens UserInformationActivity activity
-     * TODO: Currently settings in the drawer, but need to be updated
+     * Opens UserInformationActivity activityS
      */
     @Override
     public void openUserInformationActivity() {
@@ -257,4 +309,5 @@ public class MainActivityController extends AppCompatActivity implements
     public void updateWeight() {
         getSupportFragmentManager().beginTransaction().replace(R.id.container, new FragmentWeight()).commit();
     }
+
 }

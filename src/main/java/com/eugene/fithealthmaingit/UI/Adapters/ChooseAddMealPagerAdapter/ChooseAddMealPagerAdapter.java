@@ -27,16 +27,16 @@ public class ChooseAddMealPagerAdapter extends PagerAdapter {
     @Override
     public CharSequence getPageTitle(int position) { // Tab text
         if (position == 0) {
-            return "Meals";
+            return "Created Meals";
         }
         if (position == 1) {
             return "Favorites";
         }
         if (position == 2) {
-            return "Recent";
+            return "Recipe";
         }
         if (position == 3) {
-            return "Recipe";
+            return "Recent Searches";
         }
         return getPageTitle(position);
     }
@@ -52,10 +52,10 @@ public class ChooseAddMealPagerAdapter extends PagerAdapter {
                 resId = R.id.favorites;
                 break;
             case 2:
-                resId = R.id.recent;
+                resId = R.id.recipes;
                 break;
             case 3:
-                resId = R.id.recipes;
+                resId = R.id.recent;
                 break;
         }
         return viewGroup.findViewById(resId);

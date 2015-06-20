@@ -15,13 +15,17 @@
         android:minHeight="64dp"
         app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
-        <android.support.v7.widget.SwitchCompat
+        <com.github.glomadrian.materialanimatedswitch.MaterialAnimatedSwitch
             android:id="@+id/switchCompat"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="right|center_vertical"
-            android:text="Favorite"
-            android:theme="@style/Color1SwitchStyle"/>
+            android:layout_gravity="right"
+            app:ball_release_color="@color/grey_medium"
+            app:base_press_color="#fa9f9b"
+            app:base_release_color="@color/primary_dark"
+            app:icon_press="@mipmap/ic_star_pink"
+            app:icon_release="@mipmap/ic_star_outline"/>
+
 
     </android.support.v7.widget.Toolbar>
 

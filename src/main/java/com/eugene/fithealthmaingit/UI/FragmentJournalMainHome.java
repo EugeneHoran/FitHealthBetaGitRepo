@@ -19,6 +19,9 @@ package com.eugene.fithealthmaingit.UI;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.appwidget.AppWidgetManager;
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -51,6 +54,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
+import android.widget.RemoteViews;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
@@ -60,6 +64,7 @@ import com.eugene.fithealthmaingit.Databases_Adapters_ListViews.LogFood.LogAdapt
 import com.eugene.fithealthmaingit.Databases_Adapters_ListViews.LogFood.LogAdapterLunch;
 import com.eugene.fithealthmaingit.Databases_Adapters_ListViews.LogFood.LogAdapterSnack;
 import com.eugene.fithealthmaingit.Databases_Adapters_ListViews.LogFood.LogMeal;
+import com.eugene.fithealthmaingit.HomeScreenWidget.FitHealthWidget;
 import com.eugene.fithealthmaingit.R;
 import com.eugene.fithealthmaingit.Utilities.DateCompare;
 import com.eugene.fithealthmaingit.Utilities.Equations;
@@ -134,7 +139,6 @@ public class FragmentJournalMainHome extends Fragment implements
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         v = inflater.inflate(R.layout.fragment_journal_main_home, container, false);
-
         // Initiate PreferenceManager to get user saved information
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
         /**
@@ -299,6 +303,7 @@ public class FragmentJournalMainHome extends Fragment implements
         });
         return v;
     }
+
 
     @Override
     public void onClick(View v) {
@@ -585,6 +590,28 @@ public class FragmentJournalMainHome extends Fragment implements
         mPbCarbs.setProgress(Integer.valueOf(df.format(mAllCarbsConsumed)));
         mPbProtein.setMax(Integer.valueOf(df.format(mProteinGoal)));
         mPbProtein.setProgress(Integer.valueOf(df.format(mAllProteinConsumed)));
+
+        /**
+         * Update Widget
+         */
+        Context context = getActivity();
+        AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
+        RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.new_app_widget);
+        ComponentName thisWidget = new ComponentName(context, FitHealthWidget.class);
+
+        views.setProgressBar(R.id.pbCal, Integer.valueOf(df.format(mCalorieGoal)), Integer.valueOf(df.format(mAllCaloriesConsumed)), false);
+        views.setProgressBar(R.id.pbFat, Integer.valueOf(df.format(mFatGoal)), Integer.valueOf(df.format(mAllFatConsumed)), false);
+        views.setProgressBar(R.id.pbCarb, Integer.valueOf(df.format(mCarbGoal)), Integer.valueOf(df.format(mAllCarbsConsumed)), false);
+        views.setProgressBar(R.id.pbPro, Integer.valueOf(df.format(mProteinGoal)), Integer.valueOf(df.format(mAllProteinConsumed)), false);
+
+        views.setTextViewText(R.id.txtRemainderCal, df.format(mCalorieGoal - mAllCaloriesConsumed));
+        views.setTextViewText(R.id.txtRemainderFat, df.format(mFatGoal - mAllFatConsumed));
+        views.setTextViewText(R.id.txtRemainderCarb, df.format(mCarbGoal - mAllCarbsConsumed));
+        views.setTextViewText(R.id.txtRemainderPro, df.format(mProteinGoal - mAllProteinConsumed));
+
+        appWidgetManager.updateAppWidget(thisWidget, views);
+
+
     }
 
     /**
@@ -870,6 +897,7 @@ public class FragmentJournalMainHome extends Fragment implements
         AlertDialog alert = builder.create();
         alert.show();
     }
+
 
     /**
      * Interface to communicate to the parent activity (MainActivity.java)

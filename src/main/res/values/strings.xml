@@ -126,4 +126,7 @@
     <string name="title_activity_recipe">RecipeActivity</string>
     <string name="title_activity_recipe_manual_entry">RecipeManualEntry</string>
     <string name="title_activity_recipe_add_search_item">RecipeAddSearchItem</string>
+    <string name="title_activity_test_new_features">TestNewFeaturesActivity</string>
+    <string name="appwidget_text">EXAMPLE</string>
+    <string name="add_widget">Add widget</string>
 </resources>

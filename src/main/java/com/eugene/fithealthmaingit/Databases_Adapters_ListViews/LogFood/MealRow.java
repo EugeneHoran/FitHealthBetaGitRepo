@@ -55,6 +55,7 @@ public class MealRow extends LinearLayout {
 
     public void setLog(LogMeal log) {
         mLog = log;
+
         LinearLayout mCircle = (LinearLayout) findViewById(R.id.circle);
         TextView mMealName = (TextView) findViewById(R.id.log_meal_name1);
         TextView mCalories = (TextView) findViewById(R.id.log_calories);

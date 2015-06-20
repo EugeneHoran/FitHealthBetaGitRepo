@@ -160,6 +160,7 @@ public class ChooseAddMealTabsFragment extends Fragment {
                 mCallbacks.recentSearchClicked(recentLog.getName());
             }
         });
+
         mLogAdapterFavorite = new LogAdapterAll(getActivity(), 0, LogMeal.logSortByFavorite("favorite"));
         ViewGroup headerFav = (ViewGroup) inflater.inflate(R.layout.list_header_search_favorites, listViewManual, false);
         mListFavorites.addHeaderView(headerFav, null, false);
@@ -177,6 +178,7 @@ public class ChooseAddMealTabsFragment extends Fragment {
                 startActivity(i);
             }
         });
+
         mLogAdapterManual = new LogAdapterManual(getActivity(), 0, LogManual.all(), mealType);
         ViewGroup header = (ViewGroup) inflater.inflate(R.layout.list_header_search, listViewManual, false);
         listViewManual.addHeaderView(header, null, false);

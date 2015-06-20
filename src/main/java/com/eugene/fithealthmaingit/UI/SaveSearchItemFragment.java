@@ -26,7 +26,6 @@ import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.widget.SwitchCompat;
 import android.support.v7.widget.Toolbar;
 import android.text.InputType;
 import android.view.Gravity;
@@ -49,6 +48,7 @@ import com.eugene.fithealthmaingit.Databases_Adapters_ListViews.LogFood.LogMeal;
 import com.eugene.fithealthmaingit.FatSecretSearchAndGet.FatSecretGetMethod;
 import com.eugene.fithealthmaingit.R;
 import com.eugene.fithealthmaingit.Utilities.Globals;
+import com.github.glomadrian.materialanimatedswitch.MaterialAnimatedSwitch;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -134,7 +134,7 @@ public class SaveSearchItemFragment extends Fragment {
     private ArrayList<String> mItem;
     ArrayAdapter<String> servingAdapter;
     SharedPreferences sharedPreferences;
-    SwitchCompat switchCompat;
+    MaterialAnimatedSwitch switchCompat;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -156,10 +156,10 @@ public class SaveSearchItemFragment extends Fragment {
     private int mLastSpinnerPosition = 0;
 
     private void findViewsById() {
-        switchCompat = (SwitchCompat) v.findViewById(R.id.switchCompat);
         mLogAdapterAll = new LogAdapterPrevention(getActivity(), 0, LogMeal.logsByDate(new Date()));
         mFatSecretGet = new FatSecretGetMethod(); // method.get
         mToolbar = (Toolbar) v.findViewById(R.id.toolbar);
+        //   mToolbar.setTitle("Save " + mealType);
         mViewSevingSize = (TextView) v.findViewById(R.id.viewSevingSize);
         mViewSevingSize.setVisibility(View.GONE);
         mServingg = (TextView) v.findViewById(R.id.servingg);
@@ -246,11 +246,20 @@ public class SaveSearchItemFragment extends Fragment {
         vFiber = v.findViewById(R.id.vFiber);
         vSugar = v.findViewById(R.id.vSugar);
         vPro = v.findViewById(R.id.vPro);
+        switchCompat = (MaterialAnimatedSwitch) v.findViewById(R.id.switchCompat);
         if (meal_favorite.equals("favorite")) {
-            switchCompat.setChecked(true);
+            //       switchCompat.check();
         }
         updateItems();
+        switchCompat.setOnCheckedChangeListener(new MaterialAnimatedSwitch.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(boolean isChecked) {
+                isCheck = isChecked;
+            }
+        });
     }
+
+    boolean isCheck = false;
 
     double mCalorieProgress = 0;
     double mFatProgress = 0;
@@ -728,7 +737,7 @@ public class SaveSearchItemFragment extends Fragment {
         if (llIron.getVisibility() == View.VISIBLE)
             logMeals.setIron(Double.valueOf(mIronUpdate.getText().toString()));
 
-        if (switchCompat.isChecked() && !meal_favorite.equals("favorite")) {
+        if (isCheck == true && !meal_favorite.equals("favorite")) {
             logMeals.setFavorite("favorite");
         } else {
             logMeals.setFavorite("not");

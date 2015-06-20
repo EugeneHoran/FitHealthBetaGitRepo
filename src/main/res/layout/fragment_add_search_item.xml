@@ -15,34 +15,47 @@
         android:minHeight="56dp"
         app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
-        <android.support.v7.widget.SwitchCompat
+        <com.github.glomadrian.materialanimatedswitch.MaterialAnimatedSwitch
             android:id="@+id/switchCompat"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="right"
-            android:text="Favorite"
-            android:theme="@style/Color1SwitchStyle"/>
+            app:ball_release_color="@color/grey_medium"
+            app:base_press_color="#fa9f9b"
+            app:base_release_color="@color/primary_dark"
+            app:icon_press="@mipmap/ic_star_pink"
+            app:icon_release="@mipmap/ic_star_outline"/>
 
     </android.support.v7.widget.Toolbar>
 
     <RelativeLayout
         android:id="@+id/toolbarTitle"
         android:layout_width="match_parent"
-        android:layout_height="48dp"
+        android:layout_height="56dp"
         android:layout_below="@+id/toolbar"
         android:background="@color/primary">
 
         <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/foodTitle"
+            android:layout_marginLeft="56dp"
+            android:text="Meal Name"
+            android:textColor="#90ffffff"
+            android:textSize="12sp"/>
+
+        <TextView
             android:id="@+id/foodTitle"
             android:layout_width="match_parent"
-            android:layout_height="48dp"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
             android:layout_marginLeft="56dp"
             android:layout_marginRight="16dp"
             android:gravity="center_vertical"
             android:singleLine="true"
             android:text="Testing"
             android:textColor="@color/white"
-            android:textSize="20sp"/>
+            android:textSize="19sp"/>
     </RelativeLayout>
 
 
@@ -64,7 +77,6 @@
             android:layout_height="wrap_content">
 
             <TextView
-
                 android:layout_width="0dp"
                 android:layout_height="48dp"
                 android:layout_weight="1"
@@ -77,8 +89,10 @@
 
             <Spinner
                 android:id="@+id/spnServings"
-                android:layout_width="wrap_content"
-                android:layout_height="48dp"/>
+                android:layout_width="130dp"
+                android:layout_height="48dp"
+                android:layout_marginRight="16dp"
+                android:spinnerMode="dialog"/>
 
             <TextView
                 android:id="@+id/viewSevingSize"
@@ -120,7 +134,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="48dp"
                 android:layout_weight="1"
-                android:gravity="center_vertical"
+                android:gravity="center_vertical|end"
                 android:paddingLeft="16dp"
                 android:paddingRight="16dp"
                 android:textColor="@color/text_color"
@@ -130,7 +144,6 @@
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:layout_gravity="center_vertical|right|end"
-                android:layout_marginLeft="16dp"
                 android:layout_marginRight="16dp"
                 android:src="@mipmap/ic_chevron_right"
                 android:tint="@color/text_color"/>

@@ -83,6 +83,20 @@
             android:label="@string/title_activity_recipe_add_search_item"
             android:screenOrientation="portrait">
         </activity>
+        <activity
+            android:name=".TestNewFeaturesActivity"
+            android:label="@string/title_activity_test_new_features">
+        </activity>
+
+        <receiver android:name=".HomeScreenWidget.FitHealthWidget">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/new_app_widget_info"/>
+        </receiver>
     </application>
 
 </manifest>

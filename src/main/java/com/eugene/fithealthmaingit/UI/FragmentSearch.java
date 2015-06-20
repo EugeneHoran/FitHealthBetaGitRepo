@@ -46,6 +46,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.eugene.fithealthmaingit.Databases_Adapters_ListViews.FatSecretSearchList.SearchAdapterItemResult;
 import com.eugene.fithealthmaingit.Databases_Adapters_ListViews.FatSecretSearchList.SearchItemResult;
@@ -55,6 +56,7 @@ import com.eugene.fithealthmaingit.FatSecretSearchAndGet.FatSecretSearchMethod;
 import com.eugene.fithealthmaingit.R;
 import com.eugene.fithealthmaingit.Utilities.Globals;
 import com.eugene.fithealthmaingit.Utilities.InitiateSearch;
+import com.eugene.fithealthmaingit.Utilities.NetworkConnectionStatus;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -117,6 +119,7 @@ public class FragmentSearch extends Fragment {
             }
         });
         InitiateClick();
+
         return v;
     }
 
@@ -295,80 +298,84 @@ public class FragmentSearch extends Fragment {
     }
 
     private void searchFood(final String item, final int page_num) {
-        mAsyncTask = new AsyncTask<String, String, String>() {
-            @Override
-            protected void onPreExecute() {
-            }
+        if (!NetworkConnectionStatus.isNetworkAvailable(getActivity())) {
+            Toast.makeText(getActivity(), "Check your connection and try again", Toast.LENGTH_LONG).show();
+        } else {
+            mAsyncTask = new AsyncTask<String, String, String>() {
+                @Override
+                protected void onPreExecute() {
+                }
 
-            @Override
-            protected String doInBackground(String... arg0) {
-                JSONObject food = mFatSecretSearch.searchFood(item, page_num);
-                JSONArray FOODS_ARRAY;
-                try {
-                    if (food != null) {
-                        FOODS_ARRAY = food.getJSONArray("food");
-                        if (FOODS_ARRAY != null) {
-                            for (int i = 0; i < FOODS_ARRAY.length(); i++) {
-                                JSONObject food_items = FOODS_ARRAY.optJSONObject(i);
-                                String food_name = food_items.getString("food_name");
-                                String food_description = food_items.getString("food_description");
-                                String[] row = food_description.split("-");
-                                String id = food_items.getString("food_type");
-                                if (id.equals("Brand")) {
-                                    brand = food_items.getString("brand_name");
+                @Override
+                protected String doInBackground(String... arg0) {
+                    JSONObject food = mFatSecretSearch.searchFood(item, page_num);
+                    JSONArray FOODS_ARRAY;
+                    try {
+                        if (food != null) {
+                            FOODS_ARRAY = food.getJSONArray("food");
+                            if (FOODS_ARRAY != null) {
+                                for (int i = 0; i < FOODS_ARRAY.length(); i++) {
+                                    JSONObject food_items = FOODS_ARRAY.optJSONObject(i);
+                                    String food_name = food_items.getString("food_name");
+                                    String food_description = food_items.getString("food_description");
+                                    String[] row = food_description.split("-");
+                                    String id = food_items.getString("food_type");
+                                    if (id.equals("Brand")) {
+                                        brand = food_items.getString("brand_name");
+                                    }
+                                    if (id.equals("Generic")) {
+                                        brand = "Generic";
+                                    }
+                                    String food_id = food_items.getString("food_id");
+                                    mItem.add(new SearchItemResult(food_name, row[1].substring(1),
+                                        "" + brand, food_id));
                                 }
-                                if (id.equals("Generic")) {
-                                    brand = "Generic";
-                                }
-                                String food_id = food_items.getString("food_id");
-                                mItem.add(new SearchItemResult(food_name, row[1].substring(1),
-                                    "" + brand, food_id));
                             }
                         }
+                    } catch (JSONException exception) {
+                        exception.printStackTrace();
+                        return "Error";
                     }
-                } catch (JSONException exception) {
-                    exception.printStackTrace();
-                    return "Error";
+                    return "";
                 }
-                return "";
-            }
 
-            @Override
-            protected void onPostExecute(String result) {
-                super.onPostExecute(result);
-                searchAdapter.notifyDataSetChanged();
-                if (listContainer.getCount() > 0) {
-                    searchBack.setVisibility(View.VISIBLE);
-                    TranslateAnimation slide = new TranslateAnimation(0, 0, listContainer.getHeight(), 0);
-                    slide.setStartTime(1000);
-                    listContainer.setVisibility(View.VISIBLE);
-                    slide.setAnimationListener(new Animation.AnimationListener() {
-                        @Override
-                        public void onAnimationStart(Animation animation) {
-                        }
+                @Override
+                protected void onPostExecute(String result) {
+                    super.onPostExecute(result);
+                    searchAdapter.notifyDataSetChanged();
+                    if (listContainer.getCount() > 0) {
+                        searchBack.setVisibility(View.VISIBLE);
+                        TranslateAnimation slide = new TranslateAnimation(0, 0, listContainer.getHeight(), 0);
+                        slide.setStartTime(1000);
+                        listContainer.setVisibility(View.VISIBLE);
+                        slide.setAnimationListener(new Animation.AnimationListener() {
+                            @Override
+                            public void onAnimationStart(Animation animation) {
+                            }
 
-                        @Override
-                        public void onAnimationEnd(Animation animation) {
-                        }
+                            @Override
+                            public void onAnimationEnd(Animation animation) {
+                            }
 
-                        @Override
-                        public void onAnimationRepeat(Animation animation) {
-                        }
-                    });
-                    slide.setDuration(400);
-                    listContainer.startAnimation(slide);
-                } else {
-                    searchBack.setVisibility(View.GONE);
-                    listContainer.setVisibility(View.GONE);
+                            @Override
+                            public void onAnimationRepeat(Animation animation) {
+                            }
+                        });
+                        slide.setDuration(400);
+                        listContainer.startAnimation(slide);
+                    } else {
+                        searchBack.setVisibility(View.GONE);
+                        listContainer.setVisibility(View.GONE);
+                    }
                 }
-            }
 
-            @Override
-            protected void onCancelled() {
+                @Override
+                protected void onCancelled() {
 
-            }
-        };
-        mAsyncTask.execute();
+                }
+            };
+            mAsyncTask.execute();
+        }
     }
 
 }
