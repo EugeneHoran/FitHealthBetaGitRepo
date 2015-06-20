@@ -54,6 +54,7 @@ public class ChooseAddMealActivity extends AppCompatActivity implements ChooseAd
     public void recentSearchClicked(String mealName) {
         Bundle b = new Bundle();
         b.putString("MealName", mealName);
+
         Fragment searchItem = new ChooseAddMealSearchFragment();
         searchItem.setArguments(b);
         getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.fade_in, android.R.anim.fade_out).replace(R.id.container, searchItem).addToBackStack(null).commit();
