@@ -1,0 +1,235 @@
+<RelativeLayout
+    android:id="@+id/openApp"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="180dp"
+    android:background="@color/primary">
+
+    <LinearLayout
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="@color/primary_dark"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="16dp"
+            android:layout_weight="1"
+            android:text="Fit Health"
+            android:textColor="#fff"
+            android:textSize="20sp"/>
+
+        <ImageView
+            android:id="@+id/add"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:background="?android:attr/selectableItemBackground"
+            android:clickable="true"
+            android:padding="12dp"
+            android:src="@mipmap/ic_add"/>
+
+        <ImageView
+            android:id="@+id/search"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:background="?android:attr/selectableItemBackground"
+            android:clickable="true"
+            android:padding="12dp"
+            android:src="@mipmap/ic_search"/>
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/toolbar"
+        android:layout_centerVertical="true"
+        android:layout_marginTop="8dp"
+        android:gravity="center_vertical">
+
+        <RelativeLayout
+            android:id="@+id/progressCal"
+            android:layout_width="match_parent"
+            android:layout_height="30dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:gravity="center_vertical"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:singleLine="true"
+                android:text="Cal"
+                android:textColor="#fff"
+                android:textSize="14sp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="60dp"
+                android:layout_marginRight="60dp"
+                android:gravity="center_vertical">
+
+                <ProgressBar
+                    android:id="@+id/pbCal"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="4dp"
+                    android:layout_gravity="center_vertical"
+                    android:progressDrawable="@drawable/progress_bar"/>
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/txtRemainderCal"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_alignParentRight="true"
+                android:gravity="center_vertical"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:text="Hell"
+                android:textColor="@color/white"
+                android:textSize="14sp"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/fat"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_below="@+id/progressCal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:gravity="center_vertical"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:singleLine="true"
+                android:text="@string/fat"
+                android:textColor="@color/white"
+                android:textSize="14sp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="60dp"
+                android:layout_marginRight="60dp"
+                android:gravity="center_vertical">
+
+                <ProgressBar
+                    android:id="@+id/pbFat"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="4dp"
+                    android:layout_gravity="center_vertical"
+                    android:progressDrawable="@drawable/progress_bar"/>
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/txtRemainderFat"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_alignParentRight="true"
+                android:gravity="center_vertical"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:text="Hell"
+                android:textColor="@color/white"
+                android:textSize="14sp"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/carb"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_below="@+id/fat">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:gravity="center_vertical"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:singleLine="true"
+                android:text="Carb"
+                android:textColor="@color/white"
+                android:textSize="14sp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="60dp"
+                android:layout_marginRight="60dp"
+                android:gravity="center_vertical">
+
+                <ProgressBar
+                    android:id="@+id/pbCarb"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="4dp"
+                    android:layout_gravity="center_vertical"
+                    android:progressDrawable="@drawable/progress_bar"/>
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/txtRemainderCarb"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_alignParentRight="true"
+                android:gravity="center_vertical"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:text="Hell"
+                android:textColor="@color/white"
+                android:textSize="14sp"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/pro"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_below="@+id/carb">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:gravity="center_vertical"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:singleLine="true"
+                android:text="Pro"
+                android:textColor="@color/white"
+                android:textSize="14sp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="60dp"
+                android:layout_marginRight="60dp"
+                android:gravity="center_vertical">
+
+                <ProgressBar
+                    android:id="@+id/pbPro"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="4dp"
+                    android:layout_gravity="center_vertical"
+                    android:progressDrawable="@drawable/progress_bar"/>
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/txtRemainderPro"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_alignParentRight="true"
+                android:gravity="center_vertical"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:text="Hell"
+                android:textColor="@color/white"
+                android:textSize="14sp"/>
+        </RelativeLayout>
+    </RelativeLayout>
+</RelativeLayout>

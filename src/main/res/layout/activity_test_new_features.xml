@@ -1,0 +1,31 @@
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.eugene.fithealthmaingit.TestNewFeaturesActivity">
+
+    <!-- Sorry For this Mess, made this a while back -->
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/primary"
+        android:minHeight="56dp"
+        app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+        <com.github.glomadrian.materialanimatedswitch.MaterialAnimatedSwitch
+            android:id="@+id/pin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            app:ball_release_color="@color/grey_medium"
+            app:base_press_color="#fa9f9b"
+            app:base_release_color="@color/primary_dark"
+            app:icon_press="@mipmap/ic_star_pink"
+            app:icon_release="@mipmap/ic_star_outline"/>
+    </android.support.v7.widget.Toolbar>
+
+
+</RelativeLayout>
