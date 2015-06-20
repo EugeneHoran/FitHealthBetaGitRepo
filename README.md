@@ -1,6 +1,11 @@
 # Fit Health Beta
 Fit Health Beta
 
+<a href="https://play.google.com/store/apps/details?id=com.eugene.fithealthmaingit">
+  <img alt="Android app on Google Play"
+       src="https://developer.android.com/images/brand/en_app_rgb_wo_60.png" />
+</a>
+
 I created an application very similar to this one (Fit Health) when I first started working with android but decided to scrap it and start fresh. Still in early stages. Working on it a few hours a day when I get the chance.  
 
 I am designing this application to be simple, smooth and clean.  My goal is to create an application that helps users track their nutrition without all of the clutter.  I look forward to seeing the development of this application and how it evolves. Any suggestions, let me know and I will add it in within the final project or send you a personalized version. 
@@ -17,7 +22,16 @@ Libraries included within Fit Health:
 [Used Lanre Adebambo project as a starting point](https://github.com/lanre-ade/Calorie-Tracker) 
 
 **Updates**
+- Adding a loading view for the fragments. It helps prevent the Navigation Drawer closing animation from skipping on older devices. It lets the user know, after a nav list item is clicked, something is happening.
+
+![loading](https://cloud.githubusercontent.com/assets/7454787/8195910/31c1311e-1454-11e5-9b1e-9aa57c475363.gif)
+
+- Added search functionality to manual entry and favorite meals
+
+![untitled-2](https://cloud.githubusercontent.com/assets/7454787/8196157/c4d2e1d0-1456-11e5-9dc5-797ee131d7b3.gif)
+
 - Added indicators that change dependent on the calories consumed per mneal and meal calorie goal. 
+
 ![Alt text](https://cloud.githubusercontent.com/assets/7454787/8120868/396b7252-1072-11e5-8109-bbff2663acbb.png "Journal Home")
 
 
