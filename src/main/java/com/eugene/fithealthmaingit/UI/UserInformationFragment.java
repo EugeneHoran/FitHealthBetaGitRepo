@@ -28,12 +28,16 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.RadioButton;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.eugene.fithealthmaingit.Databases_Adapters_ListViews.LogWeight.WeightLog;
 import com.eugene.fithealthmaingit.Databases_Adapters_ListViews.LogWeight.WeightLogAdapter;
+import com.eugene.fithealthmaingit.FitBit.FitBitConnectionActivity;
 import com.eugene.fithealthmaingit.MainActivityController;
 import com.eugene.fithealthmaingit.R;
 import com.eugene.fithealthmaingit.Utilities.Equations;
@@ -54,7 +58,7 @@ public class UserInformationFragment extends Fragment {
     private Spinner vSpnActivity;
     private Spinner vWeightLoss;
     private String personSex;
-
+    RelativeLayout fitbit;
     private AsyncTask<Void, Void, Void> mEquations;
 
     // Inflate view
@@ -101,7 +105,32 @@ public class UserInformationFragment extends Fragment {
         vNpInches = (EditText) v.findViewById(R.id.npInches);
         vSpnActivity = (Spinner) v.findViewById(R.id.spnActivity);
         vWeightLoss = (Spinner) v.findViewById(R.id.weightCurrent);
+        fitbit = (RelativeLayout) v.findViewById(R.id.fitbit);
+        fitbit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getActivity(), FitBitConnectionActivity.class);
+                getActivity().startActivityForResult(i, ACTIVITY_ONE_REQUEST);
+            }
+        });
 
+        if (sharedPreferences.getString("FITBIT_CONNECTION_STATUS", "").equals("CONNECTED")) {
+            CheckBox checkBox = (CheckBox) v.findViewById(R.id.checkBox);
+            checkBox.setChecked(true);
+        }
+    }
+
+    static final int ACTIVITY_ONE_REQUEST = 1;  // The request code for ActivityOne
+    public final static String ACTIVITY_ONE_RESULT = "activity_one"; // Data Argument For Activity One
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == ACTIVITY_ONE_REQUEST && resultCode == getActivity().RESULT_OK) {
+            if (data.hasExtra(ACTIVITY_ONE_RESULT)) {
+                String result = data.getExtras().getString(ACTIVITY_ONE_RESULT);
+                Toast.makeText(getActivity(), result, Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 
     private void saveUserInformation() {

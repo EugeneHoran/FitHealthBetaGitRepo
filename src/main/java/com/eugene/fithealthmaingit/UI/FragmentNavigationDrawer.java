@@ -53,9 +53,13 @@ public class FragmentNavigationDrawer extends Fragment {
         }
     }
 
+    SharedPreferences sharedPreferences;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         v = inflater.inflate(R.layout.fragment_navigation_drawer, container, false);
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        token = sharedPreferences.getString("FITBIT_ACCESS_TOKEN", "");
         mDrawerListView = (ListView) v.findViewById(R.id.listNaviationDrawer);
         myAdapter = new NavigationDrawerListAdapter(getActivity());
         mDrawerListView.setAdapter(myAdapter);
@@ -73,7 +77,6 @@ public class FragmentNavigationDrawer extends Fragment {
                 mCallbacks.openUserInformationActivity();
             }
         });
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
         TextView txtName = (TextView) v.findViewById(R.id.txtName);
         txtName.setText(sharedPreferences.getString(Globals.USER_NAME, ""));
 
@@ -111,13 +114,19 @@ public class FragmentNavigationDrawer extends Fragment {
         void openUserInformationActivity();
     }
 
+    String token;
+
     class NavigationDrawerListAdapter extends BaseAdapter {
         private String[] list;
         private Context context;
 
         public NavigationDrawerListAdapter(Context context) {
             this.context = context;
-            list = context.getResources().getStringArray(R.array.navigation_drawer_list);
+            if (sharedPreferences.getString("FITBIT_ACCESS_TOKEN", "").equals("")) {
+                list = context.getResources().getStringArray(R.array.navigation_drawer_list);
+            } else {
+                list = context.getResources().getStringArray(R.array.navigation_drawer_list_fitbit);
+            }
         }
 
         @Override

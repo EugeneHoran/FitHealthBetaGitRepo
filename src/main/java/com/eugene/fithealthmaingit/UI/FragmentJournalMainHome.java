@@ -64,6 +64,7 @@ import com.eugene.fithealthmaingit.Databases_Adapters_ListViews.LogFood.LogAdapt
 import com.eugene.fithealthmaingit.Databases_Adapters_ListViews.LogFood.LogAdapterLunch;
 import com.eugene.fithealthmaingit.Databases_Adapters_ListViews.LogFood.LogAdapterSnack;
 import com.eugene.fithealthmaingit.Databases_Adapters_ListViews.LogFood.LogMeal;
+import com.eugene.fithealthmaingit.FitBit.FitBitCaloriesBurned;
 import com.eugene.fithealthmaingit.HomeScreenWidget.FitHealthWidget;
 import com.eugene.fithealthmaingit.R;
 import com.eugene.fithealthmaingit.Utilities.DateCompare;
@@ -119,6 +120,7 @@ public class FragmentJournalMainHome extends Fragment implements
     private ImageView icSnack, icBreakfast, icLunch, icDinner;
     private int mYear, mMonth, mDay;
     private double mCalorieGoalMeal;
+    LinearLayout llFitBit;
 
     /**
      * Get the saved date before the views are created/updated
@@ -136,11 +138,52 @@ public class FragmentJournalMainHome extends Fragment implements
         outState.putSerializable(Globals.JOURNAL_DATE, mDate);
     }
 
+    /**
+     * FitBit Ini
+     */
+    Bundle savedState;
+    TextView fbCaloriesBurned;
+    ImageView fbRefresh;
+    ProgressBar pbLoad;
+
+    private void InitiateFitBit(final Date date) {
+        llFitBit = (LinearLayout) v.findViewById(R.id.llFitBit);
+        fbCaloriesBurned = (TextView) v.findViewById(R.id.fbCaloriesBurned);
+        pbLoad = (ProgressBar) v.findViewById(R.id.pbLoad);
+        if (sharedPreferences.getString("FITBIT_CONNECTION_STATUS", "").equals("CONNECTED")) {
+            llFitBit.setVisibility(View.VISIBLE);
+            fbRefresh = (ImageView) v.findViewById(R.id.fbRefresh);
+            fbRefresh.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    new FitBitCaloriesBurned(getActivity(), date).execute();
+                }
+            });
+            new FitBitCaloriesBurned(getActivity(), date).execute();
+        } else {
+            llFitBit.setVisibility(View.GONE);
+        }
+    }
+
+    public void FitBit(String s) {
+        fbCaloriesBurned.setText(s);
+        pbLoad.setVisibility(View.GONE);
+        fbRefresh.setVisibility(View.VISIBLE);
+    }
+
+    public void FitBitLoading() {
+        fbCaloriesBurned.setText("...");
+        pbLoad.setVisibility(View.VISIBLE);
+        fbRefresh.setVisibility(View.GONE);
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        savedState = savedInstanceState;
         v = inflater.inflate(R.layout.fragment_journal_main_home, container, false);
         // Initiate PreferenceManager to get user saved information
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+
         /**
          * Convert Date To Calendar
          */
@@ -393,6 +436,7 @@ public class FragmentJournalMainHome extends Fragment implements
         } else {
             mToolbar.setSubtitle(DateFormat.format("MMM d, EE", date));
         }
+
     }
 
     /**
@@ -419,6 +463,7 @@ public class FragmentJournalMainHome extends Fragment implements
         SetDinnerListHeight.setListViewHeight(mListDinner);
 
         mLogAdapterAll = new LogAdapterAll(getActivity(), 0, LogMeal.logsByDate(date));
+        InitiateFitBit(date);
     }
 
     /**

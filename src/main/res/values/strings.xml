@@ -15,7 +15,14 @@
         <item>Weight</item>
         <item>Health</item>
     </string-array>
-
+    <!-- Navigation Drawer-->
+    <string-array name="navigation_drawer_list_fitbit">
+        <item>Journal</item>
+        <item>Nutrition</item>
+        <item>Weight</item>
+        <item>Health</item>
+        <item>Fitbit</item>
+    </string-array>
     <!--Database Name-->
     <string name="database_name">database_log</string>
     <string name="string_filler">Filler</string>
@@ -129,4 +136,7 @@
     <string name="title_activity_test_new_features">TestNewFeaturesActivity</string>
     <string name="appwidget_text">EXAMPLE</string>
     <string name="add_widget">Add widget</string>
+    <string name="title_activity_fit_bit">FitBitActivity</string>
+    <string name="title_activity_fit_bit_activity_two">FitBitActivityTwo</string>
+    <string name="title_activity_setting_view">SettingView</string>
 </resources>

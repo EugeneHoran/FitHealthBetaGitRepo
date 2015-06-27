@@ -87,4 +87,13 @@ public class DateCompare {
         return cal;
     }
 
+    public static Date handlePagerDate(int pos) {
+        Calendar cal = Calendar.getInstance();
+        int year = cal.get(Calendar.YEAR);
+        int month = cal.get(Calendar.MONTH);
+        int day = cal.get(Calendar.DAY_OF_MONTH);
+        Calendar mCalendar = new GregorianCalendar(year, month, day);
+        mCalendar.add(Calendar.DATE, pos);
+        return mCalendar.getTime();
+    }
 }

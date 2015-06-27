@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
+    android:id="@+id/main"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
@@ -26,17 +27,16 @@
             android:layout_width="match_parent"
             android:layout_height="4dp"
             android:layout_gravity="center_vertical"
-            android:progressDrawable="@drawable/progress_bar"
             android:visibility="gone"/>
     </LinearLayout>
 
     <RelativeLayout
         android:id="@+id/nutrition"
-        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="56dp"
         android:layout_marginLeft="72dp"
-        android:layout_marginRight="72dp">
+        android:layout_marginRight="72dp"
+        android:visibility="gone">
 
         <ImageView
             android:layout_width="48dp"
@@ -70,6 +70,19 @@
     </RelativeLayout>
 
     <RelativeLayout
+        android:id="@+id/fit_bit"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone">
+
+        <include
+            android:id="@+id/fit_bit_scroll"
+            layout="@layout/fragment_fit_bit"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+    </RelativeLayout>
+
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/llProgress">
@@ -87,8 +100,10 @@
     </RelativeLayout>
 
     <LinearLayout
+        android:id="@+id/shadow"
         android:layout_width="match_parent"
         android:layout_height="10dp"
         android:layout_below="@+id/llProgress"
-        android:background="@drawable/toolbar_shadow"/>
+        android:background="@drawable/toolbar_shadow"
+        android:orientation="vertical"/>
 </RelativeLayout>

@@ -51,4 +51,11 @@ public class Globals {
 
     public static final String JOURNAL_DATE = "set_date_on_screen_rotation";
     public static final String SUGGESTION_DATE = "send_date_to_suggestion_dialog";
+
+    /**
+     * FIT BIt
+     */
+    public static final String CUSTOMER_KEY = "d067e7c1b4d326a71add49b73f573f2f";
+    public static final String CUSTOMER_SECRET = "4ea2779049ad25c145b2c83b0496a207";
+    public static final String FITBIT_CONNECTION_STATUS = "returns_NOT_CONNECTED_or_CONNECTED";
 }

@@ -35,6 +35,7 @@ import com.eugene.fithealthmaingit.UI.ChooseAddMealActivity;
 import com.eugene.fithealthmaingit.UI.Dialogs.FragmentSuggestionDialog;
 import com.eugene.fithealthmaingit.UI.Dialogs.UpdateWeightDialogFragment;
 import com.eugene.fithealthmaingit.UI.FragmentBlankLoading;
+import com.eugene.fithealthmaingit.UI.FragmentFitbit;
 import com.eugene.fithealthmaingit.UI.FragmentHealth;
 import com.eugene.fithealthmaingit.UI.FragmentJournalMainHome;
 import com.eugene.fithealthmaingit.UI.FragmentNavigationDrawer;
@@ -42,6 +43,7 @@ import com.eugene.fithealthmaingit.UI.FragmentNutrition;
 import com.eugene.fithealthmaingit.UI.FragmentSearch;
 import com.eugene.fithealthmaingit.UI.FragmentWeight;
 import com.eugene.fithealthmaingit.UI.MealViewActivity;
+import com.eugene.fithealthmaingit.UI.NutritionPagerTesting.FragmentNutritionPager;
 import com.eugene.fithealthmaingit.UI.QuickAddActivity;
 import com.eugene.fithealthmaingit.UI.UserInformationActivity;
 import com.eugene.fithealthmaingit.Utilities.Globals;
@@ -57,13 +59,16 @@ public class MainActivityController extends AppCompatActivity implements
     FragmentNutrition.FragmentCallbacks,
     FragmentHealth.FragmentCallbacks,
     FragmentWeight.FragmentCallbacks,
-    UpdateWeightDialogFragment.FragmentCallbacks {
+    UpdateWeightDialogFragment.FragmentCallbacks,
+    FragmentNutritionPager.FragmentCallbacks,
+    FragmentFitbit.FragmentCallbacks {
 
     private DrawerLayout mNavigationDrawer;
     private Fragment fragment;
 
     // Determines whether or not to load fragment after nav drawer if closed.
     private static final String FIRST_FRAGMENT_ADDED = "is_first_fragment_added";
+    private static String FRAGMENT_TAG = "";
     private boolean isFirstFragmentAdded = false;
 
     @Override
@@ -71,26 +76,26 @@ public class MainActivityController extends AppCompatActivity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_controller);
         mNavigationDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        // From home screen widget
         Intent widgetIntent = this.getIntent();
         if (widgetIntent != null) {
-            final String action = widgetIntent.getAction();
-            if (action != null) {
-                if (savedInstanceState == null) {
-                    if (action.equals(FitHealthWidget.ACTION_SEARCH)) {
-                        final Handler handler = new Handler();
-                        handler.postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                getSupportFragmentManager().beginTransaction().replace(R.id.containerSearch, new FragmentSearch()).addToBackStack(null).commit();
-                            }
-                        }, 100);
-                    }
-                    if (action.equals(FitHealthWidget.ACTION_ADD)) {
-                        widgetAdd();
-                    }
+            if (widgetIntent.getAction() != null && savedInstanceState == null) {
+                if (widgetIntent.getAction().equals(FitHealthWidget.ACTION_SEARCH)) {
+                    // Post delay to allow the app to open and not interfere with animation
+                    final Handler handler = new Handler();
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            getSupportFragmentManager().beginTransaction().replace(R.id.containerSearch, new FragmentSearch()).addToBackStack(null).commit();
+                        }
+                    }, 100);
+                }
+                if (widgetIntent.getAction().equals(FitHealthWidget.ACTION_ADD)) {
+                    widgetAdd();
                 }
             }
         }
+
     }
 
     private void widgetAdd() {
@@ -122,8 +127,6 @@ public class MainActivityController extends AppCompatActivity implements
      * Saves whether the first fragment was added
      * Helper for Navigation Drawer controls
      */
-    boolean intentsCalled = false;
-
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
         super.onSaveInstanceState(savedInstanceState);
@@ -148,15 +151,23 @@ public class MainActivityController extends AppCompatActivity implements
         switch (position) {
             case 0:
                 fragment = new FragmentJournalMainHome();
+                FRAGMENT_TAG = "JOURNAL";
                 break;
             case 1:
-                fragment = new FragmentNutrition();
+                fragment = new FragmentNutritionPager();
+                FRAGMENT_TAG = "NUTRITION";
                 break;
             case 2:
                 fragment = new FragmentWeight();
+                FRAGMENT_TAG = "WEIGHT";
                 break;
             case 3:
                 fragment = new FragmentHealth();
+                FRAGMENT_TAG = "HEALTH";
+                break;
+            case 4:
+                fragment = new FragmentFitbit();
+                FRAGMENT_TAG = "FITBIT";
                 break;
             default:
                 break;
@@ -169,7 +180,7 @@ public class MainActivityController extends AppCompatActivity implements
          */
         if (fragment != null && !isFirstFragmentAdded) {
             getSupportFragmentManager().beginTransaction()
-                .replace(R.id.container, fragment).commit();
+                .replace(R.id.container, fragment, FRAGMENT_TAG).commit();
             isFirstFragmentAdded = true;
         } else {
             Fragment loading = new FragmentBlankLoading();
@@ -185,7 +196,7 @@ public class MainActivityController extends AppCompatActivity implements
                 public void onDrawerClosed(View drawerView) {
                     if (fragment != null && isFirstFragmentAdded) {
                         getSupportFragmentManager().beginTransaction()
-                            .replace(R.id.container, fragment).commit();
+                            .replace(R.id.container, fragment, FRAGMENT_TAG).commit();
                         isFirstFragmentAdded = true;
                     }
                 }
@@ -202,6 +213,20 @@ public class MainActivityController extends AppCompatActivity implements
                 public void onDrawerStateChanged(int newState) {
                 }
             });
+    }
+
+    public void FitBitCaloriesBurned(String s) {
+        FragmentJournalMainHome fragmentMain = (FragmentJournalMainHome) getSupportFragmentManager().findFragmentByTag("JOURNAL");
+        if (fragmentMain != null) {
+            fragmentMain.FitBit(s);
+        }
+    }
+
+    public void FitBitLoading() {
+        FragmentJournalMainHome fragmentMain = (FragmentJournalMainHome) getSupportFragmentManager().findFragmentByTag("JOURNAL");
+        if (fragmentMain != null) {
+            fragmentMain.FitBitLoading();
+        }
     }
 
     /**
@@ -309,5 +334,4 @@ public class MainActivityController extends AppCompatActivity implements
     public void updateWeight() {
         getSupportFragmentManager().beginTransaction().replace(R.id.container, new FragmentWeight()).commit();
     }
-
 }

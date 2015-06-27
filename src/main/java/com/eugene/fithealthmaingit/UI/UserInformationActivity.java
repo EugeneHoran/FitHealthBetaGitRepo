@@ -16,9 +16,11 @@
 
 package com.eugene.fithealthmaingit.UI;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.CheckBox;
 
 import com.eugene.fithealthmaingit.R;
 
@@ -43,4 +45,28 @@ public class UserInformationActivity extends AppCompatActivity {
         getSupportFragmentManager().putFragment(outState, RETAIN_FRAGMENT, fragment);
     }
 
+    static final int ACTIVITY_ONE_REQUEST = 1;  // The request code for ActivityOne
+    public final static String ACTIVITY_ONE_RESULT = "activity_one"; // Data Argument For Activity One
+
+    /**
+     * Get the Results from the Other Activities
+     *
+     * @param requestCode In this case either 1 = ACTIVITY_ONE_REQUEST  or 2 = ACTIVITY_TWO_REQUEST
+     * @param resultCode  Determines whether the request was successful.
+     * @param data        The being sent from other activities via Intent
+     */
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == ACTIVITY_ONE_REQUEST && resultCode == RESULT_OK) {
+            if (data.hasExtra(ACTIVITY_ONE_RESULT)) {
+                String result = data.getExtras().getString(ACTIVITY_ONE_RESULT);
+                CheckBox checkBox = (CheckBox) findViewById(R.id.checkBox);
+                if (result.equals("CONNECTED")) {
+                    checkBox.setChecked(true);
+                } else {
+                    checkBox.setChecked(false);
+                }
+            }
+        }
+    }
 }

@@ -186,6 +186,23 @@
                         android:entries="@array/weight_loss"/>
                 </LinearLayout>
 
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginTop="16dp"
+                    android:text="Connect fitbit"
+                    android:textColor="@color/text_color"
+                    android:textSize="12sp"/>
+
+                <ImageButton
+                    android:id="@+id/fitbit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_marginLeft="16dp"
+                    android:adjustViewBounds="true"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/fitbit_logo_dark_1000px"/>
             </LinearLayout>
         </RelativeLayout>
     </ScrollView>
