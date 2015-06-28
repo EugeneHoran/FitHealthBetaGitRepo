@@ -23,6 +23,10 @@ Libraries included within Fit Health:
 
 **Updates**
 
+- Users are now able to sync their Fitbit accounts.
+
+![fitbit](https://cloud.githubusercontent.com/assets/7454787/8394498/544ee552-1d08-11e5-874a-864fb7dc1e34.PNG)
+
 - Added a home screen widget and charts based on nutrition intake
 
 ![home_screen_widget](https://cloud.githubusercontent.com/assets/7454787/8265775/cb24b918-16d7-11e5-85be-ff8377a06ce2.PNG)
