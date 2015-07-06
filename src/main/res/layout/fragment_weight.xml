@@ -80,7 +80,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:text="Goal Weight"
-                            android:textColor="@color/primary_dark"
+                            android:textColor="@color/green"
                             android:textSize="14sp"/>
 
                         <TextView
@@ -90,36 +90,7 @@
                             android:layout_weight="1"
                             android:gravity="right"
                             android:text="180 lbs"
-                            android:textColor="@color/primary_dark"
-                            android:textSize="14sp"/>
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/weightStart"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/card"
-                        android:orientation="horizontal"
-                        android:paddingLeft="16dp"
-                        android:paddingRight="16dp"
-                        android:paddingTop="8dp">
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="Start Weight"
-                            android:textColor="@color/primary"
-                            android:textSize="14sp"/>
-
-                        <TextView
-                            android:id="@+id/startWeight"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:gravity="right"
-                            android:text="200 lbs"
-                            android:textColor="@color/primary"
+                            android:textColor="@color/green"
                             android:textSize="14sp"/>
                     </LinearLayout>
 
@@ -149,6 +120,35 @@
                             android:gravity="right"
                             android:text="185 lbs"
                             android:textColor="@color/primary"
+                            android:textSize="14sp"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/weightStart"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/card"
+                        android:orientation="horizontal"
+                        android:paddingLeft="16dp"
+                        android:paddingRight="16dp"
+                        android:paddingTop="8dp">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Start Weight"
+                            android:textColor="@color/text_color"
+                            android:textSize="14sp"/>
+
+                        <TextView
+                            android:id="@+id/startWeight"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="right"
+                            android:text="200 lbs"
+                            android:textColor="@color/text_color"
                             android:textSize="14sp"/>
                     </LinearLayout>
 

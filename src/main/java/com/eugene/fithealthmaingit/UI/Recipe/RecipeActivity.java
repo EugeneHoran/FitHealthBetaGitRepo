@@ -18,10 +18,11 @@ import com.eugene.fithealthmaingit.Databases_Adapters_ListViews.LogRecipes.LogRe
 import com.eugene.fithealthmaingit.Databases_Adapters_ListViews.LogRecipes.LogRecipeHolderAdapter;
 import com.eugene.fithealthmaingit.Databases_Adapters_ListViews.LogRecipes.LogRecipeItems;
 import com.eugene.fithealthmaingit.Databases_Adapters_ListViews.LogRecipes.LogRecipeItemsAdapter;
-import com.eugene.fithealthmaingit.MainActivityController;
 import com.eugene.fithealthmaingit.R;
+import com.eugene.fithealthmaingit.MainActivity;
 import com.eugene.fithealthmaingit.UI.ChooseAddMealActivity;
 import com.eugene.fithealthmaingit.Utilities.Globals;
+import com.eugene.fithealthmaingit.Utilities.OrderFormat;
 
 import java.util.Date;
 
@@ -136,7 +137,7 @@ public class RecipeActivity extends AppCompatActivity {
             public boolean onMenuItemClick(MenuItem item) {
                 if (item.getItemId() == R.id.action_save) {
                     setRecipe();
-                    Intent i = new Intent(RecipeActivity.this, MainActivityController.class);
+                    Intent i = new Intent(RecipeActivity.this, MainActivity.class);
                     i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(i);
                 }
@@ -228,6 +229,7 @@ public class RecipeActivity extends AppCompatActivity {
         logMeal.setIron(Double.valueOf(mAllIronCount));
         logMeal.setMealChoice(mealType);
         logMeal.setRecipeId(String.valueOf(mId));
+        logMeal.setOrderFormat(OrderFormat.setMealFormat(mealType));
         logMeal.save();
     }
 }

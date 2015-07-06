@@ -48,6 +48,7 @@ import com.eugene.fithealthmaingit.Databases_Adapters_ListViews.LogFood.LogMeal;
 import com.eugene.fithealthmaingit.FatSecretSearchAndGet.FatSecretGetMethod;
 import com.eugene.fithealthmaingit.R;
 import com.eugene.fithealthmaingit.Utilities.Globals;
+import com.eugene.fithealthmaingit.Utilities.OrderFormat;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -521,6 +522,7 @@ public class ManualEntrySaveMealFragment extends Fragment {
         logMeals.setServingSize(Double.valueOf(mServingg.getText().toString()));
         logMeals.setMealServing("Serving");
         logMeals.setDate(new Date());
+        logMeals.setOrderFormat(OrderFormat.setMealFormat(mealType));
         logMeals.save();
         mCallbacks.fromFragment();
     }

@@ -44,7 +44,7 @@ public class StartActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         Intent iNotSaved = new Intent(this, UserInformationActivity.class);
-        Intent iSaved = new Intent(this, MainActivityController.class);
+        Intent iSaved = new Intent(this, MainActivity.class);
         WeightLogAdapter weightLogAdapter = new WeightLogAdapter(this, 0, WeightLog.all());
         if (weightLogAdapter.getCount() == 0) { // Helps get data without having to reinstall the app.
             startActivity(iNotSaved);

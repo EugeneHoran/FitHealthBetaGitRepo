@@ -18,13 +18,14 @@ package com.eugene.fithealthmaingit.UI;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 
 import com.eugene.fithealthmaingit.R;
 import com.eugene.fithealthmaingit.Utilities.Globals;
 
-public class QuickAddActivity extends ActionBarActivity implements QuickAddFragment.QuickAddItemAdded {
+public class QuickAddActivity extends AppCompatActivity implements QuickAddFragment.QuickAddItemAdded {
     private String mealType;
+    Fragment fragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +37,7 @@ public class QuickAddActivity extends ActionBarActivity implements QuickAddFragm
         }
 
         Bundle bundle = new Bundle();
-        Fragment fragment = new QuickAddFragment();
+        fragment = new QuickAddFragment();
         bundle.putString(Globals.MEAL_TYPE, mealType);
         fragment.setArguments(bundle);
         if (savedInstanceState == null) {

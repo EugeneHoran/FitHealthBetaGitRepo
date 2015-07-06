@@ -21,7 +21,7 @@
             <shape>
 
                 <solid
-                    android:color="@color/red"/>
+                    android:color="@color/accent"/>
             </shape>
         </clip>
     </item>

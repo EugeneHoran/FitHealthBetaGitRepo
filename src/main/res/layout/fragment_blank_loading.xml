@@ -70,19 +70,6 @@
     </RelativeLayout>
 
     <RelativeLayout
-        android:id="@+id/fit_bit"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="gone">
-
-        <include
-            android:id="@+id/fit_bit_scroll"
-            layout="@layout/fragment_fit_bit"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
-    </RelativeLayout>
-
-    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/llProgress">

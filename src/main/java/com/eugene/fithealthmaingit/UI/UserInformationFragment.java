@@ -38,8 +38,8 @@ import android.widget.Toast;
 import com.eugene.fithealthmaingit.Databases_Adapters_ListViews.LogWeight.WeightLog;
 import com.eugene.fithealthmaingit.Databases_Adapters_ListViews.LogWeight.WeightLogAdapter;
 import com.eugene.fithealthmaingit.FitBit.FitBitConnectionActivity;
-import com.eugene.fithealthmaingit.MainActivityController;
 import com.eugene.fithealthmaingit.R;
+import com.eugene.fithealthmaingit.MainActivity;
 import com.eugene.fithealthmaingit.Utilities.Equations;
 import com.eugene.fithealthmaingit.Utilities.Globals;
 
@@ -251,7 +251,7 @@ public class UserInformationFragment extends Fragment {
                 weightLog.setDate(new Date());
                 weightLog.setCurrentWeight(Double.valueOf(vEtWeight.getText().toString()));
                 weightLog.save();
-                Intent i = new Intent(getActivity(), MainActivityController.class);
+                Intent i = new Intent(getActivity(), MainActivity.class);
                 i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(i);
                 getActivity().finish();

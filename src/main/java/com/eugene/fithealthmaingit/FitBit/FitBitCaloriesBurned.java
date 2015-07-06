@@ -6,7 +6,7 @@ import android.os.AsyncTask;
 import android.preference.PreferenceManager;
 import android.util.Log;
 
-import com.eugene.fithealthmaingit.MainActivityController;
+import com.eugene.fithealthmaingit.MainActivity;
 import com.temboo.Library.Fitbit.Statistics.GetTimeSeriesByDateRange;
 import com.temboo.core.TembooSession;
 
@@ -43,7 +43,7 @@ public class FitBitCaloriesBurned extends AsyncTask<String, Void, String> {
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
-        ((MainActivityController) mCon).FitBitLoading();
+        ((MainActivity) mCon).FitBitLoading();
     }
 
     @Override
@@ -84,6 +84,6 @@ public class FitBitCaloriesBurned extends AsyncTask<String, Void, String> {
 
     @Override
     protected void onPostExecute(String result) {
-        ((MainActivityController) mCon).FitBitCaloriesBurned(String.valueOf(calories));
+        ((MainActivity) mCon).FitBitCaloriesBurned(String.valueOf(calories));
     }
 }

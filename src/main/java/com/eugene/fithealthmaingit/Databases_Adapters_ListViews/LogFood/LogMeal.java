@@ -62,6 +62,7 @@ public class LogMeal extends Model {
     protected CharField manualEntry;
     protected CharField isRecipe;
     protected CharField recipeId;
+    protected CharField orderFormat;
 
     public LogMeal() {
         super(true);
@@ -90,6 +91,14 @@ public class LogMeal extends Model {
         manualEntry = new CharField();
         isRecipe = new CharField();
         recipeId = new CharField();
+        orderFormat = new CharField();
+    }
+
+    public static List<LogMeal> logSortByTesting(Date date) {
+        String query_string = formatDateForQuery(date);
+        Filter filter = new Filter();
+        filter.contains("date", query_string);
+        return LogMeal.objects().filter(filter).orderBy("orderFormat").toList();
     }
 
     private static String formatProjectForQuery(String name) {
@@ -132,6 +141,16 @@ public class LogMeal extends Model {
         filter.contains("mealName", meal);
         return LogMeal.objects().filter(filter).toList();
     }
+
+    // Testing
+    public String getOrderFotmat() {
+        return orderFormat.get();
+    }
+
+    public void setOrderFormat(String meal) {
+        orderFormat.set(meal);
+    }
+    // Testing End
 
     public String getRecipeId() {
         return recipeId.get();

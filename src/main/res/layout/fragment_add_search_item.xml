@@ -15,17 +15,6 @@
         android:minHeight="56dp"
         app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
-        <com.github.glomadrian.materialanimatedswitch.MaterialAnimatedSwitch
-            android:id="@+id/switchCompat"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="right"
-            app:ball_release_color="@color/grey_medium"
-            app:base_press_color="#fa9f9b"
-            app:base_release_color="@color/primary_dark"
-            app:icon_press="@mipmap/ic_star_pink"
-            app:icon_release="@mipmap/ic_star_outline"/>
-
     </android.support.v7.widget.Toolbar>
 
     <RelativeLayout
@@ -972,10 +961,10 @@
 
                 <TextView
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                     android:layout_height="wrap_content"
                     android:layout_marginLeft="100dp"
                     android:text="*Consumed"
-                    android:textColor="@color/red"
+                    android:textColor="@color/accent"
                     android:textSize="10dp"
                     android:textStyle="italic"/>
 

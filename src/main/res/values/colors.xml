@@ -2,6 +2,7 @@
 <resources>
     <color name="primary">#db554f</color>
     <color name="primary_dark">#963a36</color>
+    <color name="primary_dark_test">#80000000</color>
     <color name="accent">#607D8B</color>
     <color name="accent_dark">#37474F</color>
     <color name="accent_dialog">#607D8B</color>
@@ -13,5 +14,5 @@
     <color name="light_grey">#9E9E9E</color>
     <color name="red">#ed1c24</color>
     <color name="green">#4CAF50</color>
-
+    <color name="primary_trans_dark">#30000000</color>
 </resources>

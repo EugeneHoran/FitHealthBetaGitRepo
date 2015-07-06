@@ -20,8 +20,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
-import com.eugene.fithealthmaingit.MainActivityController;
 import com.eugene.fithealthmaingit.R;
+import com.eugene.fithealthmaingit.MainActivity;
 
 /**
  * Controls ManualEntrySaveMealFragment
@@ -39,7 +39,7 @@ public class ManualEntrySaveMealActivity extends AppCompatActivity implements Ma
 
     @Override
     public void fromFragment() {
-        Intent intent = new Intent(this, MainActivityController.class);
+        Intent intent = new Intent(this, MainActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
     }

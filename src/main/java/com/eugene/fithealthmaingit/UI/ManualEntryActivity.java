@@ -22,8 +22,8 @@ import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.FrameLayout;
 
-import com.eugene.fithealthmaingit.MainActivityController;
 import com.eugene.fithealthmaingit.R;
+import com.eugene.fithealthmaingit.MainActivity;
 import com.eugene.fithealthmaingit.Utilities.Globals;
 
 public class ManualEntryActivity extends AppCompatActivity {
@@ -52,7 +52,7 @@ public class ManualEntryActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        Intent intent = new Intent(this, MainActivityController.class);
+        Intent intent = new Intent(this, MainActivity.class);
         intent.putExtra(Globals.MEAL_TYPE, mealType);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         FrameLayout frameLayout = (FrameLayout) findViewById(R.id.containerManual);

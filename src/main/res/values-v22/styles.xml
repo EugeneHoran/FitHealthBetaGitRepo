@@ -4,12 +4,21 @@
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/primary</item>
-        <item name="colorPrimaryDark">@color/primary_dark</item>
+        <item name="colorPrimaryDark">@color/primary_trans_dark</item>
         <item name="colorAccent">@color/accent</item>
         <item name="android:dialogTheme">@style/AppTheme.DialogTheme</item>
         <!-- <item name="colorAccent">@color/accent</item> -->
     </style>
 
+    <!-- Base application theme. -->
+    <style name="AppThemeOther" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorPrimaryDark">@color/primary_dark</item>
+        <item name="colorAccent">@color/accent</item>
+        <item name="android:dialogTheme">@style/AppTheme.DialogTheme</item>
+        <!-- <item name="colorAccent">@color/accent</item> -->
+    </style>
 
     <style name="ToolbarTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
@@ -25,6 +34,5 @@
         <item name="colorPrimary">@color/primary</item>
         <item name="colorPrimaryDark">@color/primary_dark</item>
         <item name="colorAccent">@color/accent_dialog</item>
-
     </style>
 </resources>

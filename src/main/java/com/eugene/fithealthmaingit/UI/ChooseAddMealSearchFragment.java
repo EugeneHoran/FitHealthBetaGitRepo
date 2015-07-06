@@ -83,10 +83,10 @@ public class ChooseAddMealSearchFragment extends Fragment implements AbsListView
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private int preLast;
     private String brand;
-    ListView listSearch;
+    private ListView listSearch;
     LinearLayout llSearch;
-    LogQuickSearchAdapter logQuickSearchAdapter;
-    View searchLine;
+    private LogQuickSearchAdapter logQuickSearchAdapter;
+    private View searchLine;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -124,7 +124,10 @@ public class ChooseAddMealSearchFragment extends Fragment implements AbsListView
         searchLine = v.findViewById(R.id.searchLine);
         logQuickSearchAdapter = new LogQuickSearchAdapter(getActivity(), 0, LogQuickSearch.all());
         mEtSearchAdapter = new SearchAdapterItemResult(getActivity(), mItem);
+
         mListViewSearchResults = (ListView) v.findViewById(R.id.listView);
+        ViewGroup header = (ViewGroup) inflater.inflate(R.layout.list_search_header, mListViewSearchResults, false);
+        mListViewSearchResults.addHeaderView(header, null, false);
         mListViewSearchResults.setAdapter(mEtSearchAdapter);
         mListViewSearchResults.setOnScrollListener(this);
         mListViewSearchResults.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -132,8 +135,8 @@ public class ChooseAddMealSearchFragment extends Fragment implements AbsListView
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent i = new Intent(getActivity(), SaveSearchAddItemActivityMain.class);
                 i.putExtra(Globals.MEAL_TYPE, mealType);
-                i.putExtra(Globals.MEAL_ID, mItem.get(position).getID());
-                i.putExtra(Globals.MEAL_BRAND, mItem.get(position).getBrand());
+                i.putExtra(Globals.MEAL_ID, mItem.get(position - 1).getID());
+                i.putExtra(Globals.MEAL_BRAND, mItem.get(position - 1).getBrand());
                 i.putExtra(Globals.MEAL_FAVORITE, "false");
                 startActivity(i);
             }
@@ -425,6 +428,5 @@ public class ChooseAddMealSearchFragment extends Fragment implements AbsListView
     @Override
     public void onScrollStateChanged(AbsListView view, int scrollState) {
     }
-
 }
 

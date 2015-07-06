@@ -36,7 +36,6 @@ import com.eugene.fithealthmaingit.Databases_Adapters_ListViews.LogRecipes.LogRe
 import com.eugene.fithealthmaingit.FatSecretSearchAndGet.FatSecretGetMethod;
 import com.eugene.fithealthmaingit.R;
 import com.eugene.fithealthmaingit.Utilities.Globals;
-import com.github.glomadrian.materialanimatedswitch.MaterialAnimatedSwitch;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -123,7 +122,6 @@ public class RecipeSaveSearchItemFragment extends Fragment {
     ArrayAdapter<String> servingAdapter;
     SharedPreferences sharedPreferences;
     String recipe_id;
-    MaterialAnimatedSwitch switchCompat;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -138,8 +136,7 @@ public class RecipeSaveSearchItemFragment extends Fragment {
         }
 
         findViewsById();
-        switchCompat = (MaterialAnimatedSwitch) v.findViewById(R.id.switchCompat);
-        switchCompat.setVisibility(View.GONE);
+
         getFood(Integer.valueOf(food_id));
         return v;
     }

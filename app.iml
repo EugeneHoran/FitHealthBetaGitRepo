@@ -134,7 +134,6 @@
     <orderEntry type="library" exported="" name="play-services-cast-7.0.0" level="project" />
     <orderEntry type="library" exported="" name="play-services-maps-7.0.0" level="project" />
     <orderEntry type="library" exported="" name="play-services-fitness-7.0.0" level="project" />
-    <orderEntry type="library" exported="" name="OAuth" level="project" />
     <orderEntry type="library" exported="" name="support-annotations-22.2.0" level="project" />
     <orderEntry type="library" exported="" name="play-services-identity-7.0.0" level="project" />
     <orderEntry type="library" exported="" name="recyclerview-v7-22.2.0" level="project" />
@@ -153,7 +152,6 @@
     <orderEntry type="library" exported="" name="dragtoplayout-1.2.1" level="project" />
     <orderEntry type="module" module-name="commons-math3-3.5" exported="" />
     <orderEntry type="module" module-name="HoloGraphLibrary" exported="" />
-    <orderEntry type="module" module-name="materialanimatedswitch" exported="" />
     <orderEntry type="module" module-name="libraryChart" exported="" />
   </component>
 </module>

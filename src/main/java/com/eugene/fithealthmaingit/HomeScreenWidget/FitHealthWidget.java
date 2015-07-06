@@ -11,8 +11,8 @@ import android.widget.RemoteViews;
 
 import com.eugene.fithealthmaingit.Databases_Adapters_ListViews.LogFood.LogAdapterAll;
 import com.eugene.fithealthmaingit.Databases_Adapters_ListViews.LogFood.LogMeal;
-import com.eugene.fithealthmaingit.MainActivityController;
 import com.eugene.fithealthmaingit.R;
+import com.eugene.fithealthmaingit.MainActivity;
 import com.eugene.fithealthmaingit.Utilities.Globals;
 
 import java.text.DecimalFormat;
@@ -50,14 +50,14 @@ public class FitHealthWidget extends AppWidgetProvider {
 
     static void updateAppWidget(Context context, AppWidgetManager appWidgetManager, int appWidgetId) {
 
-        Intent i = new Intent(context, MainActivityController.class);
+        Intent i = new Intent(context, MainActivity.class);
         i.setAction(FitHealthWidget.ACTION_SEARCH);
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, i, 0);
-        Intent add = new Intent(context, MainActivityController.class);
+        Intent add = new Intent(context, MainActivity.class);
         add.setAction(FitHealthWidget.ACTION_ADD);
         PendingIntent pendingIntentAdd = PendingIntent.getActivity(context, 0, add, 0);
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.new_app_widget);
-        Intent openApp = new Intent(context, MainActivityController.class);
+        Intent openApp = new Intent(context, MainActivity.class);
         PendingIntent piOPen = PendingIntent.getActivity(context, 0, openApp, 0);
 
         views.setOnClickPendingIntent(R.id.search, pendingIntent);
@@ -96,10 +96,6 @@ public class FitHealthWidget extends AppWidgetProvider {
         views.setTextViewText(R.id.txtRemainderPro, df.format(mProteinGoal - mAllProteinConsumed));
 
         appWidgetManager.updateAppWidget(appWidgetId, views);
-    }
-
-    public void showNextT() {
-
     }
 }
 

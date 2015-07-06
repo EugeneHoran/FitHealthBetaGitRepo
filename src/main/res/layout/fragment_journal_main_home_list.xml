@@ -89,13 +89,10 @@
                         android:paddingLeft="16sp"
                         android:paddingRight="16sp"
                         android:text="@string/no_items_added"
-                        android:textColor="@color/text_color"/>
+                        android:textColor="@color/text_color"
+                        android:textSize="16sp"/>
                 </LinearLayout>
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="#eeeeee"/>
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -217,14 +214,10 @@
                         android:paddingLeft="16sp"
                         android:paddingRight="16sp"
                         android:text="@string/no_items_added"
-                        android:textColor="@color/text_color"/>
+                        android:textColor="@color/text_color"
+                        android:textSize="16sp"/>
                 </LinearLayout>
 
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="#eeeeee"/>
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -347,13 +340,10 @@
                         android:paddingLeft="16sp"
                         android:paddingRight="16sp"
                         android:text="@string/no_items_added"
-                        android:textColor="@color/text_color"/>
+                        android:textColor="@color/text_color"
+                        android:textSize="16sp"/>
                 </LinearLayout>
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="#eeeeee"/>
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -475,13 +465,9 @@
                         android:paddingLeft="16sp"
                         android:paddingRight="16sp"
                         android:text="@string/no_items_added"
-                        android:textColor="@color/text_color"/>
+                        android:textColor="@color/text_color"
+                        android:textSize="16sp"/>
                 </LinearLayout>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="#eeeeee"/>
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -578,7 +564,6 @@
                         android:src="@mipmap/ic_refresh"
                         android:tint="@color/text_color"
                         android:visibility="visible"/>
-
                 </LinearLayout>
 
             </RelativeLayout>
@@ -605,7 +590,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="16dp"
-                            android:text="Calories Burned"
+                            android:text="Burned"
                             android:textColor="@color/text_color"
                             android:textSize="16sp"/>
 
@@ -622,6 +607,84 @@
                     </LinearLayout>
 
 
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="16dp"
+                            android:text="Goal + Burned"
+                            android:textColor="@color/text_color"
+                            android:textSize="16sp"/>
+
+                        <TextView
+                            android:id="@+id/fbCaloriesNew"
+                            android:layout_width="match_parent"
+                            android:layout_height="48dp"
+                            android:gravity="center_vertical|end"
+                            android:paddingLeft="16sp"
+                            android:paddingRight="16sp"
+                            android:text="100"
+                            android:textColor="@color/text_color"
+                            android:textSize="16sp"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+
+                            <TextView
+                                android:id="@+id/fbCaloriesConsumed"
+                                android:layout_width="wrap_content"
+                                android:layout_height="44dp"
+                                android:layout_marginLeft="16dp"
+                                android:gravity="center_vertical"
+                                android:text="Consumed"
+                                android:textColor="@color/text_color"
+                                android:textSize="16sp"/>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text=" consumed"
+                                android:textColor="@color/text_color"
+                                android:textSize="12sp"/>
+
+                            <TextView
+                                android:id="@+id/fbCaloriesGoalNew"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="center_vertical|end"
+                                android:paddingLeft="16sp"
+                                android:paddingRight="16sp"
+                                android:text="100"
+                                android:textColor="@color/text_color"
+                                android:textSize="16sp"/>
+
+
+                        </LinearLayout>
+
+                        <ProgressBar
+                            android:id="@+id/progressFitbit"
+                            style="?android:attr/progressBarStyleHorizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="4dp"
+                            android:layout_gravity="center_vertical"
+                            android:progressDrawable="@drawable/progress_bar"/>
+                    </LinearLayout>
                 </LinearLayout>
             </android.support.v7.widget.CardView>
         </LinearLayout>
