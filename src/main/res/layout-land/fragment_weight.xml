@@ -12,12 +12,142 @@
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:background="@color/primary"
-        app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"/>
+        app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_marginBottom="4dp"
+            android:layout_marginTop="4dp">
+
+            <com.eugene.fithealthmaingit.Custom.TextViewFont
+                android:id="@+id/txtTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:gravity="center_vertical"
+                android:paddingLeft="16dp"
+                android:singleLine="true"
+                android:text="Today"
+                android:textColor="@color/white"
+                android:textSize="14sp"
+                android:textStyle="normal"
+                app:fontName="Roboto-Medium.ttf"/>
+
+        </LinearLayout>
+    </android.support.v7.widget.Toolbar>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/toolbar_weight"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:paddingBottom="16dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:paddingTop="8dp"
+            android:text="Weight Progress"
+            android:textSize="16sp"
+            android:textStyle="bold"/>
+
+        <com.db.chart.view.LineChartView
+            android:id="@+id/linechart"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:paddingBottom="8dp"
+            android:paddingLeft="12dp"
+            android:paddingTop="8dp"
+            chart:chart_axisBorderSpacing="10dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginBottom="8dp"
+            android:background="#eeeeee"/>
+
+        <LinearLayout
+            android:id="@+id/currentWeightt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/weightStart"
+            android:orientation="horizontal"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:paddingTop="4dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="• Current Weight"
+                android:textColor="@color/primary"
+                android:textSize="14sp"/>
+
+            <TextView
+                android:id="@+id/currentWeight"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="right"
+                android:text="185 lbs"
+                android:textColor="@color/primary"
+                android:textSize="14sp"/>
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight="3"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/weightGoal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/weightLoss"
+            android:orientation="horizontal"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:paddingTop="4dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="• Goal Weight"
+                android:textColor="@color/green"
+                android:textSize="14sp"/>
+
+            <TextView
+                android:id="@+id/goalWeight"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="right"
+                android:text="180 lbs"
+                android:textColor="@color/green"
+                android:textSize="14sp"/>
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight="3"
+                />
+        </LinearLayout>
+
+
+    </LinearLayout>
+
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/toolbar_weight">
+        android:layout_below="@+id/toolbar_weight"
+        android:visibility="gone">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -51,12 +181,6 @@
                     android:layout_marginTop="8dp"
                     android:orientation="vertical">
 
-                    <com.db.chart.view.LineChartView
-                        android:id="@+id/linechart"
-                        android:layout_width="match_parent"
-                        android:layout_height="150dp"
-                        android:padding="8dp"
-                        chart:chart_axisBorderSpacing="10dp"/>
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -64,34 +188,6 @@
                         android:layout_marginBottom="8dp"
                         android:background="#eeeeee"/>
 
-                    <LinearLayout
-                        android:id="@+id/weightGoal"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/weightLoss"
-                        android:orientation="horizontal"
-                        android:paddingLeft="16dp"
-                        android:paddingRight="16dp"
-                        android:paddingTop="4dp">
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="Goal Weight"
-                            android:textColor="@color/primary_dark"
-                            android:textSize="14sp"/>
-
-                        <TextView
-                            android:id="@+id/goalWeight"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:gravity="right"
-                            android:text="180 lbs"
-                            android:textColor="@color/primary_dark"
-                            android:textSize="14sp"/>
-                    </LinearLayout>
 
                     <LinearLayout
                         android:id="@+id/weightStart"
@@ -118,35 +214,6 @@
                             android:layout_weight="1"
                             android:gravity="right"
                             android:text="200 lbs"
-                            android:textColor="@color/primary"
-                            android:textSize="14sp"/>
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/currentWeightt"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/weightStart"
-                        android:orientation="horizontal"
-                        android:paddingLeft="16dp"
-                        android:paddingRight="16dp"
-                        android:paddingTop="8dp">
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="Current Weight"
-                            android:textColor="@color/primary"
-                            android:textSize="14sp"/>
-
-                        <TextView
-                            android:id="@+id/currentWeight"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:gravity="right"
-                            android:text="185 lbs"
                             android:textColor="@color/primary"
                             android:textSize="14sp"/>
                     </LinearLayout>
@@ -282,7 +349,8 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="10dp"
+        android:layout_height="5dp"
         android:layout_below="@+id/toolbar_weight"
-        android:background="@drawable/toolbar_shadow"/>
+        android:background="@drawable/toolbar_shadow"
+        android:visibility="gone"/>
 </RelativeLayout>

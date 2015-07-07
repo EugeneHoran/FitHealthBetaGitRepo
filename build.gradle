@@ -7,8 +7,8 @@ android {
         applicationId "com.eugene.fithealthmaingit"
         minSdkVersion 14
         targetSdkVersion 22
-        versionCode 3
-        versionName "1.002"
+        versionCode 4
+        versionName "1.003"
     }
     buildTypes {
         release {

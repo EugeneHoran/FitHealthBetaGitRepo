@@ -5,12 +5,6 @@
     tools:context=".MainActivity">
 
     <item
-        android:id="@+id/action_date"
-        android:icon="@mipmap/ic_event"
-        android:orderInCategory="100"
-        android:title="Date Change"
-        app:showAsAction="always"/>
-    <item
         android:id="@+id/action_search"
         android:icon="@mipmap/ic_search"
         android:orderInCategory="200"

@@ -33,10 +33,7 @@ import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.Toolbar;
-import android.text.Spannable;
-import android.text.SpannableString;
 import android.text.format.DateFormat;
-import android.text.style.TypefaceSpan;
 import android.util.TypedValue;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
@@ -58,6 +55,7 @@ import android.widget.RemoteViews;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import com.eugene.fithealthmaingit.Custom.TextViewFont;
 import com.eugene.fithealthmaingit.Databases_Adapters_ListViews.LogFood.LogAdapterAll;
 import com.eugene.fithealthmaingit.Databases_Adapters_ListViews.LogFood.LogAdapterBreakfast;
 import com.eugene.fithealthmaingit.Databases_Adapters_ListViews.LogFood.LogAdapterDinner;
@@ -103,7 +101,6 @@ public class FragmentJournalMainHome extends Fragment implements
 
     private int slide_down_padding = 0;
 
-    private Toolbar mToolbar;
     private LinearLayout mCaloriePullDownView, pullDownItems;
     private SlidingUpPanelLayout mSlidingLayout;
     private RelativeLayout mSliderLayoutHelper;
@@ -123,6 +120,8 @@ public class FragmentJournalMainHome extends Fragment implements
     private double mCalorieGoalMeal;
     LinearLayout llFitBit;
     TextView fbCaloriesNew;
+    TextViewFont txtDate;
+    LinearLayout changeDate;
 
     /**
      * Get the saved date before the views are created/updated
@@ -138,63 +137,6 @@ public class FragmentJournalMainHome extends Fragment implements
     @Override
     public void onSaveInstanceState(Bundle outState) {
         outState.putSerializable(Globals.JOURNAL_DATE, mDate);
-    }
-
-    /**
-     * FitBit Ini
-     */
-    Bundle savedState;
-    TextView fbCaloriesBurned;
-    ImageView fbRefresh;
-    ProgressBar pbLoad;
-    TextView fbCaloriesGoal, fbCaloriesConsumed;
-
-    private void InitiateFitBit(final Date date) {
-        llFitBit = (LinearLayout) v.findViewById(R.id.llFitBit);
-        fbCaloriesBurned = (TextView) v.findViewById(R.id.fbCaloriesBurned);
-        pbLoad = (ProgressBar) v.findViewById(R.id.pbLoad);
-
-        if (sharedPreferences.getString("FITBIT_CONNECTION_STATUS", "").equals("CONNECTED")) {
-            llFitBit.setVisibility(View.VISIBLE);
-            fbRefresh = (ImageView) v.findViewById(R.id.fbRefresh);
-            fbRefresh.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    new FitBitCaloriesBurned(getActivity(), date).execute();
-                }
-            });
-            new FitBitCaloriesBurned(getActivity(), date).execute();
-        } else {
-            llFitBit.setVisibility(View.GONE);
-        }
-        //todo
-
-    }
-
-    public void FitBit(String s) {
-        fbCaloriesBurned.setText(s);
-        pbLoad.setVisibility(View.GONE);
-        fbRefresh.setVisibility(View.VISIBLE);
-        int caloriesBurned = Integer.valueOf(s);
-        double mCalorieGoal = Double.valueOf(sharedPreferences.getString(Globals.USER_CALORIES_TO_REACH_GOAL, "")) + caloriesBurned;
-        fbCaloriesNew.setText("" + df.format(mCalorieGoal));
-        fbCaloriesGoal = (TextView) v.findViewById(R.id.fbCaloriesGoalNew);
-        fbCaloriesGoal.setText("" + df.format(mCalorieGoal));
-        fbCaloriesConsumed = (TextView) v.findViewById(R.id.fbCaloriesConsumed);
-        double mAllCaloriesConsumed = 0;
-        for (LogMeal logMeal : mLogAdapterAll.getLogs()) {
-            mAllCaloriesConsumed += logMeal.getCalorieCount();
-        }
-        fbCaloriesConsumed.setText(df.format(mAllCaloriesConsumed));
-        ProgressBar progressFitbit = (ProgressBar) v.findViewById(R.id.progressFitbit);
-        progressFitbit.setMax(Integer.valueOf(df.format(mCalorieGoal)));
-        progressFitbit.setProgress(Integer.valueOf(df.format(mAllCaloriesConsumed)));
-    }
-
-    public void FitBitLoading() {
-        fbCaloriesBurned.setText("...");
-        pbLoad.setVisibility(View.VISIBLE);
-        fbRefresh.setVisibility(View.GONE);
     }
 
     @Override
@@ -217,13 +159,34 @@ public class FragmentJournalMainHome extends Fragment implements
          * Journal = Roboto-Bold
          * TODO: remove this statement and just update the Toolbar Title to custom font
          */
-        SpannableString s = new SpannableString("Fit Journal");
-        s.setSpan(new TypefaceSpan("Roboto-Thin.ttf"), 0, s.length(),
-            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        // Initiate Toolbar components
-        mToolbar = (Toolbar) v.findViewById(R.id.toolbar_journal_main);
+        txtDate = (TextViewFont) v.findViewById(R.id.txtDate);
+        changeDate = (LinearLayout) v.findViewById(R.id.changeDate);
+        changeDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DatePickerDialog dpd = new DatePickerDialog(getActivity(),
+                    new DatePickerDialog.OnDateSetListener() {
+                        @Override
+                        public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                            Calendar cal = Calendar.getInstance();
+                            cal.set(Calendar.YEAR, year);
+                            cal.set(Calendar.MONTH, monthOfYear);
+                            cal.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                            mYear = cal.get(Calendar.YEAR);
+                            mMonth = cal.get(Calendar.MONTH);
+                            mDay = cal.get(Calendar.DAY_OF_MONTH);
+                            mDate = cal.getTime();
+                            initializeAdapters(mDate);
+                            handleDateChanges(mDate);
+                            updateListViews();
+                        }
+                    }, mYear, mMonth, mDay);
+                dpd.show();
+            }
+        });
+
+        Toolbar mToolbar = (Toolbar) v.findViewById(R.id.toolbar_journal_main);
         mToolbar.inflateMenu(R.menu.menu_main_journal);
-        mToolbar.setTitle(s);
         mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -238,27 +201,6 @@ public class FragmentJournalMainHome extends Fragment implements
                     // Initiate Search Fragment
                     case R.id.action_search:
                         mCallbacks.searchFragment();
-                        break;
-                    // Change Date
-                    case R.id.action_date:
-                        DatePickerDialog dpd = new DatePickerDialog(getActivity(),
-                            new DatePickerDialog.OnDateSetListener() {
-                                @Override
-                                public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                                    Calendar cal = Calendar.getInstance();
-                                    cal.set(Calendar.YEAR, year);
-                                    cal.set(Calendar.MONTH, monthOfYear);
-                                    cal.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-                                    mYear = cal.get(Calendar.YEAR);
-                                    mMonth = cal.get(Calendar.MONTH);
-                                    mDay = cal.get(Calendar.DAY_OF_MONTH);
-                                    mDate = cal.getTime();
-                                    initializeAdapters(mDate);
-                                    handleDateChanges(mDate);
-                                    updateListViews();
-                                }
-                            }, mYear, mMonth, mDay);
-                        dpd.show();
                         break;
                     default:
                         break;
@@ -450,13 +392,13 @@ public class FragmentJournalMainHome extends Fragment implements
      */
     private void handleDateChanges(Date date) {
         if (DateCompare.areDatesEqual(new Date(), date)) { // Are Dates Equal Today
-            mToolbar.setSubtitle("Today");
+            txtDate.setText("Today");
         } else if (DateCompare.areDatesEqualYesterday(new Date(), date)) {  // Are Dates Equal Yesterday
-            mToolbar.setSubtitle("Yesterday");
+            txtDate.setText("Yesterday");
         } else if (DateCompare.areDatesEqualTomorrow(new Date(), date)) {  // Are Dates Equal Yesterday
-            mToolbar.setSubtitle("Tomorrow");
+            txtDate.setText("Tomorrow");
         } else {
-            mToolbar.setSubtitle(DateFormat.format("MMM d, EE", date));
+            txtDate.setText(DateFormat.format("MMM d, EE", date));
         }
 
     }
@@ -972,6 +914,62 @@ public class FragmentJournalMainHome extends Fragment implements
         alert.show();
     }
 
+    /**
+     * FitBit Ini
+     */
+    Bundle savedState;
+    TextView fbCaloriesBurned;
+    ImageView fbRefresh;
+    ProgressBar pbLoad;
+    TextView fbCaloriesGoal, fbCaloriesConsumed;
+
+    private void InitiateFitBit(final Date date) {
+        llFitBit = (LinearLayout) v.findViewById(R.id.llFitBit);
+        fbCaloriesBurned = (TextView) v.findViewById(R.id.fbCaloriesBurned);
+        pbLoad = (ProgressBar) v.findViewById(R.id.pbLoad);
+
+        if (sharedPreferences.getString("FITBIT_CONNECTION_STATUS", "").equals("CONNECTED")) {
+            llFitBit.setVisibility(View.VISIBLE);
+            fbRefresh = (ImageView) v.findViewById(R.id.fbRefresh);
+            fbRefresh.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    new FitBitCaloriesBurned(getActivity(), date).execute();
+                }
+            });
+            new FitBitCaloriesBurned(getActivity(), date).execute();
+        } else {
+            llFitBit.setVisibility(View.GONE);
+        }
+        //todo
+
+    }
+
+    public void FitBit(String s) {
+        fbCaloriesBurned.setText(s);
+        pbLoad.setVisibility(View.GONE);
+        fbRefresh.setVisibility(View.VISIBLE);
+        int caloriesBurned = Integer.valueOf(s);
+        double mCalorieGoal = Double.valueOf(sharedPreferences.getString(Globals.USER_CALORIES_TO_REACH_GOAL, "")) + caloriesBurned;
+        fbCaloriesNew.setText("" + df.format(mCalorieGoal));
+        fbCaloriesGoal = (TextView) v.findViewById(R.id.fbCaloriesGoalNew);
+        fbCaloriesGoal.setText("" + df.format(mCalorieGoal));
+        fbCaloriesConsumed = (TextView) v.findViewById(R.id.fbCaloriesConsumed);
+        double mAllCaloriesConsumed = 0;
+        for (LogMeal logMeal : mLogAdapterAll.getLogs()) {
+            mAllCaloriesConsumed += logMeal.getCalorieCount();
+        }
+        fbCaloriesConsumed.setText(df.format(mAllCaloriesConsumed));
+        ProgressBar progressFitbit = (ProgressBar) v.findViewById(R.id.progressFitbit);
+        progressFitbit.setMax(Integer.valueOf(df.format(mCalorieGoal)));
+        progressFitbit.setProgress(Integer.valueOf(df.format(mAllCaloriesConsumed)));
+    }
+
+    public void FitBitLoading() {
+        fbCaloriesBurned.setText("...");
+        pbLoad.setVisibility(View.VISIBLE);
+        fbRefresh.setVisibility(View.GONE);
+    }
 
     /**
      * Interface to communicate to the parent activity (MainActivity.java)

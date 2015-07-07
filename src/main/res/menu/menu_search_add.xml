@@ -3,16 +3,17 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".MainActivity">
+
     <item
         android:id="@+id/action_search"
         android:icon="@mipmap/ic_search"
         android:orderInCategory="200"
         android:title="@string/action_search"
         app:showAsAction="always"/>
+
     <item
         android:id="@+id/action_manual"
-        android:icon="@mipmap/ic_create"
         android:orderInCategory="100"
-        android:title="Create"
+        android:title="Create Meal"
         app:showAsAction="always"/>
 </menu>

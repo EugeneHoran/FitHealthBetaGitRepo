@@ -12,8 +12,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.TextView;
 
+import com.eugene.fithealthmaingit.Custom.TextViewFont;
 import com.eugene.fithealthmaingit.R;
 import com.eugene.fithealthmaingit.Utilities.DateCompare;
 
@@ -151,7 +151,7 @@ public class FragmentNutritionPager extends Fragment {
      * @param date current Date or updated date
      */
     private void handleDateChanges(Date date) {
-        TextView mDateText = (TextView) v.findViewById(R.id.tbDate);
+        TextViewFont mDateText = (TextViewFont) v.findViewById(R.id.tbDate);
         if (DateCompare.areDatesEqual(new Date(), date)) { // Are Dates Equal Today
             mToolbarDaily.getMenu().clear();
             mDateText.setText("Today");

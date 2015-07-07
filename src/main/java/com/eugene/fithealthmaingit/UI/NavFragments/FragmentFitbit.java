@@ -19,6 +19,7 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.eugene.fithealthmaingit.Custom.TextViewFont;
 import com.eugene.fithealthmaingit.FitBit.FitBitActivityAdapter;
 import com.eugene.fithealthmaingit.FitBit.FitBitActivityResult;
 import com.eugene.fithealthmaingit.R;
@@ -55,7 +56,6 @@ public class FragmentFitbit extends Fragment {
     private TextView diatanceWalked;
     TextView device;
     TextView date;
-    TextView lastSync;
     TextView caloriesBurned;
     ProgressBar progressSteps;
     ProgressBar progressDistance;
@@ -86,6 +86,8 @@ public class FragmentFitbit extends Fragment {
             StrictMode.setThreadPolicy(policy);
         }
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        TextViewFont txtTitle = (TextViewFont) v.findViewById(R.id.txtTitle);
+        txtTitle.setText("Fitbit");
         toolbar = (Toolbar) v.findViewById(R.id.toolbar_fitbit);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -105,7 +107,6 @@ public class FragmentFitbit extends Fragment {
                 return false;
             }
         });
-        fitbitRefreshing.setVisibility(View.VISIBLE);
         stepsGoal = (TextView) v.findViewById(R.id.stepsGoal);
         stepsWalked = (TextView) v.findViewById(R.id.stepsWalked);
         diatanceGoal = (TextView) v.findViewById(R.id.diatanceGoal);
@@ -113,7 +114,6 @@ public class FragmentFitbit extends Fragment {
         device = (TextView) v.findViewById(R.id.device);
         deviceType = (ImageView) v.findViewById(R.id.deviceType);
         batteryStatus = (ImageView) v.findViewById(R.id.batteryStatus);
-        lastSync = (TextView) v.findViewById(R.id.lastSync);
         caloriesBurned = (TextView) v.findViewById(R.id.caloriesBurned);
         date = (TextView) v.findViewById(R.id.date);
         date.setText("Today, " + DateFormat.format("MMM d", new Date()));
@@ -137,9 +137,16 @@ public class FragmentFitbit extends Fragment {
         SetActivityListHeight.setListViewHeight(listActivities);
 
         LoadSavedData();
-        new FitbitGetActivityStats().execute();
-        Log.e("tken", sharedPreferences.getString("FITBIT_ACCESS_TOKEN", ""));
-        Log.e("secret", sharedPreferences.getString("FITBIT_ACCESS_TOKEN_SECRET", ""));
+        if (savedInstanceState == null) {
+            new FitbitGetActivityStats().execute();
+            fitbitRefreshing.setVisibility(View.VISIBLE);
+        } else {
+            fitbitRefreshing.setVisibility(View.GONE);
+            toolbar.getMenu().clear();
+            toolbar.inflateMenu(R.menu.menu_fit_bit_fragment);
+            fitbitLoadingActivities.setVisibility(View.GONE);
+            updateActivityList();
+        }
         return v;
     }
 
@@ -386,7 +393,6 @@ public class FragmentFitbit extends Fragment {
             caloriesBurned.setText(String.valueOf(calories));
 
             savePreferences("DEVICE_NAME", productName);
-            savePreferences("DEVICE_SYNC", lastSync.getText().toString());
 
             savePreferences("STEPS_GOAL", steps);
             savePreferences("STEPS_ACTUAL", stepsGo);
@@ -437,7 +443,6 @@ public class FragmentFitbit extends Fragment {
         progressDistance.setMax(Integer.valueOf(df.format(distanceMax)));
         progressDistance.setProgress(Integer.valueOf(df.format(distanceCurrent)));
 
-        lastSync.setText(sharedPreferences.getString("DEVICE_SYNC", "Last Sync: "));
         device.setText(sharedPreferences.getString("DEVICE_NAME", "Device"));
         productName = sharedPreferences.getString("DEVICE_NAME", "Device");
         if (productName.equals("Flex")) {

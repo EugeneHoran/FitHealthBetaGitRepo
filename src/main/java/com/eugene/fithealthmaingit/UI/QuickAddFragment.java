@@ -17,9 +17,10 @@ import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
+import com.eugene.fithealthmaingit.Custom.TextViewFont;
 import com.eugene.fithealthmaingit.Databases_Adapters_ListViews.LogFood.LogMeal;
-import com.eugene.fithealthmaingit.R;
 import com.eugene.fithealthmaingit.MainActivity;
+import com.eugene.fithealthmaingit.R;
 import com.eugene.fithealthmaingit.Utilities.Globals;
 import com.eugene.fithealthmaingit.Utilities.OrderFormat;
 
@@ -29,7 +30,6 @@ public class QuickAddFragment extends Fragment {
     private View v;
     String mMealType;
 
-    private EditText mMealName;
     private EditText mMealCalories;
     private EditText mMealFat;
     private EditText mMealCarbs;
@@ -47,7 +47,6 @@ public class QuickAddFragment extends Fragment {
 
         InitiateToolbar();
 
-        mMealName = (EditText) v.findViewById(R.id.mealName);
         mMealCalories = (EditText) v.findViewById(R.id.mealCalories);
         mMealCalories.requestFocus();
         ((InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE)).toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
@@ -62,13 +61,14 @@ public class QuickAddFragment extends Fragment {
      */
     private void InitiateToolbar() {
         Toolbar mToolbarQuickAdd = (Toolbar) v.findViewById(R.id.toolbarQuickAdd);
-        mToolbarQuickAdd.setTitle("Quick Add");
+        TextViewFont txtTitle = (TextViewFont) v.findViewById(R.id.txtTitle);
+        txtTitle.setText("Quick Add");
         mToolbarQuickAdd.setNavigationIcon(R.mipmap.ic_arrow_back);
         mToolbarQuickAdd.inflateMenu(R.menu.menu_user_info);
         mToolbarQuickAdd.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE)).hideSoftInputFromWindow(mMealName.getWindowToken(), 0);
+                ((InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE)).hideSoftInputFromWindow(mMealCalories.getWindowToken(), 0);
                 getActivity().finish();
                 getActivity().overridePendingTransition(0, 0);
             }
@@ -79,12 +79,9 @@ public class QuickAddFragment extends Fragment {
             public boolean onMenuItemClick(MenuItem menuItem) {
                 ((InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE)).toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
                 if (menuItem.getItemId() == R.id.action_save) {
-                    if (mMealName.getText().toString().trim().length() > 0
-                        && mMealCalories.getText().toString().trim().length() > 0) {
+                    if (mMealCalories.getText().toString().trim().length() > 0) {
                         ServingDialog();
                     } else {
-                        if (mMealName.getText().toString().trim().length() == 0)
-                            mMealName.setError("Missing Field");
                         if (mMealCalories.getText().toString().trim().length() == 0)
                             mMealCalories.setError("Missing Field");
                     }
@@ -110,7 +107,7 @@ public class QuickAddFragment extends Fragment {
                 ((InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE)).hideSoftInputFromWindow(mServingSize.getWindowToken(), 0);
                 LogMeal logMeals = new LogMeal();
                 logMeals.setMealChoice(mMealType);
-                logMeals.setMealName(mMealName.getText().toString());
+                logMeals.setMealName("Quick Add");
                 logMeals.setCalorieCount(Double.valueOf(mMealCalories.getText().toString()) * Double.valueOf(mServingSize.getText().toString()));
                 if (mMealFat.getText().toString().trim().length() > 0)
                     logMeals.setFatCount(Double.valueOf(mMealFat.getText().toString()) * Double.valueOf(mServingSize.getText().toString()));

@@ -9,7 +9,28 @@
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:background="@color/accent"
-        app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"/>
+        app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_marginBottom="4dp"
+            android:layout_marginTop="4dp">
+
+            <com.eugene.fithealthmaingit.Custom.TextViewFont
+                android:id="@+id/txtTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:gravity="center_vertical"
+                android:paddingLeft="16dp"
+                android:singleLine="true"
+                android:text="Today"
+                android:textColor="@color/white"
+                android:textSize="14sp"
+                app:fontName="Roboto-Medium.ttf"/>
+
+        </LinearLayout>
+    </android.support.v7.widget.Toolbar>
 
     <ScrollView
         android:id="@+id/scrollView"
@@ -24,17 +45,6 @@
             android:layout_marginRight="74dp"
             android:orientation="vertical"
             android:padding="16dp">
-
-            <com.rengwuxian.materialedittext.MaterialEditText
-                android:id="@+id/mealName"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/meal_name"
-                android:imeOptions="actionNext"
-                android:inputType="textCapWords"
-                android:selectAllOnFocus="true"
-                android:text="@string/quick_add"
-                app:floatingLabel="normal"/>
 
             <LinearLayout
                 android:layout_width="match_parent"

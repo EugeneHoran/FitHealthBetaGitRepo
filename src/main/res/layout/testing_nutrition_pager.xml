@@ -28,15 +28,17 @@
             android:src="@mipmap/ic_chevron_left"
             android:tint="@color/white"/>
 
-        <TextView
+        <com.eugene.fithealthmaingit.Custom.TextViewFont
             android:id="@+id/tbDate"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:text="Today, April 20"
+            android:singleLine="true"
+            android:text="Today"
             android:textColor="@color/white"
-            android:textSize="18dp"
-            android:textStyle="bold"/>
+            android:textSize="20sp"
+            app:fontName="Roboto-Medium.ttf"/>
+
 
         <ImageView
             android:id="@+id/dateNext"
@@ -59,7 +61,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="10dp"
+        android:layout_height="5dp"
         android:layout_below="@+id/toolbar_daily"
         android:background="@drawable/toolbar_shadow"/>
 

@@ -1,10 +1,9 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/white"
-    >
+    android:layout_height="match_parent">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar_journal_health"
@@ -12,7 +11,29 @@
         android:layout_height="48dp"
         android:background="@color/primary"
         app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_marginBottom="4dp"
+            android:layout_marginTop="4dp">
+
+            <com.eugene.fithealthmaingit.Custom.TextViewFont
+                android:id="@+id/txtTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:gravity="center_vertical"
+                android:paddingLeft="16dp"
+                android:singleLine="true"
+                android:text="Today"
+                android:textColor="@color/white"
+                android:textSize="14sp"
+                android:textStyle="normal"
+                app:fontName="Roboto-Medium.ttf"/>
+
+        </LinearLayout>
     </android.support.v7.widget.Toolbar>
+
 
     <ScrollView
         android:layout_width="match_parent"
@@ -22,408 +43,411 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            >
+            android:layout_marginLeft="44dp"
+            android:layout_marginRight="44dp"
+            android:orientation="vertical">
 
 
-            <LinearLayout
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="4dp"
+                android:paddingLeft="16dp"
+                android:paddingTop="12dp"
+                android:text="Goal Overview"
+                android:textSize="16sp"
+                android:textStyle="bold"/>
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/card"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <TextView
-
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:paddingLeft="16dp"
-                    android:paddingTop="16dp"
-                    android:text="Goal"
-                    android:textColor="@color/primary_dark"
-                    android:textSize="16dp"
-                    />
-
+                android:layout_below="@+id/toolbar_weight"
+                android:layout_marginBottom="8dp"
+                android:layout_marginLeft="4dp"
+                android:layout_marginRight="4dp"
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal"
+                card_view:cardCornerRadius="2dp">
 
                 <LinearLayout
-                    android:layout_width="fill_parent"
-                    android:layout_height="fill_parent"
-                    android:orientation="horizontal"
-                    android:paddingBottom="16dp"
-                    android:paddingLeft="16dp"
-                    android:paddingRight="16dp">
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
 
                     <TextView
                         android:id="@+id/weightLossGoal"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:paddingTop="8dp"
-                        android:text="Based Off Weight &amp; Activity"
                         android:textColor="@color/text_color"
-                        android:textSize="16dp"
-                        />
+                        android:textSize="16sp"/>
 
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Current Weight"
+                            android:textColor="@color/text_color"
+                            android:textSize="16sp"/>
+
+                        <TextView
+                            android:id="@+id/weightCurrent"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/text_color"
+                            android:textSize="16sp"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Goal Weight"
+                            android:textColor="@color/text_color"
+                            android:textSize="16sp"/>
+
+                        <TextView
+                            android:id="@+id/weightGoal"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/text_color"
+                            android:textSize="16sp"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Estimate Time Till Goal"
+                            android:textColor="@color/text_color"
+                            android:textSize="16sp"/>
+
+                        <TextView
+                            android:id="@+id/timeGoal"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/text_color"
+                            android:textSize="16sp"/>
+                    </LinearLayout>
                 </LinearLayout>
+            </android.support.v7.widget.CardView>
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="#99999999"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="4dp"
+                android:paddingLeft="16dp"
+                android:paddingTop="8dp"
+                android:text="Calorie Overview"
+                android:textSize="16sp"
+                android:textStyle="bold"/>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:paddingLeft="16dp"
-                    android:paddingTop="16dp"
-                    android:text="Diet"
-                    android:textColor="@color/primary_dark"
-                    android:textSize="16dp"
-                    />
-
-
-                <LinearLayout
-                    android:layout_width="fill_parent"
-                    android:layout_height="fill_parent"
-                    android:orientation="horizontal"
-                    android:paddingLeft="16dp"
-                    android:paddingRight="16dp"
-                    android:paddingTop="8dp">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="Basal Metabolic Rate"
-                        android:textColor="@color/text_color"
-                        android:textSize="16dp"
-                        />
-
-                    <TextView
-                        android:id="@+id/BMR"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Large Text"
-                        android:textColor="@color/text_color"
-                        android:textSize="16dp"
-                        />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="fill_parent"
-                    android:layout_height="fill_parent"
-                    android:orientation="horizontal"
-                    android:paddingLeft="16dp"
-                    android:paddingRight="16dp"
-                    android:paddingTop="8dp">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="Maintain Weight"
-                        android:textColor="@color/text_color"
-                        android:textSize="16dp"
-                        />
-
-                    <TextView
-                        android:id="@+id/calorieMaintain"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Large Text"
-                        android:textColor="@color/text_color"
-                        android:textSize="16dp"
-                        />
-                </LinearLayout>
-
-
-                <LinearLayout
-                    android:layout_width="fill_parent"
-                    android:layout_height="fill_parent"
-                    android:orientation="horizontal"
-                    android:paddingLeft="16dp"
-                    android:paddingRight="16dp"
-                    android:paddingTop="8dp">
-
-                    <TextView
-                        android:id="@+id/giveupPer"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="Give Up"
-                        android:textColor="@color/text_color"
-
-                        android:textSize="16dp"/>
-
-                    <TextView
-                        android:id="@+id/CalorieLoss"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Large Text"
-                        android:textColor="@color/text_color"
-                        android:textSize="16dp"
-                        />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="fill_parent"
-                    android:layout_height="fill_parent"
-                    android:layout_marginBottom="16dp"
-                    android:orientation="horizontal"
-                    android:paddingLeft="16dp"
-                    android:paddingRight="16dp"
-                    android:paddingTop="8dp">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="Daily Goal"
-                        android:textColor="@color/text_color"
-                        android:textSize="16dp"
-                        />
-
-                    <TextView
-                        android:id="@+id/CalorieGoal1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Large Text"
-                        android:textColor="@color/primary_dark"
-                        android:textSize="16dp"
-                        />
-                </LinearLayout>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="#99999999"
-                    android:visibility="gone"/>
-
-                <TextView
-
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:layout_weight="1"
-                    android:paddingLeft="16dp"
-                    android:paddingRight="16dp"
-                    android:text="Water Consumption"
-                    android:textColor="@color/primary_dark"
-                    android:textSize="16dp"
-                    android:visibility="gone"
-                    />
-
-                <LinearLayout
-                    android:layout_width="fill_parent"
-                    android:layout_height="fill_parent"
-                    android:layout_marginBottom="16dp"
-                    android:orientation="horizontal"
-                    android:paddingLeft="16dp"
-                    android:paddingRight="16dp"
-                    android:paddingTop="8dp"
-                    android:visibility="gone">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="Based Off Weight &amp; Activity"
-                        android:textColor="@color/text_color"
-                        android:textSize="16dp"
-                        />
-
-                    <TextView
-                        android:id="@+id/Water"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Large Text"
-                        android:textSize="16dp"/>
-                </LinearLayout>
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="#99999999"/>
-
-            <LinearLayout
+            <android.support.v7.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="11dp"
-                android:layout_marginRight="11dp"
-                android:layout_marginTop="16dp"
-                android:orientation="vertical">
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="5dp">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentLeft="true"
-                        android:text="Body Mass Index (BMI)"
-                        android:textColor="@color/primary_dark"
-                        android:textSize="16dp"/>
-
-
-                </RelativeLayout>
-
+                android:layout_below="@+id/toolbar_weight"
+                android:layout_marginBottom="8dp"
+                android:layout_marginLeft="4dp"
+                android:layout_marginRight="4dp"
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal"
+                card_view:cardCornerRadius="2dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="5dp">
+                    android:orientation="vertical"
+                    android:padding="16dp">
 
-                    <TextView
-                        android:id="@+id/tvUnderWeight"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="Underweight"
-                        android:textColor="@color/light_grey"
-                        android:textSize="16dp"
-                        />
+                    <LinearLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:orientation="horizontal">
 
-                    <TextView
-                        android:id="@+id/tvUnderWeight1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight=".40"
-                        android:gravity="center_horizontal"
-                        android:text=""
-                        android:textColor="@color/light_grey"
-                        android:textSize="16dp"
-                        />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Basal Metabolic Rate"
+                            android:textColor="@color/text_color"
+                            android:textSize="16sp"/>
+
+                        <TextView
+                            android:id="@+id/BMR"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/text_color"
+                            android:textSize="16sp"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:orientation="horizontal"
+                        android:paddingTop="8dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Calories to Maintain Weight"
+                            android:textColor="@color/text_color"
+                            android:textSize="16sp"/>
+
+                        <TextView
+                            android:id="@+id/calorieMaintain"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/text_color"
+                            android:textSize="16sp"/>
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:orientation="horizontal"
+                        android:paddingTop="8dp">
+
+                        <TextView
+                            android:id="@+id/giveupPer"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Calorie Subtraction to Meet Goal"
+                            android:textColor="@color/text_color"
+                            android:textSize="16sp"/>
+
+                        <TextView
+                            android:id="@+id/CalorieLoss"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/text_color"
+                            android:textSize="16sp"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:orientation="horizontal"
+                        android:paddingTop="8dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Calorie Daily Goal"
+                            android:textColor="@color/accent"
+                            android:textSize="16sp"
+                            android:textStyle="bold"/>
+
+                        <TextView
+                            android:id="@+id/CalorieGoal1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/accent"
+                            android:textSize="16sp"
+                            android:textStyle="bold"/>
+                    </LinearLayout>
+
                 </LinearLayout>
-
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="5dp">
-
-                    <TextView
-                        android:id="@+id/tvNormal"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="Normal"
-                        android:textColor="@color/light_grey"
-                        android:textSize="16dp"
-                        />
-
-                    <TextView
-                        android:id="@+id/tvNormal1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0.17"
-                        android:gravity="center_horizontal"
-                        android:text="19 - 24"
-                        android:textColor="@color/light_grey"
-                        android:textSize="16dp"
-                        />
-
-                </LinearLayout>
-
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="5dp">
-
-                    <TextView
-                        android:id="@+id/tvOverWeight"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="Overweight"
-                        android:textColor="@color/light_grey"
-                        android:textSize="16dp"
-                        />
-
-                    <TextView
-                        android:id="@+id/tvOverWeight1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0.17"
-                        android:gravity="center_horizontal"
-                        android:text="24 - 30"
-                        android:textColor="@color/light_grey"
-                        android:textSize="16dp"
-                        />
-                </LinearLayout>
-
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="5dp">
-
-                    <TextView
-                        android:id="@+id/tvObese"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="Obese"
-                        android:textColor="@color/light_grey"
-                        android:textSize="16dp"
-                        />
-
-                    <TextView
-                        android:id="@+id/tvObese1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0.17"
-                        android:gravity="center_horizontal"
-                        android:text="30 - 40"
-                        android:textColor="@color/light_grey"
-                        android:textSize="16dp"
-                        />
-                </LinearLayout>
-
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="16dp"
-                    android:padding="5dp">
-
-                    <TextView
-                        android:id="@+id/tvVeryObese"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="Morbidly Obese"
-                        android:textColor="@color/light_grey"
-                        android:textSize="16dp"
-                        />
-
-                    <TextView
-                        android:id="@+id/tvVeryObese1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight=".50"
-                        android:gravity="center_horizontal"
-                        android:text="> 40"
-                        android:textColor="@color/light_grey"
-                        android:textSize="16dp"
-                        />
-                </LinearLayout>
-
-
-            </LinearLayout>
+            </android.support.v7.widget.CardView>
 
 
             <TextView
-                android:id="@+id/tvResult"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_centerHorizontal="true"
-                android:text=""
-                android:textColor="@color/primary_dark"
-                android:textSize="20dp"/>
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="4dp"
+                android:paddingLeft="16dp"
+                android:paddingTop="8dp"
+                android:text="Body Mass Index (BMI)"
+                android:textSize="16sp"
+                android:textStyle="bold"/>
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/toolbar_weight"
+                android:layout_marginBottom="8dp"
+                android:layout_marginLeft="4dp"
+                android:layout_marginRight="4dp"
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal"
+                card_view:cardCornerRadius="2dp">
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="BMI Category"
+                            android:textColor="@color/text_color"
+                            android:textSize="16sp"/>
+
+                        <TextView
+                            android:layout_width="80dp"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_horizontal"
+                            android:text="Fat %"
+                            android:textColor="@color/text_color"
+                            android:textSize="16sp"/>
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="1dp"
+                        android:background="#eee"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp">
+
+                        <TextView
+                            android:id="@+id/tvUnderWeight"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Underweight"
+                            android:textColor="@color/light_grey"
+                            android:textSize="16sp"/>
+
+                        <TextView
+                            android:id="@+id/tvUnderWeight1"
+                            android:layout_width="80dp"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_horizontal"
+                            android:textColor="@color/light_grey"
+                            android:textSize="16sp"/>
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp">
+
+                        <TextView
+                            android:id="@+id/tvNormal"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Normal"
+                            android:textColor="@color/light_grey"
+                            android:textSize="16sp"/>
+
+                        <TextView
+                            android:id="@+id/tvNormal1"
+                            android:layout_width="80dp"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_horizontal"
+                            android:text="19 - 24"
+                            android:textColor="@color/light_grey"
+                            android:textSize="16sp"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp">
+
+                        <TextView
+                            android:id="@+id/tvOverWeight"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Overweight"
+                            android:textColor="@color/light_grey"
+                            android:textSize="16sp"/>
+
+                        <TextView
+                            android:id="@+id/tvOverWeight1"
+                            android:layout_width="80dp"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_horizontal"
+                            android:text="24 - 30"
+                            android:textColor="@color/light_grey"
+                            android:textSize="16sp"/>
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp">
+
+                        <TextView
+                            android:id="@+id/tvObese"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Obese"
+                            android:textColor="@color/light_grey"
+                            android:textSize="16sp"/>
+
+                        <TextView
+                            android:id="@+id/tvObese1"
+                            android:layout_width="80dp"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_horizontal"
+                            android:text="30 - 40"
+                            android:textColor="@color/light_grey"
+                            android:textSize="16sp"/>
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp">
+
+                        <TextView
+                            android:id="@+id/tvVeryObese"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Morbidly Obese"
+                            android:textColor="@color/light_grey"
+                            android:textSize="16sp"/>
+
+                        <TextView
+                            android:id="@+id/tvVeryObese1"
+                            android:layout_width="80dp"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_horizontal"
+                            android:text="> 40"
+                            android:textColor="@color/light_grey"
+                            android:textSize="16sp"/>
+                    </LinearLayout>
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
         </LinearLayout>
 
 
@@ -431,7 +455,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="10dp"
+        android:layout_height="5dp"
         android:layout_below="@+id/toolbar_journal_health"
         android:background="@drawable/toolbar_shadow"/>
 

@@ -3,18 +3,17 @@ package com.eugene.fithealthmaingit.UI.NavFragments;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.Toolbar;
-import android.text.Spannable;
-import android.text.SpannableString;
-import android.text.style.TypefaceSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 
-import com.eugene.fithealthmaingit.R;
+import com.eugene.fithealthmaingit.Custom.TextViewFont;
 import com.eugene.fithealthmaingit.MainActivity;
+import com.eugene.fithealthmaingit.R;
 
 public class FragmentBlankLoading extends Fragment {
     View v;
@@ -24,6 +23,9 @@ public class FragmentBlankLoading extends Fragment {
     RelativeLayout nutrition;
     LinearLayout shadow;
     RelativeLayout main;
+    TextViewFont txtDate;
+    ImageView arrowDown;
+    LinearLayout changeDate;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -37,28 +39,34 @@ public class FragmentBlankLoading extends Fragment {
         pbLoad = (ProgressBar) v.findViewById(R.id.pbLoad);
         toolbar_blank = (Toolbar) v.findViewById(R.id.toolbar_blank);
         nutrition = (RelativeLayout) v.findViewById(R.id.nutrition);
+
+        changeDate = (LinearLayout) v.findViewById(R.id.changeDate);
+        txtDate = (TextViewFont) v.findViewById(R.id.txtDate);
+        arrowDown = (ImageView) v.findViewById(R.id.arrowDown);
+
         circularProgressbar = (ProgressBar) v.findViewById(R.id.circularProgressbar);
         switch (position) {
             case R.id.nav_journal:
                 pbLoad.setVisibility(View.VISIBLE);
                 toolbar_blank.inflateMenu(R.menu.menu_main_journal);
-                SpannableString s = new SpannableString("Fit Journal");
-                s.setSpan(new TypefaceSpan("Roboto-Thin.ttf"), 0, s.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-                toolbar_blank.setTitle(s);
-                toolbar_blank.setSubtitle("Today");
+                changeDate.setVisibility(View.VISIBLE);
+                arrowDown.setVisibility(View.VISIBLE);
                 break;
             case R.id.nav_nutrition:
                 nutrition.setVisibility(View.VISIBLE);
                 break;
             case R.id.nav_weight:
+                changeDate.setVisibility(View.VISIBLE);
                 toolbar_blank.inflateMenu(R.menu.menu_weight);
-                toolbar_blank.setTitle("Your Weight");
+                txtDate.setText("Weight");
                 break;
             case R.id.nav_health:
-                toolbar_blank.setTitle("Your Health");
+                changeDate.setVisibility(View.VISIBLE);
+                txtDate.setText("Health");
                 break;
             case R.id.nav_fitbit:
-                toolbar_blank.setTitle("Fitbit");
+                changeDate.setVisibility(View.VISIBLE);
+                txtDate.setText("Fitbit");
                 toolbar_blank.inflateMenu(R.menu.menu_fit_bit_fragment);
                 //
                 break;

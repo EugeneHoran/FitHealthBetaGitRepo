@@ -12,7 +12,39 @@
         android:layout_height="56dp"
         android:background="@color/primary"
         app:navigationIcon="@mipmap/ic_menu"
-        app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"/>
+        app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+        <LinearLayout
+            android:id="@+id/changeDate"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:layout_marginBottom="4dp"
+            android:layout_marginTop="4dp"
+            android:clickable="true"
+            android:paddingLeft="16dp"
+            android:visibility="gone">
+
+            <com.eugene.fithealthmaingit.Custom.TextViewFont
+                android:id="@+id/txtDate"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:gravity="center_vertical"
+                android:singleLine="true"
+                android:text="Today"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                app:fontName="Roboto-Medium.ttf"/>
+
+            <ImageView
+                android:id="@+id/arrowDown"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:padding="12dp"
+                android:src="@mipmap/ic_arrow_drop_down_white_24dp"
+                android:visibility="gone"/>
+        </LinearLayout>
+
+    </android.support.v7.widget.Toolbar>
 
     <LinearLayout
         android:id="@+id/llProgress"
@@ -38,6 +70,7 @@
         android:layout_marginRight="72dp"
         android:visibility="gone">
 
+
         <ImageView
             android:layout_width="48dp"
             android:layout_height="48dp"
@@ -48,14 +81,16 @@
             android:src="@mipmap/ic_chevron_left"
             android:tint="@color/white"/>
 
-        <TextView
+        <com.eugene.fithealthmaingit.Custom.TextViewFont
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
+            android:singleLine="true"
             android:text="Today"
             android:textColor="@color/white"
-            android:textSize="18dp"
-            android:textStyle="bold"/>
+            android:textSize="20sp"
+            app:fontName="Roboto-Medium.ttf"/>
+
 
         <ImageView
             android:layout_width="48dp"
@@ -89,7 +124,7 @@
     <LinearLayout
         android:id="@+id/shadow"
         android:layout_width="match_parent"
-        android:layout_height="10dp"
+        android:layout_height="5dp"
         android:layout_below="@+id/llProgress"
         android:background="@drawable/toolbar_shadow"
         android:orientation="vertical"/>

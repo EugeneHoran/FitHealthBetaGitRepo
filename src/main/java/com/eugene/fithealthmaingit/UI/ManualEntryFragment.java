@@ -28,6 +28,7 @@ import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
+import com.eugene.fithealthmaingit.Custom.TextViewFont;
 import com.eugene.fithealthmaingit.Databases_Adapters_ListViews.FoodManual.LogManual;
 import com.eugene.fithealthmaingit.R;
 import com.eugene.fithealthmaingit.Utilities.Globals;
@@ -39,7 +40,6 @@ import java.util.Random;
  * Add/Save Meals Manually
  */
 public class ManualEntryFragment extends Fragment {
-
 
     private View v;
     private Toolbar toolbar_manual;
@@ -87,7 +87,8 @@ public class ManualEntryFragment extends Fragment {
         if (extras != null) // Get meal_type from activity to set meal.
             mealType = extras.getString(Globals.MEAL_TYPE);
         toolbar_manual = (Toolbar) v.findViewById(R.id.toolbar_manual);
-        toolbar_manual.setTitle("Manual Entry");
+        TextViewFont txtTitle = (TextViewFont) v.findViewById(R.id.txtTitle);
+        txtTitle.setText("Create Meal");
         toolbar_manual.setNavigationIcon(R.mipmap.ic_arrow_back);
         toolbar_manual.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -114,6 +115,7 @@ public class ManualEntryFragment extends Fragment {
         // Edit Text
         servingName = (EditText) v.findViewById(R.id.servingName);
         mealName = (EditText) v.findViewById(R.id.mealName);
+        mealName.requestFocus();
         mealCalories = (EditText) v.findViewById(R.id.mealCalories);
         mealFat = (EditText) v.findViewById(R.id.mealFat);
         mealCarbs = (EditText) v.findViewById(R.id.mealCarbs);

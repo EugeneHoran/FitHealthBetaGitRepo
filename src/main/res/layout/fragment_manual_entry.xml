@@ -3,14 +3,35 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/white">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar_manual"
         android:layout_width="match_parent"
         android:layout_height="56dp"
-        android:background="@color/primary"
+        android:background="@color/accent"
         app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:layout_marginBottom="4dp"
+            android:layout_marginTop="4dp"
+            android:clickable="true"
+            android:paddingLeft="16dp">
+
+            <com.eugene.fithealthmaingit.Custom.TextViewFont
+                android:id="@+id/txtTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:gravity="center_vertical"
+                android:singleLine="true"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                app:fontName="Roboto-Medium.ttf"/>
+
+        </LinearLayout>
     </android.support.v7.widget.Toolbar>
 
     <ScrollView
@@ -46,7 +67,8 @@
                     android:selectAllOnFocus="true"
                     android:text="Serving"
                     android:textSize="14sp"
-                    app:floatingLabel="normal"/>
+                    app:backgroundTint="@color/accent"
+                    app:floatingLabel="highlight"/>
             </LinearLayout>
 
             <com.rengwuxian.materialedittext.MaterialEditText
@@ -58,7 +80,8 @@
                 android:inputType="textCapWords"
                 android:selectAllOnFocus="true"
                 android:textSize="14sp"
-                app:floatingLabel="normal"/>
+                app:backgroundTint="@color/accent"
+                app:floatingLabel="highlight"/>
 
             <com.rengwuxian.materialedittext.MaterialEditText
                 android:id="@+id/mealBrand"
@@ -69,7 +92,8 @@
                 android:inputType="textCapWords"
                 android:selectAllOnFocus="true"
                 android:textSize="14sp"
-                app:floatingLabel="normal"/>
+                app:backgroundTint="@color/accent"
+                app:floatingLabel="highlight"/>
 
             <com.rengwuxian.materialedittext.MaterialEditText
                 android:id="@+id/mealCalories"
@@ -80,7 +104,8 @@
                 android:inputType="number"
                 android:selectAllOnFocus="true"
                 android:textSize="14sp"
-                app:floatingLabel="normal"/>
+                app:backgroundTint="@color/accent"
+                app:floatingLabel="highlight"/>
 
             <com.rengwuxian.materialedittext.MaterialEditText
                 android:id="@+id/mealFat"
@@ -90,7 +115,8 @@
                 android:imeOptions="actionNext"
                 android:inputType="number"
                 android:textSize="14sp"
-                app:floatingLabel="normal"/>
+                app:backgroundTint="@color/accent"
+                app:floatingLabel="highlight"/>
 
             <com.rengwuxian.materialedittext.MaterialEditText
                 android:id="@+id/mealCarbs"
@@ -101,7 +127,8 @@
                 android:inputType="number"
                 android:selectAllOnFocus="true"
                 android:textSize="14sp"
-                app:floatingLabel="normal"/>
+                app:backgroundTint="@color/accent"
+                app:floatingLabel="highlight"/>
 
             <com.rengwuxian.materialedittext.MaterialEditText
                 android:id="@+id/mealProtein"
@@ -112,7 +139,8 @@
                 android:inputType="number"
                 android:selectAllOnFocus="true"
                 android:textSize="14sp"
-                app:floatingLabel="normal"/>
+                app:backgroundTint="@color/accent"
+                app:floatingLabel="highlight"/>
 
             <TextView
                 android:layout_width="match_parent"
@@ -132,7 +160,8 @@
                 android:inputType="number"
                 android:selectAllOnFocus="true"
                 android:textSize="14sp"
-                app:floatingLabel="normal"/>
+                app:backgroundTint="@color/accent"
+                app:floatingLabel="highlight"/>
 
             <com.rengwuxian.materialedittext.MaterialEditText
                 android:id="@+id/mealCholesterol"
@@ -143,7 +172,8 @@
                 android:inputType="number"
                 android:selectAllOnFocus="true"
                 android:textSize="14sp"
-                app:floatingLabel="normal"/>
+                app:backgroundTint="@color/accent"
+                app:floatingLabel="highlight"/>
 
             <com.rengwuxian.materialedittext.MaterialEditText
                 android:id="@+id/mealSodium"
@@ -154,7 +184,8 @@
                 android:inputType="number"
                 android:selectAllOnFocus="true"
                 android:textSize="14sp"
-                app:floatingLabel="normal"/>
+                app:backgroundTint="@color/accent"
+                app:floatingLabel="highlight"/>
 
             <com.rengwuxian.materialedittext.MaterialEditText
                 android:id="@+id/mealFiber"
@@ -165,7 +196,8 @@
                 android:inputType="number"
                 android:selectAllOnFocus="true"
                 android:textSize="14sp"
-                app:floatingLabel="normal"/>
+                app:backgroundTint="@color/accent"
+                app:floatingLabel="highlight"/>
 
             <com.rengwuxian.materialedittext.MaterialEditText
                 android:id="@+id/mealSugar"
@@ -176,7 +208,8 @@
                 android:inputType="number"
                 android:selectAllOnFocus="true"
                 android:textSize="14sp"
-                app:floatingLabel="normal"/>
+                app:backgroundTint="@color/accent"
+                app:floatingLabel="highlight"/>
 
             <com.rengwuxian.materialedittext.MaterialEditText
                 android:id="@+id/mealA"
@@ -187,7 +220,8 @@
                 android:inputType="number"
                 android:selectAllOnFocus="true"
                 android:textSize="14sp"
-                app:floatingLabel="normal"/>
+                app:backgroundTint="@color/accent"
+                app:floatingLabel="highlight"/>
 
             <com.rengwuxian.materialedittext.MaterialEditText
                 android:id="@+id/mealC"
@@ -198,7 +232,8 @@
                 android:inputType="number"
                 android:selectAllOnFocus="true"
                 android:textSize="14sp"
-                app:floatingLabel="normal"/>
+                app:backgroundTint="@color/accent"
+                app:floatingLabel="highlight"/>
 
             <com.rengwuxian.materialedittext.MaterialEditText
                 android:id="@+id/mealCalcium"
@@ -209,7 +244,8 @@
                 android:inputType="number"
                 android:selectAllOnFocus="true"
                 android:textSize="14sp"
-                app:floatingLabel="normal"/>
+                app:backgroundTint="@color/accent"
+                app:floatingLabel="highlight"/>
 
             <com.rengwuxian.materialedittext.MaterialEditText
                 android:id="@+id/mealIron"
@@ -220,14 +256,15 @@
                 android:inputType="number"
                 android:selectAllOnFocus="true"
                 android:textSize="14sp"
-                app:floatingLabel="normal"/>
+                app:backgroundTint="@color/accent"
+                app:floatingLabel="highlight"/>
         </LinearLayout>
 
     </ScrollView>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="10dp"
+        android:layout_height="5dp"
         android:layout_below="@+id/toolbar_manual"
         android:background="@drawable/toolbar_shadow"/>
 

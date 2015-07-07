@@ -9,100 +9,95 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/accent"
+        android:elevation="3dp"
         android:minHeight="?attr/actionBarSize"
-        app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"/>
+        app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:layout_marginBottom="4dp"
+            android:layout_marginTop="4dp"
+            android:paddingLeft="16dp">
+
+            <com.eugene.fithealthmaingit.Custom.TextViewFont
+                android:id="@+id/txtTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:gravity="center_vertical"
+                android:singleLine="true"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                app:fontName="Roboto-Medium.ttf"/>
+
+        </LinearLayout>
+    </android.support.v7.widget.Toolbar>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/toolbarQuickAdd"
-        android:layout_marginTop="16dp"
+        android:background="@color/white"
+        android:elevation="3dp"
         android:orientation="vertical">
-
-        <com.rengwuxian.materialedittext.MaterialEditText
-            android:id="@+id/mealName"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="32dp"
-            android:layout_marginRight="32dp"
-            android:hint="@string/meal_name"
-            android:imeOptions="actionNext"
-            android:inputType="textCapWords"
-            android:selectAllOnFocus="true"
-            android:text="@string/quick_add"
-            android:textSize="14sp"
-            app:floatingLabel="normal"/>
-
 
         <com.rengwuxian.materialedittext.MaterialEditText
             android:id="@+id/mealCalories"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="32dp"
-            android:layout_marginRight="32dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginTop="12dp"
             android:hint="@string/calories"
-
             android:imeOptions="actionNext"
             android:inputType="number"
             android:selectAllOnFocus="true"
             android:textSize="14sp"
-            app:floatingLabel="normal"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="12dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginTop="12dp"
-            android:text="Optional"
-            android:textSize="16sp"/>
+            app:floatingLabel="highlight"/>
 
         <com.rengwuxian.materialedittext.MaterialEditText
             android:id="@+id/mealFat"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="32dp"
-            android:layout_marginRight="32dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
             android:hint="@string/fat_optional"
             android:imeOptions="actionNext"
             android:inputType="number"
+            android:selectAllOnFocus="true"
             android:textSize="14sp"
-            app:floatingLabel="normal"/>
+            app:floatingLabel="highlight"/>
 
 
         <com.rengwuxian.materialedittext.MaterialEditText
             android:id="@+id/mealCarbs"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="32dp"
-            android:layout_marginRight="32dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
             android:hint="@string/carb_optional"
             android:imeOptions="actionNext"
             android:inputType="number"
             android:selectAllOnFocus="true"
             android:textSize="14sp"
-            app:floatingLabel="normal"/>
+            app:floatingLabel="highlight"/>
 
 
         <com.rengwuxian.materialedittext.MaterialEditText
             android:id="@+id/mealProtein"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="32dp"
-            android:layout_marginRight="32dp"
+            android:layout_marginBottom="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
             android:hint="@string/pro_optional"
             android:imeOptions="actionDone"
             android:inputType="number"
             android:selectAllOnFocus="true"
             android:textSize="14sp"
-            app:floatingLabel="normal"/>
+            app:floatingLabel="highlight"/>
 
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="10dp"
-        android:layout_below="@+id/toolbarQuickAdd"
-        android:background="@drawable/toolbar_shadow"/>
 
 </RelativeLayout>

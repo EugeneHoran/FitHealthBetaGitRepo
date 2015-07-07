@@ -37,6 +37,7 @@ import com.db.chart.model.LineSet;
 import com.db.chart.view.LineChartView;
 import com.db.chart.view.XController;
 import com.db.chart.view.YController;
+import com.eugene.fithealthmaingit.Custom.TextViewFont;
 import com.eugene.fithealthmaingit.Databases_Adapters_ListViews.LogWeight.WeightLog;
 import com.eugene.fithealthmaingit.Databases_Adapters_ListViews.LogWeight.WeightLogAdapter;
 import com.eugene.fithealthmaingit.R;
@@ -73,7 +74,8 @@ public class FragmentWeight extends Fragment {
 
     private void findViews() {
         Toolbar mToolbar = (Toolbar) v.findViewById(R.id.toolbar_weight);
-        mToolbar.setTitle("Your Weight");
+        TextViewFont txtTitle = (TextViewFont) v.findViewById(R.id.txtTitle);
+        txtTitle.setText("Weight");
         mToolbar.inflateMenu(R.menu.menu_weight);
         mToolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override

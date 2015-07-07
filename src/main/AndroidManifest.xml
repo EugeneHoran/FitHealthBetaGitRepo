@@ -69,7 +69,10 @@
         <!-- Create Custom Meal -->
         <activity
             android:name=".UI.ManualEntryActivity"
-            android:label="@string/title_activity_manual_entry">
+            android:label="@string/title_activity_manual_entry"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppThemeDark"
+            android:windowSoftInputMode="stateHidden">
         </activity>
         <activity
             android:name=".UI.ManualEntrySaveMealActivity"

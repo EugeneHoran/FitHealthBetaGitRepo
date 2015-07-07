@@ -51,6 +51,7 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import com.eugene.fithealthmaingit.Custom.TextViewFont;
 import com.eugene.fithealthmaingit.Databases_Adapters_ListViews.FoodManual.LogAdapterManual;
 import com.eugene.fithealthmaingit.Databases_Adapters_ListViews.FoodManual.LogManual;
 import com.eugene.fithealthmaingit.Databases_Adapters_ListViews.LogFood.LogAdapterAll;
@@ -128,7 +129,9 @@ public class ChooseAddMealTabsFragment extends Fragment {
                 return false;
             }
         });
-        mToolbar.setTitle("Add " + mealType);
+        TextViewFont txtTitle = (TextViewFont) v.findViewById(R.id.txtTitle);
+        if (txtTitle != null)
+            txtTitle.setText(mealType);
         mToolbar.inflateMenu(R.menu.menu_search_add);
 
         // Hide keyboard

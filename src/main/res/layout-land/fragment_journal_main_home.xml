@@ -21,8 +21,35 @@
             android:layout_height="48dp"
             android:background="@color/primary"
             app:navigationIcon="@mipmap/ic_menu"
-            app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-            app:title="@string/fit_journal">
+            app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+            <LinearLayout
+                android:id="@+id/changeDate"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_marginBottom="4dp"
+                android:layout_marginTop="4dp"
+                android:clickable="true">
+
+                <com.eugene.fithealthmaingit.Custom.TextViewFont
+                    android:id="@+id/txtDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="16dp"
+                    android:singleLine="true"
+                    android:text="Today"
+                    android:textColor="@color/white"
+                    android:textSize="14sp"
+                    android:textStyle="normal"
+                    app:fontName="Roboto-Medium.ttf"/>
+
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:padding="12dp"
+                    android:src="@mipmap/ic_arrow_drop_down_white_24dp"/>
+            </LinearLayout>
         </android.support.v7.widget.Toolbar>
 
         <github.chenupt.dragtoplayout.DragTopLayout
