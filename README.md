@@ -7,7 +7,6 @@ Fit Health Beta
 </a>
 
 Here is a Youtube video of the latest update:
-
 >https://youtu.be/B3mV_APL2K4
 
 I created an application very similar to this one when I first started working with android. I decided to scrap it and start fresh. Still in early stages. Working on it a few hours a day when I get the chance.  
@@ -16,6 +15,12 @@ Finally baught a smart phone!!! Much faster running this app on a phone over the
 
 I am designing this application to be simple, smooth and clean.  My goal is to create an application that helps users track their nutrition without all of the clutter.  I look forward to seeing the development of this application and how it evolves. Any suggestions, let me know and I will add it in within the final project or send you a personalized version. 
  
+**NOTES**
+- Project is coming along smoothly without any major issues. 
+- Regret using an ORM due to its limits of handling large data changes.  Going to start working on a SQLite database to have more control how the data is handled. 
+- Google's Design Support Library has many bugs but noting too crazy that I was not able to manipulate to meet the guidelines other than TabLayout. The tab bounces when scrolling but it is a known issue that was reported and should be fixed with the next update. 
+- Next part of the project, I would like to implement a run keeper using Google's Maps API. I already finised a rough draft of it but haven't spent much time to clean all the issues. 
+
 [FatSecret REST API Documentation ](http://platform.fatsecret.com/api/Default.aspx?screen=rapih) 
 
 Libraries included within Fit Health:
