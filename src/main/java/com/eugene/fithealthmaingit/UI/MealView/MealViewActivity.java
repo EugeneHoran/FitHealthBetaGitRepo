@@ -28,13 +28,18 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.eugene.fithealthmaingit.Databases_Adapters_ListViews.CalSQLiteDatabase.DailyCalorieAdapter;
+import com.eugene.fithealthmaingit.Databases_Adapters_ListViews.CalSQLiteDatabase.DailyCalorieIntake;
+import com.eugene.fithealthmaingit.Databases_Adapters_ListViews.CalSQLiteDatabase.DatabaseHandler;
 import com.eugene.fithealthmaingit.Databases_Adapters_ListViews.LogFood.LogAdapterAll;
 import com.eugene.fithealthmaingit.Databases_Adapters_ListViews.LogFood.LogMeal;
 import com.eugene.fithealthmaingit.R;
 import com.eugene.fithealthmaingit.MainActivity;
+import com.eugene.fithealthmaingit.Utilities.DateCompare;
 import com.eugene.fithealthmaingit.Utilities.Globals;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * View Meals based on Date and Meal Type
@@ -53,6 +58,7 @@ public class MealViewActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_meal_view);
+        setAdapter(new Date());
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             mealType = extras.getString(Globals.MEAL_TYPE); // Meal Type (Snack, Breakfast, Lunch, Dinner)
@@ -88,6 +94,7 @@ public class MealViewActivity extends AppCompatActivity {
                     case R.id.action_delete: // Delete the meal then restart the Activity
                         LogMeal logDelete = mLogMealAdapter.getItem(mViewPager.getCurrentItem());
                         logDelete.delete();
+                        testing();
                         Intent intent = new Intent(MealViewActivity.this, MainActivity.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(intent);
@@ -130,6 +137,37 @@ public class MealViewActivity extends AppCompatActivity {
             tabs.setTabMode(TabLayout.MODE_FIXED);
         } else {
             tabs.setTabMode(TabLayout.MODE_SCROLLABLE);
+        }
+    }
+
+    private DatabaseHandler db;
+    List<DailyCalorieIntake> dailyCalorieIntakes;
+    private DailyCalorieAdapter dailyCalorieAdapter;
+
+    private void testing() {
+        LogAdapterAll logAdapterAll = new LogAdapterAll(this, 0, LogMeal.logsByDate(new Date()));
+        if (dailyCalorieIntakes.size() > 0) {
+            double caloriesUpdate = 0;
+            for (LogMeal logMeal1 : logAdapterAll.getLogs()) {
+                caloriesUpdate += logMeal1.getCalorieCount();
+            }
+            DailyCalorieIntake c = dailyCalorieAdapter.getItem(0);
+            c.setCalorieIntake(caloriesUpdate);
+            db.updateCalories(c);
+        } else {
+            LogMeal logMeal = logAdapterAll.getItem(0);
+            db.addContact(new DailyCalorieIntake("", logMeal.getCalorieCount(), DateCompare.dateToString(new Date())));
+        }
+    }
+
+
+    private void setAdapter(Date newDate) {
+        db = new DatabaseHandler(this);
+        String date = DateCompare.dateToString(newDate); // Convert date to string
+        dailyCalorieIntakes = db.getContactsByDate(date); // filter by string
+        dailyCalorieAdapter = new DailyCalorieAdapter(this, 0, dailyCalorieIntakes);
+        if (dailyCalorieIntakes.size() > 0) {
+            DailyCalorieIntake c = dailyCalorieAdapter.getItem(0);
         }
     }
 

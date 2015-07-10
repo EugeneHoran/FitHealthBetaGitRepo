@@ -41,11 +41,16 @@ import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.eugene.fithealthmaingit.Databases_Adapters_ListViews.CalSQLiteDatabase.DailyCalorieAdapter;
+import com.eugene.fithealthmaingit.Databases_Adapters_ListViews.CalSQLiteDatabase.DailyCalorieIntake;
+import com.eugene.fithealthmaingit.Databases_Adapters_ListViews.CalSQLiteDatabase.DatabaseHandler;
+import com.eugene.fithealthmaingit.Databases_Adapters_ListViews.LogFood.LogAdapterAll;
 import com.eugene.fithealthmaingit.Databases_Adapters_ListViews.LogFood.LogAdapterPrevention;
 import com.eugene.fithealthmaingit.Databases_Adapters_ListViews.LogFood.LogMeal;
 import com.eugene.fithealthmaingit.FatSecretSearchAndGet.FatSecretGetMethod;
-import com.eugene.fithealthmaingit.R;
 import com.eugene.fithealthmaingit.MainActivity;
+import com.eugene.fithealthmaingit.R;
+import com.eugene.fithealthmaingit.Utilities.DateCompare;
 import com.eugene.fithealthmaingit.Utilities.Globals;
 import com.eugene.fithealthmaingit.Utilities.OrderFormat;
 
@@ -56,6 +61,7 @@ import org.json.JSONObject;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class SaveSearchAddItemActivityMain extends AppCompatActivity {
     SharedPreferences sharedPreferences;
@@ -106,26 +112,26 @@ public class SaveSearchAddItemActivityMain extends AppCompatActivity {
 
     private Spinner mSpnServings;
     private LinearLayout llVitA,
-        llVitC,
-        llCalcium,
-        llIron,
-        llCalories,
-        llFat,
-        llSat,
-        llCholesterol,
-        llSodium,
-        llCarbs,
-        llFiber,
-        llSugars,
-        llProtein;
+            llVitC,
+            llCalcium,
+            llIron,
+            llCalories,
+            llFat,
+            llSat,
+            llCholesterol,
+            llSodium,
+            llCarbs,
+            llFiber,
+            llSugars,
+            llProtein;
     private View vVitA, vVitC, vCalcium, vIron, vFat,
-        vSat,
-        vCholesterol,
-        vSodium,
-        vCarbs,
-        vFiber,
-        vSugar,
-        vPro;
+            vSat,
+            vCholesterol,
+            vSodium,
+            vCarbs,
+            vFiber,
+            vSugar,
+            vPro;
     private LogAdapterPrevention mLogAdapterAll;
     // FatSecret method.get
     private FatSecretGetMethod mFatSecretGet;
@@ -139,6 +145,7 @@ public class SaveSearchAddItemActivityMain extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.save_search_item_fragment_new);
+        setAdapter(new Date());
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             mealType = extras.getString(Globals.MEAL_TYPE);
@@ -378,14 +385,14 @@ public class SaveSearchAddItemActivityMain extends AppCompatActivity {
                         mIronUpdate.setText(df.format(Double.valueOf(mIron) * values));
                         progressBars();
                         ((InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE))
-                            .hideSoftInputFromWindow(input.getWindowToken(), 0);
+                                .hideSoftInputFromWindow(input.getWindowToken(), 0);
                     }
                 });
 
                 alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {
                         ((InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE))
-                            .hideSoftInputFromWindow(input.getWindowToken(), 0);
+                                .hideSoftInputFromWindow(input.getWindowToken(), 0);
                     }
                 });
                 alert.setCancelable(false);
@@ -767,9 +774,41 @@ public class SaveSearchAddItemActivityMain extends AppCompatActivity {
         logMeals.setDate(new Date());
         logMeals.setOrderFormat(OrderFormat.setMealFormat(mealType));
         logMeals.save();
+        testing();
         Intent saveFinish = new Intent(this, MainActivity.class);
         saveFinish.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(saveFinish);
     }
 
+
+    private DatabaseHandler db;
+    List<DailyCalorieIntake> dailyCalorieIntakes;
+    private DailyCalorieAdapter dailyCalorieAdapter;
+
+    private void testing() {
+        LogAdapterAll logAdapterAll = new LogAdapterAll(this, 0, LogMeal.logsByDate(new Date()));
+        if (dailyCalorieIntakes.size() > 0) {
+            double caloriesUpdate = 0;
+            for (LogMeal logMeal1 : logAdapterAll.getLogs()) {
+                caloriesUpdate += logMeal1.getCalorieCount();
+            }
+            DailyCalorieIntake c = dailyCalorieAdapter.getItem(0);
+            c.setCalorieIntake(caloriesUpdate);
+            db.updateCalories(c);
+        } else {
+            LogMeal logMeal = logAdapterAll.getItem(0);
+            db.addContact(new DailyCalorieIntake("", logMeal.getCalorieCount(), DateCompare.dateToString(new Date())));
+        }
+    }
+
+
+    private void setAdapter(Date newDate) {
+        db = new DatabaseHandler(this);
+        String date = DateCompare.dateToString(newDate); // Convert date to string
+        dailyCalorieIntakes = db.getContactsByDate(date); // filter by string
+        dailyCalorieAdapter = new DailyCalorieAdapter(this, 0, dailyCalorieIntakes);
+        if (dailyCalorieIntakes.size() > 0) {
+            DailyCalorieIntake c = dailyCalorieAdapter.getItem(0);
+        }
+    }
 }

@@ -63,9 +63,10 @@ public class FragmentWeight extends Fragment {
         return v;
     }
 
-    LineChartView mLineChart;
+
     ListView listWeight;
     int max;
+    LineChartView mLineChart;
     int min;
     float goalWeightLine;
     int goalPosition;
@@ -169,27 +170,27 @@ public class FragmentWeight extends Fragment {
          * Controlling the data set and setting it to the chart.
          */
         dataSet
-            .setDots(true)
-            .setDotsColor(this.getResources().getColor(R.color.primary))
-            .setDotsRadius(Tools.fromDpToPx(3))
-            .setDotsStrokeThickness(Tools.fromDpToPx(1))
-            .setDotsStrokeColor(this.getResources().getColor(R.color.primary))
-            .setLineColor(this.getResources().getColor(R.color.primary_dark))
-            .setLineThickness(Tools.fromDpToPx(1))
-            .beginAt(0).endAt(weightLogAdapter.getCount());
+                .setDots(true)
+                .setDotsColor(this.getResources().getColor(R.color.primary))
+                .setDotsRadius(Tools.fromDpToPx(3))
+                .setDotsStrokeThickness(Tools.fromDpToPx(1))
+                .setDotsStrokeColor(this.getResources().getColor(R.color.primary))
+                .setLineColor(this.getResources().getColor(R.color.primary_dark))
+                .setLineThickness(Tools.fromDpToPx(1))
+                .beginAt(0).endAt(weightLogAdapter.getCount());
         mLineChart.addData(dataSet);
 
         mLineChart
-            .setBorderSpacing(Tools.fromDpToPx(0))
-            .setGrid(LineChartView.GridType.HORIZONTAL, mLineGridPaint)
-            .setXAxis(false)
-            .setXLabels(XController.LabelPosition.OUTSIDE)
-            .setYAxis(false)
-            .setYLabels(YController.LabelPosition.OUTSIDE)
-            .setAxisBorderValues(min, max, 5)
-            .setLabelColor(this.getResources().getColor(R.color.text_color))
-            .setLabelsFormat(new DecimalFormat("##' lbs'"))
-            .show();
+                .setBorderSpacing(Tools.fromDpToPx(0))
+                .setGrid(LineChartView.GridType.HORIZONTAL, mLineGridPaint)
+                .setXAxis(false)
+                .setXLabels(XController.LabelPosition.OUTSIDE)
+                .setYAxis(false)
+                .setYLabels(YController.LabelPosition.OUTSIDE)
+                .setAxisBorderValues(min, max, 5)
+                .setLabelColor(this.getResources().getColor(R.color.text_color))
+                .setLabelsFormat(new DecimalFormat("##' lbs'"))
+                .show();
 
         Paint paint = new Paint();
         paint.setStrokeWidth((float) Equations.dpToPx(getActivity(), 2));

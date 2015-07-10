@@ -141,4 +141,5 @@
     <string name="title_activity_setting_view">SettingView</string>
     <string name="title_activity_testing_main">TestingMainActivity</string>
     <string name="title_activity_testing_actvity">TestingActvity</string>
+    <string name="title_activity_calendar">Calendar</string>
 </resources>

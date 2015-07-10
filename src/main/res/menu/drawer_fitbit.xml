@@ -4,23 +4,23 @@
         <item
             android:id="@+id/nav_journal"
             android:checked="true"
-            android:icon="@mipmap/ic_brightness_1_white_24dp"
+            android:icon="@mipmap/ic_book_white_24dp"
             android:title="Journal"/>
         <item
             android:id="@+id/nav_nutrition"
-            android:icon="@mipmap/ic_brightness_1_white_24dp"
+            android:icon="@mipmap/ic_view_headline_white_24dp"
             android:title="Nutrition"/>
         <item
             android:id="@+id/nav_weight"
-            android:icon="@mipmap/ic_brightness_1_white_24dp"
+            android:icon="@mipmap/ic_trending_down_white_24dp"
             android:title="Weight"/>
         <item
             android:id="@+id/nav_health"
-            android:icon="@mipmap/ic_brightness_1_white_24dp"
+            android:icon="@mipmap/ic_local_pharmacy_white_24dp"
             android:title="Health"/>
         <item
             android:id="@+id/nav_fitbit"
-            android:icon="@mipmap/ic_brightness_1_white_24dp"
+            android:icon="@mipmap/ic_watch_white_24dp"
             android:title="Fitbit"/>
     </group>
     <group android:id="@+id/my_id">

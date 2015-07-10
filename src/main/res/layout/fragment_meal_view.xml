@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <!-- This is a mess and will be cleaned up-->
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -30,7 +29,7 @@
                 android:text="@string/meal_nutrition_information"
                 android:textColor="@color/text_color"
                 android:textSize="16sp"
-                android:textStyle="bold"/>
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/mealTime"
@@ -43,7 +42,7 @@
                 android:text="@string/meal_nutrition_information"
                 android:textColor="@color/text_color"
                 android:textSize="14sp"
-                android:textStyle="normal"/>
+                android:textStyle="normal" />
 
             <android.support.v7.widget.CardView
                 android:layout_width="match_parent"
@@ -69,7 +68,7 @@
                             android:layout_weight="1"
                             android:text="Servings Consumed"
                             android:textColor="@color/text_color"
-                            android:textSize="16dp"/>
+                            android:textSize="16dp" />
 
                         <TextView
                             android:id="@+id/servingCOnsumed"
@@ -78,7 +77,7 @@
                             android:layout_marginRight="10dp"
                             android:text="n/finish"
                             android:textColor="@color/text_color"
-                            android:textSize="16dp"/>
+                            android:textSize="16dp" />
                     </LinearLayout>
 
                     <View
@@ -87,7 +86,7 @@
                         android:layout_marginBottom="4dp"
                         android:layout_marginLeft="2dp"
                         android:layout_marginTop="4dp"
-                        android:background="@color/text_color"/>
+                        android:background="@color/text_color" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -100,8 +99,7 @@
                             android:text="Calories "
                             android:textColor="@color/accent_dialog"
                             android:textSize="16dp"
-                            android:textStyle="bold"
-                            />
+                            android:textStyle="bold" />
 
                         <TextView
                             android:id="@+id/caloriesNutrition"
@@ -110,8 +108,7 @@
                             android:layout_marginRight="10dp"
                             android:text="cals"
                             android:textColor="@color/accent_dialog"
-                            android:textSize="16dp"
-                            />
+                            android:textSize="16dp" />
                     </LinearLayout>
 
                     <View
@@ -120,7 +117,7 @@
                         android:layout_marginBottom="4dp"
                         android:layout_marginLeft="2dp"
                         android:layout_marginTop="4dp"
-                        android:background="@color/text_color"/>
+                        android:background="@color/text_color" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -133,8 +130,7 @@
                             android:text="Total Fat "
                             android:textColor="@color/accent_dialog"
                             android:textSize="16dp"
-                            android:textStyle="bold"
-                            />
+                            android:textStyle="bold" />
 
                         <TextView
                             android:id="@+id/fatNutrition"
@@ -143,8 +139,7 @@
                             android:layout_marginRight="10dp"
                             android:text="fat"
                             android:textColor="@color/accent_dialog"
-                            android:textSize="16dp"
-                            />
+                            android:textSize="16dp" />
                     </LinearLayout>
 
                     <View
@@ -153,7 +148,7 @@
                         android:layout_marginBottom="4dp"
                         android:layout_marginLeft="2dp"
                         android:layout_marginTop="4dp"
-                        android:background="@color/text_color"/>
+                        android:background="@color/text_color" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -166,8 +161,7 @@
                             android:layout_weight="1"
                             android:text="Saturated Fat"
                             android:textColor="@color/text_color"
-                            android:textSize="16dp"
-                            />
+                            android:textSize="16dp" />
 
                         <TextView
                             android:id="@+id/saturatedFat"
@@ -178,7 +172,7 @@
                             android:text="n/finish"
                             android:textColor="@color/text_color"
 
-                            android:textSize="16dp"/>
+                            android:textSize="16dp" />
                     </LinearLayout>
 
                     <View
@@ -187,7 +181,7 @@
                         android:layout_marginBottom="4dp"
                         android:layout_marginLeft="2dp"
                         android:layout_marginTop="4dp"
-                        android:background="@color/text_color"/>
+                        android:background="@color/text_color" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -199,8 +193,7 @@
                             android:layout_weight="1"
                             android:text="Cholesterol "
                             android:textColor="@color/text_color"
-                            android:textSize="16dp"
-                            />
+                            android:textSize="16dp" />
 
                         <TextView
                             android:id="@+id/cholesterol"
@@ -209,8 +202,7 @@
                             android:layout_marginRight="10dp"
                             android:text="n/finish"
                             android:textColor="@color/text_color"
-                            android:textSize="16dp"
-                            />
+                            android:textSize="16dp" />
                     </LinearLayout>
 
                     <View
@@ -219,7 +211,7 @@
                         android:layout_marginBottom="4dp"
                         android:layout_marginLeft="2dp"
                         android:layout_marginTop="4dp"
-                        android:background="@color/text_color"/>
+                        android:background="@color/text_color" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -231,8 +223,7 @@
                             android:layout_weight="1"
                             android:text="Sodium "
                             android:textColor="@color/text_color"
-                            android:textSize="16dp"
-                            />
+                            android:textSize="16dp" />
 
                         <TextView
                             android:id="@+id/sodium"
@@ -241,8 +232,7 @@
                             android:layout_marginRight="10dp"
                             android:text="n/finish"
                             android:textColor="@color/text_color"
-                            android:textSize="16dp"
-                            />
+                            android:textSize="16dp" />
                     </LinearLayout>
 
                     <View
@@ -251,7 +241,7 @@
                         android:layout_marginBottom="4dp"
                         android:layout_marginLeft="2dp"
                         android:layout_marginTop="4dp"
-                        android:background="@color/text_color"/>
+                        android:background="@color/text_color" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -264,8 +254,7 @@
                             android:text="Total Carbohydrate "
                             android:textColor="@color/accent_dialog"
                             android:textSize="16dp"
-                            android:textStyle="bold"
-                            />
+                            android:textStyle="bold" />
 
                         <TextView
                             android:id="@+id/carbohydratesNutrition"
@@ -274,8 +263,7 @@
                             android:layout_marginRight="10dp"
                             android:text="carb"
                             android:textColor="@color/accent_dialog"
-                            android:textSize="16dp"
-                            />
+                            android:textSize="16dp" />
                     </LinearLayout>
 
                     <View
@@ -284,7 +272,7 @@
                         android:layout_marginBottom="4dp"
                         android:layout_marginLeft="2dp"
                         android:layout_marginTop="4dp"
-                        android:background="@color/text_color"/>
+                        android:background="@color/text_color" />
 
 
                     <LinearLayout
@@ -298,8 +286,7 @@
                             android:layout_weight="1"
                             android:text="Dietary Fiber"
                             android:textColor="@color/text_color"
-                            android:textSize="16dp"
-                            />
+                            android:textSize="16dp" />
 
                         <TextView
                             android:id="@+id/fiber"
@@ -310,8 +297,7 @@
                             android:text="n/finish"
 
                             android:textColor="@color/text_color"
-                            android:textSize="16dp"
-                            />
+                            android:textSize="16dp" />
                     </LinearLayout>
 
                     <View
@@ -320,7 +306,7 @@
                         android:layout_marginBottom="4dp"
                         android:layout_marginLeft="10dp"
                         android:layout_marginTop="4dp"
-                        android:background="@color/text_color"/>
+                        android:background="@color/text_color" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -333,8 +319,7 @@
                             android:layout_weight="1"
                             android:text="Sugars"
                             android:textColor="@color/text_color"
-                            android:textSize="16dp"
-                            />
+                            android:textSize="16dp" />
 
                         <TextView
                             android:id="@+id/sugars"
@@ -345,8 +330,7 @@
                             android:text="n/finish"
 
                             android:textColor="@color/text_color"
-                            android:textSize="16dp"
-                            />
+                            android:textSize="16dp" />
                     </LinearLayout>
 
                     <View
@@ -355,7 +339,7 @@
                         android:layout_marginBottom="4dp"
                         android:layout_marginLeft="2dp"
                         android:layout_marginTop="4dp"
-                        android:background="@color/text_color"/>
+                        android:background="@color/text_color" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -368,8 +352,7 @@
                             android:text="Protein "
                             android:textColor="@color/accent_dialog"
                             android:textSize="16dp"
-                            android:textStyle="bold"
-                            />
+                            android:textStyle="bold" />
 
                         <TextView
                             android:id="@+id/proteinNutrition"
@@ -378,8 +361,7 @@
                             android:layout_marginRight="10dp"
                             android:text="carb"
                             android:textColor="@color/accent_dialog"
-                            android:textSize="16dp"
-                            />
+                            android:textSize="16dp" />
                     </LinearLayout>
 
                     <View
@@ -388,7 +370,7 @@
                         android:layout_marginBottom="4dp"
                         android:layout_marginLeft="2dp"
                         android:layout_marginTop="4dp"
-                        android:background="@color/text_color"/>
+                        android:background="@color/text_color" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -401,8 +383,7 @@
                             android:layout_weight="1"
                             android:text="Vitamin A"
                             android:textColor="@color/text_color"
-                            android:textSize="16dp"
-                            />
+                            android:textSize="16dp" />
 
                         <TextView
                             android:id="@+id/vitiminA"
@@ -413,7 +394,7 @@
                             android:text="n/finish"
                             android:textColor="@color/text_color"
 
-                            android:textSize="16dp"/>
+                            android:textSize="16dp" />
                     </LinearLayout>
 
 
@@ -423,7 +404,7 @@
                         android:layout_marginBottom="4dp"
                         android:layout_marginLeft="2dp"
                         android:layout_marginTop="4dp"
-                        android:background="@color/text_color"/>
+                        android:background="@color/text_color" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -436,7 +417,7 @@
                             android:layout_weight="1"
                             android:text="Vitamin C"
                             android:textColor="@color/text_color"
-                            android:textSize="16dp"/>
+                            android:textSize="16dp" />
 
                         <TextView
                             android:id="@+id/vitiminC"
@@ -446,7 +427,7 @@
                             android:layout_marginRight="10dp"
                             android:text="n/finish"
                             android:textColor="@color/text_color"
-                            android:textSize="16dp"/>
+                            android:textSize="16dp" />
                     </LinearLayout>
 
 
@@ -456,7 +437,7 @@
                         android:layout_marginBottom="4dp"
                         android:layout_marginLeft="2dp"
                         android:layout_marginTop="4dp"
-                        android:background="@color/text_color"/>
+                        android:background="@color/text_color" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -469,7 +450,7 @@
                             android:layout_weight="1"
                             android:text="Calcium"
                             android:textColor="@color/text_color"
-                            android:textSize="16dp"/>
+                            android:textSize="16dp" />
 
                         <TextView
                             android:id="@+id/calcium"
@@ -479,7 +460,7 @@
                             android:layout_marginRight="10dp"
                             android:text="n/finish"
                             android:textColor="@color/text_color"
-                            android:textSize="16dp"/>
+                            android:textSize="16dp" />
                     </LinearLayout>
 
 
@@ -489,7 +470,7 @@
                         android:layout_marginBottom="4dp"
                         android:layout_marginLeft="2dp"
                         android:layout_marginTop="4dp"
-                        android:background="@color/text_color"/>
+                        android:background="@color/text_color" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -502,7 +483,7 @@
                             android:layout_weight="1"
                             android:text="Iron"
                             android:textColor="@color/text_color"
-                            android:textSize="16dp"/>
+                            android:textSize="16dp" />
 
                         <TextView
                             android:id="@+id/iron"
@@ -512,7 +493,7 @@
                             android:layout_marginRight="10dp"
                             android:text="n/finish"
                             android:textColor="@color/text_color"
-                            android:textSize="16dp"/>
+                            android:textSize="16dp" />
                     </LinearLayout>
                 </LinearLayout>
             </android.support.v7.widget.CardView>
@@ -532,7 +513,7 @@
                     android:text="Meal Item Progress"
                     android:textColor="@color/text_color"
                     android:textSize="16sp"
-                    android:textStyle="bold"/>
+                    android:textStyle="bold" />
 
 
                 <LinearLayout
@@ -555,7 +536,7 @@
                             android:paddingRight="16dp"
                             android:text="@string/calories"
                             android:textColor="@color/text_color"
-                            android:textSize="14sp"/>
+                            android:textSize="14sp" />
 
                         <ProgressBar
                             android:id="@+id/pbCal"
@@ -567,7 +548,7 @@
                             android:layout_weight="1"
                             android:max="100"
                             android:progress="50"
-                            android:progressDrawable="@drawable/progress_add"/>
+                            android:progressDrawable="@drawable/progress_add" />
 
                         <TextView
                             android:id="@+id/cRem"
@@ -577,7 +558,7 @@
                             android:gravity="center_horizontal"
                             android:text="2000/2000"
                             android:textColor="@color/text_color"
-                            android:textSize="14sp"/>
+                            android:textSize="14sp" />
 
                     </LinearLayout>
 
@@ -593,7 +574,7 @@
                             android:paddingRight="16dp"
                             android:text="@string/fat"
                             android:textColor="@color/text_color"
-                            android:textSize="14sp"/>
+                            android:textSize="14sp" />
 
                         <ProgressBar
                             android:id="@+id/pbFat"
@@ -605,7 +586,7 @@
                             android:layout_weight="1"
                             android:max="100"
                             android:progress="50"
-                            android:progressDrawable="@drawable/progress_add"/>
+                            android:progressDrawable="@drawable/progress_add" />
 
                         <TextView
                             android:id="@+id/fRem"
@@ -615,7 +596,7 @@
                             android:gravity="center_horizontal"
                             android:text="2000/2000"
                             android:textColor="@color/text_color"
-                            android:textSize="14sp"/>
+                            android:textSize="14sp" />
 
                     </LinearLayout>
 
@@ -632,7 +613,7 @@
                             android:paddingRight="16dp"
                             android:text="@string/carbs"
                             android:textColor="@color/text_color"
-                            android:textSize="14sp"/>
+                            android:textSize="14sp" />
 
                         <ProgressBar
                             android:id="@+id/pbCarb"
@@ -644,7 +625,7 @@
                             android:layout_weight="1"
                             android:max="100"
                             android:progress="50"
-                            android:progressDrawable="@drawable/progress_add"/>
+                            android:progressDrawable="@drawable/progress_add" />
 
                         <TextView
                             android:id="@+id/carRem"
@@ -654,7 +635,7 @@
                             android:gravity="center_horizontal"
                             android:text="2000/2000"
                             android:textColor="@color/text_color"
-                            android:textSize="14sp"/>
+                            android:textSize="14sp" />
 
                     </LinearLayout>
 
@@ -671,7 +652,7 @@
                             android:paddingRight="16dp"
                             android:text="@string/protein"
                             android:textColor="@color/text_color"
-                            android:textSize="14sp"/>
+                            android:textSize="14sp" />
 
                         <ProgressBar
                             android:id="@+id/pbPro"
@@ -683,7 +664,7 @@
                             android:layout_weight="1"
                             android:max="100"
                             android:progress="50"
-                            android:progressDrawable="@drawable/progress_add"/>
+                            android:progressDrawable="@drawable/progress_add" />
 
                         <TextView
                             android:id="@+id/proRem"
@@ -693,7 +674,7 @@
                             android:gravity="center_horizontal"
                             android:text="2000/2000"
                             android:textColor="@color/text_color"
-                            android:textSize="14sp"/>
+                            android:textSize="14sp" />
 
                     </LinearLayout>
 
@@ -704,7 +685,7 @@
                         android:text="*Consumed"
                         android:textColor="@color/accent_dialog"
                         android:textSize="10dp"
-                        android:textStyle="italic"/>
+                        android:textStyle="italic" />
 
                     <TextView
                         android:layout_width="match_parent"
@@ -713,7 +694,7 @@
                         android:text="*Remainder"
                         android:textColor="@color/text_color"
                         android:textSize="10dp"
-                        android:textStyle="italic"/>
+                        android:textStyle="italic" />
                 </LinearLayout>
 
                 <LinearLayout

@@ -1,11 +1,35 @@
 package com.eugene.fithealthmaingit.Utilities;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
 
 public class DateCompare {
+
+    private static SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
+
+    /**
+     * Convert date to a simple format String
+     */
+    public static String dateToString(Date d) {
+        return dateFormat.format(d);
+    }
+
+    /**
+     * Convert date to a simple format String
+     */
+    public static Date stringTodDate(String d) {
+        try {
+            return dateFormat.parse(d);
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
 
     public static int lastX = 0;
 
@@ -49,8 +73,8 @@ public class DateCompare {
         cal1.setTime(a);
         cal2.setTime(b);
         return cal1.get(Calendar.YEAR) == cal2.get(Calendar.YEAR)
-            && cal1.get(Calendar.DAY_OF_YEAR) == cal2
-            .get(Calendar.DAY_OF_YEAR);
+                && cal1.get(Calendar.DAY_OF_YEAR) == cal2
+                .get(Calendar.DAY_OF_YEAR);
     }
 
     /*
@@ -63,8 +87,8 @@ public class DateCompare {
         cal1.setTime(a);
         cal2.setTime(b);
         return cal1.get(Calendar.YEAR) == cal2.get(Calendar.YEAR)
-            && cal1.get(Calendar.DAY_OF_YEAR) - 1 == cal2
-            .get(Calendar.DAY_OF_YEAR);
+                && cal1.get(Calendar.DAY_OF_YEAR) - 1 == cal2
+                .get(Calendar.DAY_OF_YEAR);
     }
 
     /*
@@ -77,8 +101,8 @@ public class DateCompare {
         cal1.setTime(a);
         cal2.setTime(b);
         return cal1.get(Calendar.YEAR) == cal2.get(Calendar.YEAR)
-            && cal1.get(Calendar.DAY_OF_YEAR) + 1 == cal2
-            .get(Calendar.DAY_OF_YEAR);
+                && cal1.get(Calendar.DAY_OF_YEAR) + 1 == cal2
+                .get(Calendar.DAY_OF_YEAR);
     }
 
     public static Calendar DateToCalendar(Date date) {

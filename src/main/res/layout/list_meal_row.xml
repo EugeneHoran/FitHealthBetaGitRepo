@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content">
 
@@ -46,7 +47,7 @@
         android:gravity="center_vertical"
         android:orientation="vertical">
 
-        <TextView
+        <com.eugene.fithealthmaingit.Custom.TextViewFont
             android:id="@+id/log_meal_name1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -54,15 +55,17 @@
             android:singleLine="true"
             android:text="Meal Name"
             android:textColor="@color/text_color"
-            android:textSize="16sp"/>
+            android:textSize="16sp"
+            app:fontName="Roboto-Regular.ttf"/>
 
-        <TextView
+        <com.eugene.fithealthmaingit.Custom.TextViewFont
             android:id="@+id/serving"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/calories"
             android:textColor="@color/text_color"
-            android:textSize="14sp"/>
+            android:textSize="14sp"
+            app:fontName="Roboto-Regular.ttf"/>
 
     </LinearLayout>
 
@@ -85,16 +88,17 @@
             android:tint="@color/text_color"/>
     </LinearLayout>
 
-    <TextView
+    <com.eugene.fithealthmaingit.Custom.TextViewFont
         android:id="@+id/log_calories"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
         android:layout_marginRight="16dp"
-        android:textColor="@color/primary"/>
+        android:textColor="@color/primary"
+        app:fontName="Roboto-Regular.ttf"/>
 
-    <TextView
+    <com.eugene.fithealthmaingit.Custom.TextViewFont
         android:id="@+id/time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -103,6 +107,7 @@
         android:layout_marginBottom="3dp"
         android:layout_marginRight="16dp"
         android:textColor="#cbcbcb"
-        android:textSize="10sp"/>
+        android:textSize="10sp"
+        app:fontName="Roboto-Regular.ttf"/>
 
 </RelativeLayout>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/pullDownIems"
-    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/primary"
@@ -13,7 +13,7 @@
         android:layout_height="40dp"
         android:background="@color/primary">
 
-        <TextView
+        <com.eugene.fithealthmaingit.Custom.TextViewFont
             android:id="@+id/txtFat"
             android:layout_width="wrap_content"
             android:layout_height="40dp"
@@ -23,7 +23,8 @@
             android:singleLine="true"
             android:text="@string/fat"
             android:textColor="@color/white"
-            android:textSize="14sp"/>
+            android:textSize="14sp"
+            app:fontName="Roboto-Regular.ttf" />
 
         <LinearLayout
             android:id="@+id/view1"
@@ -37,10 +38,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="4dp"
                 android:layout_gravity="center_vertical"
-                android:progressDrawable="@drawable/progress_bar"/>
+                android:progressDrawable="@drawable/progress_bar" />
         </LinearLayout>
 
-        <TextView
+        <com.eugene.fithealthmaingit.Custom.TextViewFont
             android:id="@+id/txtRemainderFat"
             android:layout_width="wrap_content"
             android:layout_height="40dp"
@@ -49,7 +50,8 @@
             android:paddingLeft="16dp"
             android:paddingRight="16dp"
             android:textColor="@color/white"
-            android:textSize="14sp"/>
+            android:textSize="14sp"
+            app:fontName="Roboto-Regular.ttf" />
     </RelativeLayout>
 
     <RelativeLayout
@@ -57,7 +59,7 @@
         android:layout_height="40dp"
         android:background="@color/primary">
 
-        <TextView
+        <com.eugene.fithealthmaingit.Custom.TextViewFont
             android:id="@+id/txtCarbs"
             android:layout_width="wrap_content"
             android:layout_height="40dp"
@@ -67,7 +69,8 @@
             android:singleLine="true"
             android:text="@string/carbs"
             android:textColor="@color/white"
-            android:textSize="14sp"/>
+            android:textSize="14sp"
+            app:fontName="Roboto-Regular.ttf" />
 
         <LinearLayout
             android:id="@+id/view2"
@@ -81,10 +84,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="4dp"
                 android:layout_gravity="center_vertical"
-                android:progressDrawable="@drawable/progress_bar"/>
+                android:progressDrawable="@drawable/progress_bar" />
         </LinearLayout>
 
-        <TextView
+        <com.eugene.fithealthmaingit.Custom.TextViewFont
             android:id="@+id/txtRemainderCarbs"
             android:layout_width="wrap_content"
             android:layout_height="40dp"
@@ -93,7 +96,8 @@
             android:paddingLeft="16dp"
             android:paddingRight="16dp"
             android:textColor="@color/white"
-            android:textSize="14sp"/>
+            android:textSize="14sp"
+            app:fontName="Roboto-Regular.ttf" />
     </RelativeLayout>
 
     <RelativeLayout
@@ -101,7 +105,7 @@
         android:layout_height="40dp"
         android:background="@color/primary">
 
-        <TextView
+        <com.eugene.fithealthmaingit.Custom.TextViewFont
             android:id="@+id/txtProtein"
             android:layout_width="wrap_content"
             android:layout_height="40dp"
@@ -111,7 +115,8 @@
             android:singleLine="true"
             android:text="@string/protein"
             android:textColor="@color/white"
-            android:textSize="14sp"/>
+            android:textSize="14sp"
+            app:fontName="Roboto-Regular.ttf" />
 
         <LinearLayout
             android:id="@+id/view3"
@@ -125,10 +130,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="4dp"
                 android:layout_gravity="center_vertical"
-                android:progressDrawable="@drawable/progress_bar"/>
+                android:progressDrawable="@drawable/progress_bar" />
         </LinearLayout>
 
-        <TextView
+        <com.eugene.fithealthmaingit.Custom.TextViewFont
             android:id="@+id/txtRemainderProtein"
             android:layout_width="wrap_content"
             android:layout_height="40dp"
@@ -137,7 +142,8 @@
             android:paddingLeft="16dp"
             android:paddingRight="16dp"
             android:textColor="@color/white"
-            android:textSize="14sp"/>
+            android:textSize="14sp"
+            app:fontName="Roboto-Regular.ttf" />
     </RelativeLayout>
 
 </LinearLayout>

@@ -17,6 +17,7 @@ package com.eugene.fithealthmaingit;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
@@ -27,11 +28,17 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.view.Menu;
 import android.view.MenuItem;
+import android.view.SubMenu;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import com.eugene.fithealthmaingit.CalTesting.CalendarTesting;
+import com.eugene.fithealthmaingit.Custom.CustomTypefaceSpan;
 import com.eugene.fithealthmaingit.HomeScreenWidget.FitHealthWidget;
 import com.eugene.fithealthmaingit.UI.ChooseAddMealActivity;
 import com.eugene.fithealthmaingit.UI.Dialogs.FragmentSuggestionDialog;
@@ -51,12 +58,12 @@ import com.eugene.fithealthmaingit.Utilities.Globals;
 import java.util.Date;
 
 public class MainActivity extends AppCompatActivity implements
-    FragmentJournalMainHome.FragmentCallbacks,
-    FragmentNutritionPager.FragmentCallbacks,
-    FragmentWeight.FragmentCallbacks,
-    FragmentHealth.FragmentCallbacks,
-    UpdateWeightDialogFragment.FragmentCallbacks,
-    FragmentFitbit.FragmentCallbacks {
+        FragmentJournalMainHome.FragmentCallbacks,
+        FragmentNutritionPager.FragmentCallbacks,
+        FragmentWeight.FragmentCallbacks,
+        FragmentHealth.FragmentCallbacks,
+        UpdateWeightDialogFragment.FragmentCallbacks,
+        FragmentFitbit.FragmentCallbacks {
 
     private DrawerLayout mNavigationDrawer;
     private Fragment fragment;
@@ -91,6 +98,7 @@ public class MainActivity extends AppCompatActivity implements
          * Inflate Menu based on FitBit connection status
          */
         NavigationView mNavigationView = (NavigationView) findViewById(R.id.nav);
+
         if (PreferenceManager.getDefaultSharedPreferences(this).getString("FITBIT_ACCESS_TOKEN", "").equals("")) {
             mNavigationView.inflateMenu(R.menu.drawer);
         } else {
@@ -109,7 +117,7 @@ public class MainActivity extends AppCompatActivity implements
                     b.putInt(NAV_ITEM_ID, mNavItemId);
                     loading.setArguments(b);
                     getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.container, loading).commit();
+                            .replace(R.id.container, loading).commit();
                 } else {
                     startActivity(new Intent(MainActivity.this, UserInformationActivity.class));
                 }
@@ -117,6 +125,24 @@ public class MainActivity extends AppCompatActivity implements
                 return false;
             }
         });
+
+        // Nav Menu Fonts
+        Menu m = mNavigationView.getMenu();
+        for (int i = 0; i < m.size(); i++) {
+            MenuItem mi = m.getItem(i);
+
+            //for aapplying a font to subMenu ...
+            SubMenu subMenu = mi.getSubMenu();
+            if (subMenu != null && subMenu.size() > 0) {
+                for (int j = 0; j < subMenu.size(); j++) {
+                    MenuItem subMenuItem = subMenu.getItem(j);
+                    applyFontToMenuItem(subMenuItem);
+                }
+            }
+
+            //the method we have create in activity
+            applyFontToMenuItem(mi);
+        }
         switchFragment(mNavItemId);
 
         /**
@@ -141,6 +167,14 @@ public class MainActivity extends AppCompatActivity implements
                 }
             }
         }
+    }
+
+    // Set Nav Menu Fonts
+    private void applyFontToMenuItem(MenuItem mi) {
+        Typeface font = Typeface.createFromAsset(getAssets(), "fonts/Roboto-Regular.ttf");
+        SpannableString mNewTitle = new SpannableString(mi.getTitle());
+        mNewTitle.setSpan(new CustomTypefaceSpan("", font), 0, mNewTitle.length(), Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+        mi.setTitle(mNewTitle);
     }
 
     /**
@@ -173,7 +207,7 @@ public class MainActivity extends AppCompatActivity implements
         }
         if (fragment != null && !isFirstFragmentAdded) {
             getSupportFragmentManager().beginTransaction()
-                .replace(R.id.container, fragment, FRAGMENT_TAG).commit();
+                    .replace(R.id.container, fragment, FRAGMENT_TAG).commit();
             isFirstFragmentAdded = true;
         }
         if (mNavigationDrawer != null)
@@ -183,7 +217,7 @@ public class MainActivity extends AppCompatActivity implements
                     // Check to see if fragment is NUTRITION, has child fragments.
                     if (fragment != null && isFirstFragmentAdded && getSupportFragmentManager().findFragmentByTag("NUTRITION") == null) {
                         getSupportFragmentManager().beginTransaction()
-                            .replace(R.id.container, fragment, FRAGMENT_TAG).commit();
+                                .replace(R.id.container, fragment, FRAGMENT_TAG).commit();
                         isFirstFragmentAdded = true;
                     }
                 }
@@ -281,6 +315,15 @@ public class MainActivity extends AppCompatActivity implements
         getSupportFragmentManager().beginTransaction().replace(R.id.containerSearch, new FragmentSearch()).addToBackStack(null).commit();
     }
 
+    public static final int ACTIVITY_ONE_REQUEST = 1;  // The request code for ActivityOne
+    public final static String ACTIVITY_ONE_RESULT = "activity_one"; // Data Argument For Activity One
+
+    @Override
+    public void openCal() {
+        Intent activityOne = new Intent(this, CalendarTesting.class);
+        startActivityForResult(activityOne, ACTIVITY_ONE_REQUEST);
+    }
+
 
     @Override
     protected void onSaveInstanceState(final Bundle outState) {
@@ -355,6 +398,28 @@ public class MainActivity extends AppCompatActivity implements
             }
         });
         builderSingle.show();
+    }
+
+    /**
+     * Get the Results from the Other Activities
+     *
+     * @param requestCode In this case either 1 = ACTIVITY_ONE_REQUEST  or 2 = ACTIVITY_TWO_REQUEST
+     * @param resultCode  Determines whether the request was successful.
+     * @param data        The being sent from other activities via Intent
+     */
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == ACTIVITY_ONE_REQUEST && resultCode == RESULT_OK) {
+            if (data.hasExtra(ACTIVITY_ONE_RESULT)) {
+                Date result = (Date) data.getExtras().get(ACTIVITY_ONE_RESULT);
+                Fragment fragmentJournalMainHome = new FragmentJournalMainHome();
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("DATE", result);
+                fragmentJournalMainHome.setArguments(bundle);
+                if (fragmentJournalMainHome != null && result != new Date())
+                    getSupportFragmentManager().beginTransaction().replace(R.id.container, fragmentJournalMainHome, "JOURNAL").commitAllowingStateLoss();
+            }
+        }
     }
 
 }

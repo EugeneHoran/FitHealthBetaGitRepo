@@ -2,13 +2,13 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 22
-    buildToolsVersion "23.0.0 rc2"
+    buildToolsVersion "22.0.1"
     defaultConfig {
         applicationId "com.eugene.fithealthmaingit"
         minSdkVersion 14
         targetSdkVersion 22
-        versionCode 4
-        versionName "1.003"
+        versionCode 6
+        versionName "1.005"
     }
     buildTypes {
         release {
@@ -35,4 +35,5 @@ dependencies {
     compile project(':HoloGraphLibrary')
     compile files('libs/Fitbit-2.11.0.jar')
     compile files('libs/temboo-android-sdk-core-2.11.0.jar')
+    compile 'com.roomorama:caldroid:2.1.0'
 }

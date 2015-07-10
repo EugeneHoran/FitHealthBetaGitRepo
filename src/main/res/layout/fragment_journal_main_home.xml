@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.sothree.slidinguppanel.SlidingUpPanelLayout
-    android:id="@+id/sliding_layout"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<com.sothree.slidinguppanel.SlidingUpPanelLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:sothree="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/sliding_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:clickable="true"
     android:gravity="bottom"
     sothree:umanoFadeColor="@android:color/transparent"
-    sothree:umanoPanelHeight="0dp">
+    sothree:umanoPanelHeight="0dp"
+    tools:ignore="NewApi">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -29,6 +30,7 @@
                 android:layout_height="48dp"
                 android:layout_marginBottom="4dp"
                 android:layout_marginTop="4dp"
+                android:background="?android:attr/selectableItemBackgroundBorderless"
                 android:clickable="true"
                 android:paddingLeft="16dp">
 
@@ -41,14 +43,14 @@
                     android:text="Today"
                     android:textColor="@color/white"
                     android:textSize="20sp"
-                    app:fontName="Roboto-Medium.ttf"/>
+                    app:fontName="Roboto-Medium.ttf" />
 
                 <ImageView
                     android:id="@+id/arrowDown"
                     android:layout_width="48dp"
                     android:layout_height="48dp"
                     android:padding="12dp"
-                    android:src="@mipmap/ic_arrow_drop_down_white_24dp"/>
+                    android:src="@mipmap/ic_arrow_drop_down_white_24dp" />
             </LinearLayout>
 
         </android.support.v7.widget.Toolbar>
@@ -60,9 +62,9 @@
             android:layout_below="@+id/toolbar_journal_main"
             android:background="@color/primary">
             <!-- pull Down View -->
-            <include layout="@layout/fragment_journal_main_home_pulldown"/>
+            <include layout="@layout/fragment_journal_main_home_pulldown" />
             <!-- Main Content -->
-            <include layout="@layout/fragment_journal_main_home_main_content"/>
+            <include layout="@layout/fragment_journal_main_home_main_content" />
         </github.chenupt.dragtoplayout.DragTopLayout>
 
         <RelativeLayout
@@ -71,7 +73,7 @@
             android:layout_height="match_parent"
             android:background="#50000000"
             android:clickable="true"
-            android:visibility="gone"/>
+            android:visibility="gone" />
 
     </RelativeLayout>
 
@@ -81,14 +83,14 @@
         android:background="@color/white"
         android:orientation="vertical">
 
-        <TextView
+        <com.eugene.fithealthmaingit.Custom.TextViewFont
             android:layout_width="match_parent"
             android:layout_height="56dp"
             android:gravity="center_vertical"
             android:paddingLeft="16dp"
             android:text="Add Meal"
             android:textSize="16sp"
-            android:textStyle="bold"/>
+            app:fontName="Roboto-Medium.ttf" />
 
         <LinearLayout
             android:id="@+id/btnSnack"
@@ -105,16 +107,17 @@
                 android:layout_marginLeft="16dp"
                 android:contentDescription="@string/image_description"
                 android:src="@mipmap/ic_add_circle"
-                android:tint="@color/text_color"/>
+                android:tint="@color/text_color" />
 
-            <TextView
+            <com.eugene.fithealthmaingit.Custom.TextViewFont
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="32dp"
                 android:layout_weight="1"
                 android:text="@string/snack"
                 android:textColor="@color/text_color"
-                android:textSize="16sp"/>
+                android:textSize="16sp"
+                app:fontName="Roboto-Regular.ttf" />
         </LinearLayout>
 
         <LinearLayout
@@ -132,16 +135,17 @@
                 android:layout_marginLeft="16dp"
                 android:contentDescription="@string/image_description"
                 android:src="@mipmap/ic_add_circle"
-                android:tint="@color/text_color"/>
+                android:tint="@color/text_color" />
 
-            <TextView
+            <com.eugene.fithealthmaingit.Custom.TextViewFont
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="32dp"
                 android:layout_weight="1"
                 android:text="@string/breakfast"
                 android:textColor="@color/text_color"
-                android:textSize="16sp"/>
+                android:textSize="16sp"
+                app:fontName="Roboto-Regular.ttf" />
         </LinearLayout>
 
         <LinearLayout
@@ -159,16 +163,17 @@
                 android:layout_marginLeft="16dp"
                 android:contentDescription="@string/image_description"
                 android:src="@mipmap/ic_add_circle"
-                android:tint="@color/text_color"/>
+                android:tint="@color/text_color" />
 
-            <TextView
+            <com.eugene.fithealthmaingit.Custom.TextViewFont
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="32dp"
                 android:layout_weight="1"
                 android:text="@string/Lunch"
                 android:textColor="@color/text_color"
-                android:textSize="16sp"/>
+                android:textSize="16sp"
+                app:fontName="Roboto-Regular.ttf" />
         </LinearLayout>
 
         <LinearLayout
@@ -187,16 +192,17 @@
                 android:layout_marginLeft="16dp"
                 android:contentDescription="@string/image_description"
                 android:src="@mipmap/ic_add_circle"
-                android:tint="@color/text_color"/>
+                android:tint="@color/text_color" />
 
-            <TextView
+            <com.eugene.fithealthmaingit.Custom.TextViewFont
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="32dp"
                 android:layout_weight="1"
                 android:text="@string/dinner"
                 android:textColor="@color/text_color"
-                android:textSize="16sp"/>
+                android:textSize="16sp"
+                app:fontName="Roboto-Regular.ttf" />
         </LinearLayout>
     </LinearLayout>
 </com.sothree.slidinguppanel.SlidingUpPanelLayout>

@@ -2,7 +2,7 @@
  * Copyright (C) 2013 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
+ * you may not use getActivity() file except in compliance with the License.
  * You may obtain a copy of the License at
  *
  *      http://www.apache.org/licenses/LICENSE-2.0
@@ -41,18 +41,24 @@ import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.eugene.fithealthmaingit.Databases_Adapters_ListViews.CalSQLiteDatabase.DailyCalorieAdapter;
+import com.eugene.fithealthmaingit.Databases_Adapters_ListViews.CalSQLiteDatabase.DailyCalorieIntake;
+import com.eugene.fithealthmaingit.Databases_Adapters_ListViews.CalSQLiteDatabase.DatabaseHandler;
 import com.eugene.fithealthmaingit.Databases_Adapters_ListViews.FoodManual.LogAdapterManual;
 import com.eugene.fithealthmaingit.Databases_Adapters_ListViews.FoodManual.LogManual;
+import com.eugene.fithealthmaingit.Databases_Adapters_ListViews.LogFood.LogAdapterAll;
 import com.eugene.fithealthmaingit.Databases_Adapters_ListViews.LogFood.LogAdapterPrevention;
 import com.eugene.fithealthmaingit.Databases_Adapters_ListViews.LogFood.LogMeal;
 import com.eugene.fithealthmaingit.FatSecretSearchAndGet.FatSecretGetMethod;
 import com.eugene.fithealthmaingit.R;
+import com.eugene.fithealthmaingit.Utilities.DateCompare;
 import com.eugene.fithealthmaingit.Utilities.Globals;
 import com.eugene.fithealthmaingit.Utilities.OrderFormat;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class ManualEntrySaveMealFragment extends Fragment {
     DecimalFormat df = new DecimalFormat("0.0");
@@ -96,26 +102,26 @@ public class ManualEntrySaveMealFragment extends Fragment {
 
     private Spinner mSpnServings;
     private LinearLayout llVitA,
-        llVitC,
-        llCalcium,
-        llIron,
-        llCalories,
-        llFat,
-        llSat,
-        llCholesterol,
-        llSodium,
-        llCarbs,
-        llFiber,
-        llSugars,
-        llProtein;
+            llVitC,
+            llCalcium,
+            llIron,
+            llCalories,
+            llFat,
+            llSat,
+            llCholesterol,
+            llSodium,
+            llCarbs,
+            llFiber,
+            llSugars,
+            llProtein;
     private View vVitA, vVitC, vCalcium, vIron, vFat,
-        vSat,
-        vCholesterol,
-        vSodium,
-        vCarbs,
-        vFiber,
-        vSugar,
-        vPro;
+            vSat,
+            vCholesterol,
+            vSodium,
+            vCarbs,
+            vFiber,
+            vSugar,
+            vPro;
     private LogAdapterPrevention mLogAdapterAll;
     // FatSecret method.get
     private FatSecretGetMethod mFatSecretGet;
@@ -137,6 +143,7 @@ public class ManualEntrySaveMealFragment extends Fragment {
             mealType = extras.getString(Globals.MEAL_TYPE);
             food_id = extras.getString(Globals.MEAL_ID);
         }
+        setAdapter(new Date());
         findViewsById();
         getFood(food_id);
         return v;
@@ -317,14 +324,14 @@ public class ManualEntrySaveMealFragment extends Fragment {
                         mIronUpdate.setText(df.format(Double.valueOf(mIron) * values));
                         progressBars();
                         ((InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE))
-                            .hideSoftInputFromWindow(input.getWindowToken(), 0);
+                                .hideSoftInputFromWindow(input.getWindowToken(), 0);
                     }
                 });
 
                 alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {
                         ((InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE))
-                            .hideSoftInputFromWindow(input.getWindowToken(), 0);
+                                .hideSoftInputFromWindow(input.getWindowToken(), 0);
                     }
                 });
                 alert.setCancelable(false);
@@ -524,7 +531,39 @@ public class ManualEntrySaveMealFragment extends Fragment {
         logMeals.setDate(new Date());
         logMeals.setOrderFormat(OrderFormat.setMealFormat(mealType));
         logMeals.save();
+        testing();
         mCallbacks.fromFragment();
+    }
+
+    private DatabaseHandler db;
+    List<DailyCalorieIntake> dailyCalorieIntakes;
+    private DailyCalorieAdapter dailyCalorieAdapter;
+
+    private void testing() {
+        LogAdapterAll logAdapterAll = new LogAdapterAll(getActivity(), 0, LogMeal.logsByDate(new Date()));
+        if (dailyCalorieIntakes.size() > 0) {
+            double caloriesUpdate = 0;
+            for (LogMeal logMeal1 : logAdapterAll.getLogs()) {
+                caloriesUpdate += logMeal1.getCalorieCount();
+            }
+            DailyCalorieIntake c = dailyCalorieAdapter.getItem(0);
+            c.setCalorieIntake(caloriesUpdate);
+            db.updateCalories(c);
+        } else {
+            LogMeal logMeal = logAdapterAll.getItem(0);
+            db.addContact(new DailyCalorieIntake("", logMeal.getCalorieCount(), DateCompare.dateToString(new Date())));
+        }
+    }
+
+
+    private void setAdapter(Date newDate) {
+        db = new DatabaseHandler(getActivity());
+        String date = DateCompare.dateToString(newDate); // Convert date to string
+        dailyCalorieIntakes = db.getContactsByDate(date); // filter by string
+        dailyCalorieAdapter = new DailyCalorieAdapter(getActivity(), 0, dailyCalorieIntakes);
+        if (dailyCalorieIntakes.size() > 0) {
+            DailyCalorieIntake c = dailyCalorieAdapter.getItem(0);
+        }
     }
 
     /**

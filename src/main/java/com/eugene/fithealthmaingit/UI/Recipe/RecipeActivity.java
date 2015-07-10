@@ -13,6 +13,10 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.eugene.fithealthmaingit.Databases_Adapters_ListViews.CalSQLiteDatabase.DailyCalorieAdapter;
+import com.eugene.fithealthmaingit.Databases_Adapters_ListViews.CalSQLiteDatabase.DailyCalorieIntake;
+import com.eugene.fithealthmaingit.Databases_Adapters_ListViews.CalSQLiteDatabase.DatabaseHandler;
+import com.eugene.fithealthmaingit.Databases_Adapters_ListViews.LogFood.LogAdapterAll;
 import com.eugene.fithealthmaingit.Databases_Adapters_ListViews.LogFood.LogMeal;
 import com.eugene.fithealthmaingit.Databases_Adapters_ListViews.LogRecipes.LogRecipeHolder;
 import com.eugene.fithealthmaingit.Databases_Adapters_ListViews.LogRecipes.LogRecipeHolderAdapter;
@@ -21,10 +25,12 @@ import com.eugene.fithealthmaingit.Databases_Adapters_ListViews.LogRecipes.LogRe
 import com.eugene.fithealthmaingit.R;
 import com.eugene.fithealthmaingit.MainActivity;
 import com.eugene.fithealthmaingit.UI.ChooseAddMealActivity;
+import com.eugene.fithealthmaingit.Utilities.DateCompare;
 import com.eugene.fithealthmaingit.Utilities.Globals;
 import com.eugene.fithealthmaingit.Utilities.OrderFormat;
 
 import java.util.Date;
+import java.util.List;
 
 public class RecipeActivity extends AppCompatActivity {
     int mId;
@@ -39,6 +45,7 @@ public class RecipeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe);
+        setAdapter(new Date());
         Bundle b = new Bundle();
         Intent intent = getIntent();
         if (intent != null) {
@@ -231,5 +238,38 @@ public class RecipeActivity extends AppCompatActivity {
         logMeal.setRecipeId(String.valueOf(mId));
         logMeal.setOrderFormat(OrderFormat.setMealFormat(mealType));
         logMeal.save();
+        testing();
+    }
+
+
+    private DatabaseHandler db;
+    List<DailyCalorieIntake> dailyCalorieIntakes;
+    private DailyCalorieAdapter dailyCalorieAdapter;
+
+    private void testing() {
+        LogAdapterAll logAdapterAll = new LogAdapterAll(this, 0, LogMeal.logsByDate(new Date()));
+        if (dailyCalorieIntakes.size() > 0) {
+            double caloriesUpdate = 0;
+            for (LogMeal logMeal1 : logAdapterAll.getLogs()) {
+                caloriesUpdate += logMeal1.getCalorieCount();
+            }
+            DailyCalorieIntake c = dailyCalorieAdapter.getItem(0);
+            c.setCalorieIntake(caloriesUpdate);
+            db.updateCalories(c);
+        } else {
+            LogMeal logMeal = logAdapterAll.getItem(0);
+            db.addContact(new DailyCalorieIntake("", logMeal.getCalorieCount(), DateCompare.dateToString(new Date())));
+        }
+    }
+
+
+    private void setAdapter(Date newDate) {
+        db = new DatabaseHandler(this);
+        String date = DateCompare.dateToString(newDate); // Convert date to string
+        dailyCalorieIntakes = db.getContactsByDate(date); // filter by string
+        dailyCalorieAdapter = new DailyCalorieAdapter(this, 0, dailyCalorieIntakes);
+        if (dailyCalorieIntakes.size() > 0) {
+            DailyCalorieIntake c = dailyCalorieAdapter.getItem(0);
+        }
     }
 }

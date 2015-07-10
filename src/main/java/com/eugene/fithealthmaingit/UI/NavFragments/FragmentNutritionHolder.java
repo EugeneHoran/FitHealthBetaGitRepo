@@ -118,7 +118,7 @@ public class FragmentNutritionHolder extends Fragment {
         // Fat
         int fatCount = breakFatCount * 9;
         PieSlice slice = new PieSlice();
-        slice.setColor(Color.parseColor("#99CC00"));
+        slice.setColor(Color.parseColor("#4DB6AC"));
         if (fatCount == 0) {
             slice.setValue(1);
         } else {
@@ -129,7 +129,7 @@ public class FragmentNutritionHolder extends Fragment {
         // Carbs
         int carbCount = breakCarbsCount * 4;
         slice = new PieSlice();
-        slice.setColor(Color.parseColor("#FFBB33"));
+        slice.setColor(Color.parseColor("#FFC107"));
         if (carbCount == 0) {
             slice.setValue(1);
         } else {
@@ -140,7 +140,7 @@ public class FragmentNutritionHolder extends Fragment {
         // Pro
         int proCount = breakProteinCount * 4;
         slice = new PieSlice();
-        slice.setColor(Color.parseColor("#AA66CC"));
+        slice.setColor(Color.parseColor("#9C27B0"));
         if (proCount == 0) {
             slice.setValue(1);
         } else {
@@ -181,7 +181,7 @@ public class FragmentNutritionHolder extends Fragment {
 
         // Fat
         Bar dd = new Bar();
-        dd.setColor(Color.parseColor("#99CC00"));
+        dd.setColor(getActivity().getResources().getColor(R.color.green));
         dd.setValue(breakFatCount);
 
         Bar d2 = new Bar();
@@ -190,7 +190,7 @@ public class FragmentNutritionHolder extends Fragment {
 
         // Carbs
         Bar dd1 = new Bar();
-        dd1.setColor(Color.parseColor("#99CC00"));
+        dd1.setColor(getActivity().getResources().getColor(R.color.green));
         dd1.setValue(breakCarbsCount / 2);
 
 
@@ -200,7 +200,7 @@ public class FragmentNutritionHolder extends Fragment {
 
         // Pro
         Bar dd11 = new Bar();
-        dd11.setColor(Color.parseColor("#99CC00"));
+        dd11.setColor(getActivity().getResources().getColor(R.color.green));
         dd11.setValue(breakProteinCount);
 
         Bar d211 = new Bar();

@@ -18,7 +18,6 @@ package com.eugene.fithealthmaingit.UI.NavFragments;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.DatePickerDialog;
 import android.appwidget.AppWidgetManager;
 import android.content.ComponentName;
 import android.content.Context;
@@ -44,7 +43,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.DatePicker;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -55,9 +53,14 @@ import android.widget.RemoteViews;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import com.eugene.fithealthmaingit.CalTesting.CalendarTesting;
 import com.eugene.fithealthmaingit.Custom.TextViewFont;
+import com.eugene.fithealthmaingit.Databases_Adapters_ListViews.CalSQLiteDatabase.DailyCalorieAdapter;
+import com.eugene.fithealthmaingit.Databases_Adapters_ListViews.CalSQLiteDatabase.DailyCalorieIntake;
+import com.eugene.fithealthmaingit.Databases_Adapters_ListViews.CalSQLiteDatabase.DatabaseHandler;
 import com.eugene.fithealthmaingit.Databases_Adapters_ListViews.LogFood.LogAdapterAll;
 import com.eugene.fithealthmaingit.Databases_Adapters_ListViews.LogFood.LogAdapterBreakfast;
+import com.eugene.fithealthmaingit.Databases_Adapters_ListViews.LogFood.LogAdapterCalories;
 import com.eugene.fithealthmaingit.Databases_Adapters_ListViews.LogFood.LogAdapterDinner;
 import com.eugene.fithealthmaingit.Databases_Adapters_ListViews.LogFood.LogAdapterLunch;
 import com.eugene.fithealthmaingit.Databases_Adapters_ListViews.LogFood.LogAdapterSnack;
@@ -78,6 +81,7 @@ import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 import java.text.DecimalFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 import github.chenupt.dragtoplayout.AttachUtil;
 import github.chenupt.dragtoplayout.DragTopLayout;
@@ -88,9 +92,9 @@ import github.chenupt.dragtoplayout.DragTopLayout;
  * nutrition information
  */
 public class FragmentJournalMainHome extends Fragment implements
-    View.OnClickListener,
-    SlidingUpPanelLayout.PanelSlideListener,
-    DragTopLayout.PanelListener {
+        View.OnClickListener,
+        SlidingUpPanelLayout.PanelSlideListener,
+        DragTopLayout.PanelListener {
 
     private View v;
 
@@ -139,13 +143,16 @@ public class FragmentJournalMainHome extends Fragment implements
         outState.putSerializable(Globals.JOURNAL_DATE, mDate);
     }
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         savedState = savedInstanceState;
         v = inflater.inflate(R.layout.fragment_journal_main_home, container, false);
         // Initiate PreferenceManager to get user saved information
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
-
+        if (getArguments() != null) {
+            mDate = (Date) getArguments().getSerializable("DATE");
+        }
         /**
          * Convert Date To Calendar
          */
@@ -164,24 +171,7 @@ public class FragmentJournalMainHome extends Fragment implements
         changeDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DatePickerDialog dpd = new DatePickerDialog(getActivity(),
-                    new DatePickerDialog.OnDateSetListener() {
-                        @Override
-                        public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                            Calendar cal = Calendar.getInstance();
-                            cal.set(Calendar.YEAR, year);
-                            cal.set(Calendar.MONTH, monthOfYear);
-                            cal.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-                            mYear = cal.get(Calendar.YEAR);
-                            mMonth = cal.get(Calendar.MONTH);
-                            mDay = cal.get(Calendar.DAY_OF_MONTH);
-                            mDate = cal.getTime();
-                            initializeAdapters(mDate);
-                            handleDateChanges(mDate);
-                            updateListViews();
-                        }
-                    }, mYear, mMonth, mDay);
-                dpd.show();
+                mCallbacks.openCal();
             }
         });
 
@@ -302,12 +292,14 @@ public class FragmentJournalMainHome extends Fragment implements
             p.setMargins(0, 0, Equations.dpToPx(getActivity(), 8), 0); // get rid of margins since shadow area is now the margin
             mFab.setLayoutParams(p);
         }
-        mFab.setOnClickListener(new View.OnClickListener() {
+        mFab.setOnTouchListener(new View.OnTouchListener() {
             @Override
-            public void onClick(View v) {
+            public boolean onTouch(View v, MotionEvent event) {
                 mSlidingLayout.setPanelState(SlidingUpPanelLayout.PanelState.EXPANDED);
+                return false;
             }
         });
+
         return v;
     }
 
@@ -429,7 +421,7 @@ public class FragmentJournalMainHome extends Fragment implements
         mLogAdapterAll = new LogAdapterAll(getActivity(), 0, LogMeal.logsByDate(date));
         InitiateFitBit(date);
 
-
+        setAdapter(new Date());
     }
 
     /**
@@ -458,12 +450,12 @@ public class FragmentJournalMainHome extends Fragment implements
          * Setting a post delay due to the progress bars not updating after an item is added through quick add.
          */
         Runnable mMyRunnable =
-            new Runnable() {
-                @Override
-                public void run() {
-                    equations();
-                }
-            };
+                new Runnable() {
+                    @Override
+                    public void run() {
+                        equations();
+                    }
+                };
         Handler myHandler = new Handler();
         myHandler.postDelayed(mMyRunnable, 10);
     }
@@ -612,22 +604,22 @@ public class FragmentJournalMainHome extends Fragment implements
          */
         Context context = getActivity();
         AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
-        RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.new_app_widget);
-        ComponentName thisWidget = new ComponentName(context, FitHealthWidget.class);
+        if (appWidgetManager != null) {
+            RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.new_app_widget);
+            ComponentName thisWidget = new ComponentName(context, FitHealthWidget.class);
 
-        views.setProgressBar(R.id.pbCal, Integer.valueOf(df.format(mCalorieGoal)), Integer.valueOf(df.format(mAllCaloriesConsumed)), false);
-        views.setProgressBar(R.id.pbFat, Integer.valueOf(df.format(mFatGoal)), Integer.valueOf(df.format(mAllFatConsumed)), false);
-        views.setProgressBar(R.id.pbCarb, Integer.valueOf(df.format(mCarbGoal)), Integer.valueOf(df.format(mAllCarbsConsumed)), false);
-        views.setProgressBar(R.id.pbPro, Integer.valueOf(df.format(mProteinGoal)), Integer.valueOf(df.format(mAllProteinConsumed)), false);
+            views.setProgressBar(R.id.pbCal, Integer.valueOf(df.format(mCalorieGoal)), Integer.valueOf(df.format(mAllCaloriesConsumed)), false);
+            views.setProgressBar(R.id.pbFat, Integer.valueOf(df.format(mFatGoal)), Integer.valueOf(df.format(mAllFatConsumed)), false);
+            views.setProgressBar(R.id.pbCarb, Integer.valueOf(df.format(mCarbGoal)), Integer.valueOf(df.format(mAllCarbsConsumed)), false);
+            views.setProgressBar(R.id.pbPro, Integer.valueOf(df.format(mProteinGoal)), Integer.valueOf(df.format(mAllProteinConsumed)), false);
 
-        views.setTextViewText(R.id.txtRemainderCal, df.format(mCalorieGoal - mAllCaloriesConsumed));
-        views.setTextViewText(R.id.txtRemainderFat, df.format(mFatGoal - mAllFatConsumed));
-        views.setTextViewText(R.id.txtRemainderCarb, df.format(mCarbGoal - mAllCarbsConsumed));
-        views.setTextViewText(R.id.txtRemainderPro, df.format(mProteinGoal - mAllProteinConsumed));
+            views.setTextViewText(R.id.txtRemainderCal, df.format(mCalorieGoal - mAllCaloriesConsumed));
+            views.setTextViewText(R.id.txtRemainderFat, df.format(mFatGoal - mAllFatConsumed));
+            views.setTextViewText(R.id.txtRemainderCarb, df.format(mCarbGoal - mAllCarbsConsumed));
+            views.setTextViewText(R.id.txtRemainderPro, df.format(mProteinGoal - mAllProteinConsumed));
 
-        appWidgetManager.updateAppWidget(thisWidget, views);
-
-
+            appWidgetManager.updateAppWidget(thisWidget, views);
+        }
     }
 
     /**
@@ -830,6 +822,7 @@ public class FragmentJournalMainHome extends Fragment implements
                         logMeals.delete();
                         mLogSnackAdapter.remove(logMeals);
                         mLogSnackAdapter.notifyDataSetChanged();
+                        testing();
                         initializeAdapters(new Date());
                         refreshOnDelete();
                         updateListViews();
@@ -847,6 +840,7 @@ public class FragmentJournalMainHome extends Fragment implements
                         logMeals.delete();
                         mLogBreakfastAdapter.remove(logMeals);
                         mLogBreakfastAdapter.notifyDataSetChanged();
+                        testing();
                         initializeAdapters(new Date());
                         refreshOnDelete();
                         updateListViews();
@@ -864,6 +858,7 @@ public class FragmentJournalMainHome extends Fragment implements
                         logMeals.delete();
                         mLogLunchAdapter.remove(logMeals);
                         mLogLunchAdapter.notifyDataSetChanged();
+                        testing();
                         initializeAdapters(new Date());
                         refreshOnDelete();
                         updateListViews();
@@ -881,6 +876,7 @@ public class FragmentJournalMainHome extends Fragment implements
                         logMeals.delete();
                         mLogDinnerAdapter.remove(logMeals);
                         mLogDinnerAdapter.notifyDataSetChanged();
+                        testing();
                         initializeAdapters(new Date());
                         refreshOnDelete();
                         updateListViews();
@@ -905,7 +901,7 @@ public class FragmentJournalMainHome extends Fragment implements
         double calMax = mCalorieGoalMeal + 100;
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle(s + " Calorie Goal").setMessage("Goal:   " + df.format(calMin) + "  -  " + df.format(calMax) + " Calories")
-            .setPositiveButton("Done", null);
+                .setPositiveButton("Done", null);
         LayoutInflater inflater = getActivity().getLayoutInflater();
         FrameLayout f1 = new FrameLayout(getActivity());
         f1.addView(inflater.inflate(R.layout.dialog_calorie_info, f1, false));
@@ -971,6 +967,37 @@ public class FragmentJournalMainHome extends Fragment implements
         fbRefresh.setVisibility(View.GONE);
     }
 
+    private DatabaseHandler db;
+    List<DailyCalorieIntake> dailyCalorieIntakes;
+    private DailyCalorieAdapter dailyCalorieAdapter;
+
+    private void testing() {
+        LogAdapterCalories logAdapterCalories = new LogAdapterCalories(getActivity(), 0, LogMeal.logsByDate(new Date()));
+        if (dailyCalorieIntakes.size() > 0) {
+            double caloriesUpdate = 0;
+            for (LogMeal logMeal1 : logAdapterCalories.getLogs()) {
+                caloriesUpdate += logMeal1.getCalorieCount();
+            }
+            DailyCalorieIntake c = dailyCalorieAdapter.getItem(0);
+            c.setCalorieIntake(caloriesUpdate);
+            db.updateCalories(c);
+        } else {
+            LogMeal logMeal = logAdapterCalories.getItem(0);
+            db.addContact(new DailyCalorieIntake("", logMeal.getCalorieCount(), DateCompare.dateToString(new Date())));
+        }
+    }
+
+
+    private void setAdapter(Date newDate) {
+        db = new DatabaseHandler(getActivity());
+        String date = DateCompare.dateToString(newDate); // Convert date to string
+        dailyCalorieIntakes = db.getContactsByDate(date); // filter by string
+        dailyCalorieAdapter = new DailyCalorieAdapter(getActivity(), 0, dailyCalorieIntakes);
+        if (dailyCalorieIntakes.size() > 0) {
+            DailyCalorieIntake c = dailyCalorieAdapter.getItem(0);
+        }
+    }
+
     /**
      * Interface to communicate to the parent activity (MainActivity.java)
      */
@@ -986,6 +1013,8 @@ public class FragmentJournalMainHome extends Fragment implements
         void viewSuggestion(String s, Date d);
 
         void searchFragment();
+
+        void openCal();
     }
 
     @Override
