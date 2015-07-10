@@ -33,6 +33,27 @@ Libraries included within Fit Health:
 
 [Used Lanre Adebambo project as a starting point](https://github.com/lanre-ade/Calorie-Tracker) 
 
+**New Content**
+
+- Added a calendar view for changing the date.  
+
+- Calendar View
+
+![cal](https://cloud.githubusercontent.com/assets/7454787/8627565/ec76986e-2719-11e5-9263-02b4751e89b0.PNG)
+
+- Slide up info with ViewPager, page one displays your Macros
+
+![macros](https://cloud.githubusercontent.com/assets/7454787/8627564/ec7642f6-2719-11e5-8b79-cc49fea7067b.PNG)
+
+- Slide up info with ViewPager, page two displays your Weight
+
+![weight](https://cloud.githubusercontent.com/assets/7454787/8627566/ec7712d0-2719-11e5-81da-46e705805e43.PNG)
+
+
+
+
+
+
 **Updates**
 
 - NavigationView
