@@ -6,10 +6,21 @@ Fit Health Beta
        src="https://developer.android.com/images/brand/en_app_rgb_wo_60.png" />
 </a>
 
-I created an application very similar to this one (Fit Health) when I first started working with android but decided to scrap it and start fresh. Still in early stages. Working on it a few hours a day when I get the chance.  
+Here is a Youtube video of the latest update:
+>https://youtu.be/B3mV_APL2K4
+
+I created an application very similar to this one when I first started working with android. I decided to scrap it and start fresh. Still in early stages. Working on it a few hours a day when I get the chance.  
+
+Finally baught a smart phone!!! Much faster running this app on a phone over the emulators. Saving a ton of time, testing.
 
 I am designing this application to be simple, smooth and clean.  My goal is to create an application that helps users track their nutrition without all of the clutter.  I look forward to seeing the development of this application and how it evolves. Any suggestions, let me know and I will add it in within the final project or send you a personalized version. 
  
+**NOTES**
+- Project is coming along smoothly without any major issues. 
+- Regret using an ORM due to its limits of handling large data changes.  Going to start working on a SQLite database to have more control how the data is handled. 
+- Google's Design Support Library has many bugs but noting too crazy that I was not able to manipulate to meet the guidelines other than TabLayout. The tab bounces when scrolling but it is a known issue that was reported and should be fixed with the next update. 
+- Next part of the project, I would like to implement a run keeper using Google's Maps API. I already finised a rough draft of it but haven't spent much time to clean all the issues. 
+
 [FatSecret REST API Documentation ](http://platform.fatsecret.com/api/Default.aspx?screen=rapih) 
 
 Libraries included within Fit Health:
@@ -17,103 +28,59 @@ Libraries included within Fit Health:
 - [Sliding Up Panel to create bottom card](https://github.com/umano/AndroidSlidingUpPanel) 
 - [DragTopLayout for pulldown view](https://github.com/chenupt/DragTopLayout) 
 - Design Support Library
+- Temboo, Recomended by Fitbit.
 
 
 [Used Lanre Adebambo project as a starting point](https://github.com/lanre-ade/Calorie-Tracker) 
 
 **Updates**
 
-- Users are now able to sync their Fitbit accounts.
+- NavigationView
 
-![fitbit](https://cloud.githubusercontent.com/assets/7454787/8394498/544ee552-1d08-11e5-874a-864fb7dc1e34.PNG)
+![menu](https://cloud.githubusercontent.com/assets/7454787/8560575/3f388cae-24e7-11e5-8ed4-a5713808a627.PNG)
 
-- Added a home screen widget and charts based on nutrition intake
+- Journal
 
-![home_screen_widget](https://cloud.githubusercontent.com/assets/7454787/8265775/cb24b918-16d7-11e5-85be-ff8377a06ce2.PNG)
+![journal](https://cloud.githubusercontent.com/assets/7454787/8560577/4158bb9e-24e7-11e5-872e-47fc5e85a001.PNG)
 
-![nut](https://cloud.githubusercontent.com/assets/7454787/8265783/51068c78-16d8-11e5-9ccc-6afeb10afbff.PNG)
+- Journal Pulldown that contains Macros and calories
 
-![nut_bot](https://cloud.githubusercontent.com/assets/7454787/8265784/51072e4e-16d8-11e5-9727-4cbaa4eba6b7.PNG)
+![journal_pulldown](https://cloud.githubusercontent.com/assets/7454787/8560579/43af6000-24e7-11e5-8502-135d165d6815.PNG)
 
-- Adding a loading view for the fragments. It helps prevent the Navigation Drawer closing animation from skipping on older devices. It lets the user know, after a nav list item is clicked, something is happening.
+- Menu that is opened with the click of FAB
 
-![loading](https://cloud.githubusercontent.com/assets/7454787/8195910/31c1311e-1454-11e5-9b1e-9aa57c475363.gif)
+![journal_add](https://cloud.githubusercontent.com/assets/7454787/8560582/4747c414-24e7-11e5-9b46-8ae70e827a23.PNG)
 
-- Added search functionality to manual entry and favorite meals
+- Quick Add 
 
-![untitled-2](https://cloud.githubusercontent.com/assets/7454787/8196157/c4d2e1d0-1456-11e5-9dc5-797ee131d7b3.gif)
+![quick_add](https://cloud.githubusercontent.com/assets/7454787/8560622/cb73c666-24e7-11e5-846c-cbc503b0f826.PNG)
 
-- Added indicators that change dependent on the calories consumed per mneal and meal calorie goal. 
+- Quick Search in Journal (Custom SearchView)
 
-![Alt text](https://cloud.githubusercontent.com/assets/7454787/8120868/396b7252-1072-11e5-8109-bbff2663acbb.png "Journal Home")
+![journal_search](https://cloud.githubusercontent.com/assets/7454787/8560584/4ce3dbce-24e7-11e5-87d6-2be400a9aaa8.PNG)
 
+- View with Favorites, Created Meals, Recipes and Recent Searches
 
+![add_meal](https://cloud.githubusercontent.com/assets/7454787/8560586/52a7a5cc-24e7-11e5-923f-a9bb0deb33bb.PNG)
 
-**Fit Health Images & Gif**
+- Save a search item
 
-![fit_health_gif](https://cloud.githubusercontent.com/assets/7454787/8091345/5691008c-0f81-11e5-90ca-50acc587e798.gif)
+![save_meal](https://cloud.githubusercontent.com/assets/7454787/8560587/5794d528-24e7-11e5-840b-33dbfdca36f4.PNG)
 
+- Daily Nutrition View
 
-**Journal Home**
+![nutrition](https://cloud.githubusercontent.com/assets/7454787/8560588/5a382532-24e7-11e5-8c93-7a1b7e368914.PNG)
 
-![Alt text](https://cloud.githubusercontent.com/assets/7454787/8090459/11de166e-0f7c-11e5-8ef2-56b259f949ab.PNG "Journal Home")
+![nutrition_bottom](https://cloud.githubusercontent.com/assets/7454787/8560591/5da020b2-24e7-11e5-89f2-f4c827379cbd.PNG)
 
-**Journal Pulldown**
+- Health and goal overview's
 
-![Alt text](https://cloud.githubusercontent.com/assets/7454787/8090455/11da7df6-0f7c-11e5-9c0c-26999cf5ff67.PNG "Journal Home")
+![health](https://cloud.githubusercontent.com/assets/7454787/8560592/602d3a2c-24e7-11e5-8741-6b89079525d4.PNG)
 
-**Journal Add, FAB pressed**
+- Fitbit Sync
 
-![Alt text](https://cloud.githubusercontent.com/assets/7454787/8090457/11dc4514-0f7c-11e5-9b74-421f7a716fa1.PNG "Journal Home")
+![fitbit](https://cloud.githubusercontent.com/assets/7454787/8560594/62dbb9ce-24e7-11e5-9d08-17bb19ee0a37.PNG)
 
-**Journal Search, Just added to speed up adding meals from FatSecret REST API Database**
+- Homescreen Widget
 
-![Alt text](https://cloud.githubusercontent.com/assets/7454787/8090456/11dbf618-0f7c-11e5-9763-a8b6e5dc9aa3.PNG "Journal Home")
-
-**Journal Suggestion Dialog**
-
-![Alt text](https://cloud.githubusercontent.com/assets/7454787/8090458/11dc6e68-0f7c-11e5-8be4-d65d5f7b6ca9.PNG "Journal Home")
-
-**Journal Add Item**
-
-![Alt text](https://cloud.githubusercontent.com/assets/7454787/8090460/11de5eee-0f7c-11e5-934e-348b0aaa0b81.PNG "Journal Home")
-
-**Journal Add Item Search**
-
-![Alt text](https://cloud.githubusercontent.com/assets/7454787/8090463/11e69f0a-0f7c-11e5-803b-c4a9d0b5cd4a.PNG "Journal Home")
-
-**Journal Add, Manual Entry**
-
-![Alt text](https://cloud.githubusercontent.com/assets/7454787/8090461/11e3fd36-0f7c-11e5-8da8-367b05360be0.PNG "Journal Home")
-
-**Save Meal, FatSecret Data**
-
-![Alt text](https://cloud.githubusercontent.com/assets/7454787/8090465/11e84594-0f7c-11e5-9b34-03c6ae8a8fbf.PNG "Journal Home")
-
-**Quick Add Meal**
-
-![Alt text](https://cloud.githubusercontent.com/assets/7454787/8090468/11eec978-0f7c-11e5-9c77-5bf6ec6a8862.PNG "Journal Home")
-
-**View Meals For Each Meal Type(snack,breakfast,lunch,dinner)**
-
-![Alt text](https://cloud.githubusercontent.com/assets/7454787/8090464/11e774f2-0f7c-11e5-9af4-a2190a310e67.PNG "Journal Home")
-
-**Journal Change Date**
-
-![Alt text](https://cloud.githubusercontent.com/assets/7454787/8090462/11e5249a-0f7c-11e5-8f2f-c2c877b82a06.PNG "Journal Home")
-
-**Journal Menu**
-
-![Alt text](https://cloud.githubusercontent.com/assets/7454787/8090466/11ebde66-0f7c-11e5-9c2a-80827f71ff8c.PNG "Journal Home")
-
-**Journal View All Nutrition Data For Date**
-
-![Alt text](https://cloud.githubusercontent.com/assets/7454787/8090467/11ee85da-0f7c-11e5-82fe-61f725706bb7.PNG "Journal Home")
-
-**View Weight Progress & Update**
-
-![Alt text](https://cloud.githubusercontent.com/assets/7454787/8090469/11ef59e2-0f7c-11e5-95a1-a7cc9d5057f3.PNG "Journal Home")
-
-**View Your Goals & Health**
-
-![Alt text](https://cloud.githubusercontent.com/assets/7454787/8090470/11f091b8-0f7c-11e5-8f35-43ee44cc28dc.PNG "Journal Home")
+![widget](https://cloud.githubusercontent.com/assets/7454787/8560595/6537cb0e-24e7-11e5-8c17-b709414e9f04.PNG)
