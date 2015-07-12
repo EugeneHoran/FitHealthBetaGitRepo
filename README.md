@@ -6,7 +6,7 @@ Fit Health Beta
        src="https://developer.android.com/images/brand/en_app_rgb_wo_60.png" />
 </a>
 
-Here is a Youtube video of the latest update:
+Here is a Youtube video of the update before the Calendar addition:
 >https://youtu.be/B3mV_APL2K4
 
 I created an application very similar to this one when I first started working with android. I decided to scrap it and start fresh. Still in early stages. Working on it a few hours a day when I get the chance.  
